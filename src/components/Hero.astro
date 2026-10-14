@@ -2,7 +2,9 @@
 /**
  * Dusk scene over Mt. Hood. The colors here are fixed rather than themed: it's the same
  * evening in light and dark mode. Below the `hero` breakpoint the mountain sits under
- * the text; on wide screens it rises behind it.
+ * the text; on wide screens it rises behind it. The scene never gets wider than its 2.25:1
+ * art (or `slice` would crop the summit), and past ~2250px the header grows with it, since
+ * the summit sits 81% of the way up the scene.
  */
 import type { CollectionEntry } from 'astro:content';
 import { terrain } from '../lib/terrain';
@@ -19,7 +21,7 @@ const h = terrain.hero;
 
 <header
   id="top"
-  class="relative flex flex-col overflow-hidden bg-[linear-gradient(180deg,#0A1A12_0%,#12291D_38%,#2C4E42_72%,#6F7A5F_100%)] text-cream hero:min-h-[clamp(720px,94vh,920px)]"
+  class="relative flex flex-col overflow-hidden bg-[linear-gradient(180deg,#0A1A12_0%,#12291D_38%,#2C4E42_72%,#6F7A5F_100%)] text-cream hero:min-h-[max(clamp(720px,94vh,920px),calc(100vw/2.25*0.92))]"
 >
   <div
     class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_46%_30%_at_72%_78%,rgba(232,150,92,0.5),transparent_70%)]"
@@ -54,7 +56,7 @@ const h = terrain.hero;
   </div>
 
   <svg
-    class="relative -mt-6 block h-[clamp(280px,40vw,420px)] w-full shrink-0 hero:absolute hero:inset-x-0 hero:bottom-0 hero:mt-0 hero:h-[64%]"
+    class="relative -mt-6 block h-[clamp(280px,40vw,420px)] w-full shrink-0 hero:absolute hero:inset-x-0 hero:bottom-0 hero:mt-0 hero:h-[max(64%,calc(100vw/2.25))]"
     viewBox={`0 0 ${h.W} ${h.H}`}
     preserveAspectRatio="xMaxYMax slice"
     aria-hidden="true"
