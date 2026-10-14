@@ -16,6 +16,8 @@ interface Props {
 }
 const { site } = Astro.props;
 const [first, ...rest] = site.name.split(' ');
+// Each half of the role keeps together, so if it wraps it breaks after the "·"
+const roleParts = site.role.split(' · ');
 const h = terrain.hero;
 // The window onto the terrain art: centred on the summit (x 1060, y 116), down to the
 // ground. .hero-arch takes its aspect ratio from these numbers.
@@ -27,7 +29,16 @@ const view = { x: 792, y: 30, w: 536, h: h.H - 30 };
     <h1 class="hero-name mb-5 font-light leading-[0.95] tracking-[-0.045em]">
       {first}<br /><em class="font-light">{rest.join(' ')}</em>
     </h1>
-    <p class="hero-role mb-5 font-mono text-[clamp(0.78rem,1.6vw,0.88rem)] uppercase tracking-[0.08em]">{site.role}</p>
+    <p class="hero-role mb-5 font-mono text-[clamp(0.78rem,1.6vw,0.88rem)] uppercase tracking-[0.08em]">
+      {
+        roleParts.map((part, i) => (
+          <Fragment>
+            {i > 0 && ' '}
+            <span class="whitespace-nowrap">{part}{i < roleParts.length - 1 && ' ·'}</span>
+          </Fragment>
+        ))
+      }
+    </p>
     <p class="hero-intro mb-8 max-w-[46ch] text-[clamp(1.05rem,1.9vw,1.2rem)] leading-[1.6]">{site.heroIntro}</p>
     <div class="flex flex-wrap gap-3">
       <Button href={`mailto:${site.email}`}>

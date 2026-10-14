@@ -6,17 +6,18 @@ type Props = HTMLAttributes<'a'> & { variant?: Variant; external?: boolean };
 
 const { variant = 'solid', external = false, class: className, ...rest } = Astro.props;
 
+// Each variant sets its own border colour: a shared border-transparent would win over it
 const variants: Record<Variant, string> = {
-  solid: 'bg-btn-bg text-btn-fg hover:bg-btn-hover hover:text-btn-fg',
+  solid: 'border-transparent bg-btn-bg text-btn-fg hover:bg-btn-hover hover:text-btn-fg',
   ghost: 'border-border-strong text-fg hover:border-fg hover:text-fg',
-  hero: 'bg-cream text-dusk hover:bg-white hover:text-dusk',
+  hero: 'border-transparent bg-cream text-dusk hover:bg-white hover:text-dusk',
   'hero-ghost': 'border-cream/35 bg-cream/5 text-cream hover:border-cream hover:text-cream',
 };
 ---
 
 <a
   class:list={[
-    'portfolio-button inline-flex items-center gap-2 rounded-full border-[1.5px] border-transparent px-5 py-3 text-[0.9rem] font-semibold leading-tight no-underline transition',
+    'portfolio-button inline-flex items-center gap-2 rounded-full border-[1.5px] px-[1.2rem] py-3.5 text-[0.82rem] font-semibold leading-tight no-underline transition',
     'hover:-translate-y-px hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember',
     variants[variant],
     className,

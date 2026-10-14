@@ -41,6 +41,8 @@
   /* Hero arch: the top stop of its sky, and a halo around the frame */
   --arch-sky-top: #0A1A12;
   --arch-halo: 0 0 #0000;
+  /* The italic surname in the hero: a deep ember that holds 4.7:1 on cream */
+  --name-accent: #A4562A;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -76,6 +78,7 @@
     --glow: rgba(0, 0, 0, 0.35);
     --arch-sky-top: #16301F;
     --arch-halo: 0 30px 80px -40px rgba(224, 154, 94, 0.25);
+    --name-accent: #F0C9A4;
     color-scheme: dark;
   }
 }
@@ -112,6 +115,7 @@
   --glow: rgba(0, 0, 0, 0.35);
   --arch-sky-top: #16301F;
   --arch-halo: 0 30px 80px -40px rgba(224, 154, 94, 0.25);
+  --name-accent: #F0C9A4;
   color-scheme: dark;
 }
 
@@ -375,17 +379,16 @@ div.bg-tree > div {
 .theme-toggle[hidden] { display: none; }
 .theme-toggle:hover { border-color: var(--pine); background: var(--accent-light); }
 .portfolio-hero {
-  isolation: isolate; display: grid; grid-template-columns: 1fr 1fr;
+  isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
   min-height: 740px; max-width: var(--page-width); margin-inline: auto;
   padding: 76px var(--page-gutter) 70px; align-items: center;
 }
 .hero-copy { padding-right: 30px; }
 .hero-name { font-size: clamp(4.4rem, 8.3vw, 7.8rem); color: var(--fg); font-variation-settings: 'SOFT' 15, 'WONK' 1; }
-.hero-name em { color: var(--pine); }
-.hero-role { color: var(--ember-text); max-width: 44ch; margin-top: 30px; line-height: 1.8; }
+.hero-name em { color: var(--name-accent); }
+.hero-role { color: var(--ember-text); max-width: none; margin-top: 30px; line-height: 1.8; }
 .hero-intro { color: var(--fg-muted); font-size: 1.05rem; }
 .hero-copy > .flex { gap: 10px; }
-.portfolio-button { border-radius: 2px; padding: 14px 18px; font-size: .82rem; }
 .hero-arch {
   --arch-rise: 46%;
   position: relative; justify-self: end;
