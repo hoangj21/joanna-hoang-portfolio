@@ -1,7 +1,8 @@
 # Case studies, in page order. The first one with open: true starts expanded.
 # diagram: a left-to-right flow; mine: true highlights the steps you owned.
 # image: set src to a file under public/ (e.g. /images/cases/neva.jpg) to show a photo
-#        instead of the diagram or placeholder.
+#        instead of the diagram or placeholder. image.side: a portrait photo (2:3) shown in a
+#        narrow column to the left of src.
 - id: neva
   order: 1
   title: Identifying every occupant without stopping the car
@@ -110,7 +111,12 @@
   subtitle: Intel Corporation · enterprise developers
   status: 30+ sessions
   image:
+    src: /images/cases/hackathon-tracks.jpg
+    alt: "Intel Innovation AI hackathon tracks: machine learning, computer vision and natural language processing challenges"
     caption: "Add image: Intel Innovation 2022 hackathon, lab or booth photo"
+    side:
+      src: /images/cases/dl-boost-booth.jpg
+      alt: Joanna at the Intel DL Boost demo booth at Intel Innovation 2022, beside a screen comparing FP32 and INT8 inference
   situation: >-
     Enterprise teams had data-science skills but little practice with distributed training or Intel's optimized
     AI frameworks, which slowed adoption of Intel's AI hardware.
@@ -138,6 +144,8 @@
   subtitle: Intel Corporation · developer solution catalogs
   status: Shipped to developers
   image:
+    src: /images/cases/workflow-results.jpg
+    alt: Sample inference run of the vision transfer-learning workflow showing 91% test accuracy and a per-class classification report
     caption: "Add image: the workflow README or a sample run"
   situation: >-
     Intel packaged AI workflows into catalogs developers could run on their own, such as ResNet-50 transfer

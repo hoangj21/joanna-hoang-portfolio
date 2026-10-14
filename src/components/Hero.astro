@@ -28,9 +28,6 @@ const h = terrain.hero;
   </div>
 
   <div class="relative z-3 mx-auto w-full max-w-[1100px] px-[18px] pt-[clamp(4rem,10vh,7rem)] sm:px-6">
-    <p class="mb-7 flex max-w-none flex-wrap gap-x-5 gap-y-1.5 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-cream/55">
-      {site.collar.map((c) => <span>{c}</span>)}
-    </p>
     <h1 class="mb-5 text-[clamp(3.4rem,10vw,7.2rem)] font-light leading-[0.95] tracking-[-0.045em] text-cream-bright">
       {first}<br /><em class="font-light text-peach-soft">{rest.join(' ')}</em>
     </h1>
@@ -76,10 +73,6 @@ const h = terrain.hero;
     <path d={h.ground} fill="#12271C" />
     <path d={h.trees_near} fill="#12271C" />
   </svg>
-
-  <p class="absolute bottom-32 right-6 z-2 hidden text-right font-mono text-[0.68rem] uppercase tracking-[0.1em] text-cream/50 hero:block">
-    {site.heroTag.map((t, i) => (i === 0 ? t : <><br />{t}</>))}
-  </p>
 
   <div class="pointer-events-none absolute inset-x-0 bottom-0 z-2 h-[70px] bg-linear-to-b from-transparent to-bg hero:h-20" aria-hidden="true">
   </div>

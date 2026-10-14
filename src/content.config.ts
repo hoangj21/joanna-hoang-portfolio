@@ -28,9 +28,7 @@ const site = defineCollection({
     resumeUrl: z.string().optional(),
     portrait: z.string().optional(),
     artPortfolioUrl: z.string().optional(),
-    collar: z.array(z.string()),
     heroIntro: z.string(),
-    heroTag: z.array(z.string()),
     employers: z.array(z.strictObject({ name: z.string(), logo: logoKey })),
     agencies: z.array(z.string()),
     about: z.object({
@@ -41,7 +39,7 @@ const site = defineCollection({
     numbers: z.array(fact),
     sections: z.record(z.string(), z.object({ label: z.string(), title: z.string(), intro: z.string().optional() })),
     contact: z.object({ headline: z.string(), emphasis: z.string(), body: z.string() }),
-    footer: z.object({ mark: z.string(), builtWith: z.string() }),
+    footer: z.object({ builtWith: z.string() }),
   }),
 });
 
@@ -75,7 +73,14 @@ const cases = defineCollection({
         note: z.string().optional(),
       })
       .optional(),
-    image: z.object({ src: z.string().optional(), alt: z.string().optional(), caption: z.string() }).optional(),
+    image: z
+      .object({
+        src: z.string().optional(),
+        alt: z.string().optional(),
+        caption: z.string(),
+        side: z.object({ src: z.string(), alt: z.string() }).optional(),
+      })
+      .optional(),
     situation: z.string(),
     role: z.string(),
     approach: z.string(),

@@ -2,16 +2,16 @@
 # The section hides itself if this list is empty, so delete the placeholders rather than shipping them.
 - id: nec
   order: 1
-  quote: "[Two or three sentences from a manager or sales partner about a specific deal or deployment you worked on together.]"
-  name: "[Name]"
-  title: "[Title], NEC National Security Systems"
+  quote: "[Two or three sentences]"
+  name: "Jim Robell"
+  title: "President & CEO, Fortior Solutions"
 - id: intel
   order: 2
-  quote: "[Two or three sentences from an Intel teammate about a lab, demo or workshop.]"
-  name: "[Name]"
-  title: "[Title], Intel"
+  quote: "Great to work with Joanna, and she did a great job at customers' training and AI events presentations. She also covered many Intel AI products and contributed a lot upon those AI products."
+  name: "Louie Tsai"
+  title: "Artificial Intelligence Software Solution Engineer, Intel"
 - id: kgh
   order: 3
   quote: "[Two or three sentences from a client about a build you delivered.]"
-  name: "[Name]"
-  title: "[Title], Kiernan Group Holdings"
+  name: "Dr. Kathleen Kiernan, Ed.D"
+  title: "CEO, Kiernan Group Holdings"

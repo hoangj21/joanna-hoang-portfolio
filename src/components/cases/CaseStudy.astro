@@ -58,7 +58,22 @@ const showPhoto = c.image?.src || !c.diagram;
     <div class="min-h-0 overflow-hidden">
       <div class="grid gap-x-10 gap-y-6 px-5 pb-6 sm:px-[1.6rem] sm:pb-7 md:grid-cols-2">
         {
-          showPhoto ? (
+          showPhoto && c.image?.side ? (
+            <div class="col-span-full grid gap-3 sm:aspect-[21/9] sm:grid-cols-[2fr_5fr]">
+              <ImageSlot
+                src={c.image.side.src}
+                alt={c.image.side.alt}
+                caption=""
+                class="aspect-video rounded-md border border-dashed border-border-strong sm:aspect-auto"
+              />
+              <ImageSlot
+                src={c.image.src}
+                alt={c.image.alt}
+                caption={c.image.caption}
+                class="aspect-video rounded-md border border-dashed border-border-strong sm:aspect-auto"
+              />
+            </div>
+          ) : showPhoto ? (
             <ImageSlot
               src={c.image?.src}
               alt={c.image?.alt}

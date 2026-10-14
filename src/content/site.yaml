@@ -12,19 +12,13 @@ profile:
   # Put the PDF at public/resume.pdf and set this to /resume.pdf
   resumeUrl: ""
   # Portrait photo under public/ (e.g. /images/joanna.jpg), 4:5 crop works best
-  portrait: ""
+  portrait: /images/joanna.jpg
   # Set once the art portfolio is live; it's linked from "Off hours" in About
   artPortfolioUrl: ""
 
-  collar:
-    - Portland Quadrangle · Oregon
-    - 45°31′N 122°41′W
   heroIntro: >-
     Five years on the technical side of the deal: discovery, demos and deployments for federal
     identity and security programs at NEC, and hands-on AI enablement for enterprise developers at Intel.
-  heroTag:
-    - Mt. Hood · 11,249 ft
-    - Wy'east
 
   employers:
     - { name: Intel, logo: intel }
@@ -34,7 +28,6 @@ profile:
     - { name: Kiernan Group Holdings, logo: kgh }
   agencies:
     - DHS
-    - CBP
     - U.S. Secret Service
     - U.S. Marshals Service
     - U.S. Courts
@@ -61,7 +54,7 @@ profile:
       - { label: Education, value: "B.S. Computer Science, University of Portland" }
       - { label: Co-op, value: "MECOP: Portland General Electric, Seeq" }
       - { label: Clearance, value: "Previously adjudicated TS · inactive, clearable" }
-      - { label: Off hours, value: "Illustration & comics" }
+      - { label: Off hours, value: "Freelance illustrator" }
 
   numbers:
     - { value: "100+", label: "Customer-facing engagements at NEC: discovery, demos, briefings" }
@@ -74,7 +67,7 @@ profile:
     experience:
       label: "02 · Experience"
       title: The trail so far
-      intro: Most recent first. Figures are mine; where a result belonged to the team, the note says what my part was.
+      intro: Most recent first. 
     cases:
       label: "03 · Case studies"
       title: Solutions breakdown
@@ -108,7 +101,6 @@ profile:
       applied AI. Email is the fastest way to reach me.
 
   footer:
-    mark: Wy'east / Mt. Hood · 45°22′N 121°42′W
     builtWith: >-
       Designed and built by Joanna Hoang with [Claude](https://claude.ai). Built with
       [Astro](https://astro.build), TypeScript and [Tailwind CSS](https://tailwindcss.com), deployed on

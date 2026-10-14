@@ -9,7 +9,10 @@
   description: >-
     AI investment-research copilot demo with document analysis, company comparison, portfolio views and a chat
     interface, running on public and simulated data.
-  image: { caption: "Add screenshot · 16:9" }
+  image:
+    src: /images/live/copilot.jpg
+    alt: Portfolio Lab view of an illustrative $25 million portfolio with asset classes, sector exposure and largest positions
+    caption: "Add screenshot · 16:9"
   tags: [React, Supabase, Cloudflare Workers]
 
 - id: kgh-site
@@ -22,7 +25,10 @@
   description: >-
     Rebuilt site for a risk and resilience firm, scoped as a front-end-only first version so the client could make
     an early direction decision. In preview for approval.
-  image: { caption: "Add screenshot · 16:9" }
+  image:
+    src: /images/live/kgh-site.jpg
+    alt: Kiernan Group Holdings homepage hero reading "We operate at the intersection of fear and fact."
+    caption: "Add screenshot · 16:9"
   tags: [React, TanStack Start, Tailwind / shadcn]
 
 - id: hackathon
@@ -36,7 +42,10 @@
     A day-long hackathon where 100+ developers built on Intel AI Reference Kits: safe drinking water,
     weed-detecting drones, and humor classification with transformers. I provisioned the AWS lab infrastructure and
     prepared the lab materials.
-  image: { caption: "Add event photo · 16:9" }
+  image:
+    src: /images/live/hackathon.jpg
+    alt: Developers at laptops in a conference hall during the Intel AI for Social Good hackathon, with the agenda on screens up front
+    caption: "Add event photo · 16:9"
   tags: [AI Reference Kits, AWS EC2, Habana Gaudi]
 
 - id: ai-workflow
@@ -49,5 +58,8 @@
   description: >-
     Intel's published ResNet-50 transfer-learning workflow. I tested it end to end as a developer would, validated
     its Docker image and conda environment, and updated the documentation before it shipped.
-  image: { caption: "Add screenshot · 16:9" }
+  image:
+    src: /images/live/ai-workflow.jpg
+    alt: Vision Transfer Learning README on GitHub showing the quick start steps and configuration variables
+    caption: "Add screenshot · 16:9"
   tags: [TensorFlow, Docker, conda]

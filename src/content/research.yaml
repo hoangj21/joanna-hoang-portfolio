@@ -13,7 +13,7 @@
     series.
   facts:
     - { value: ">40%", label: lower loss than the autoencoder }
-  tags: [PyTorch, AWS SageMaker, Time series]
+  tags: [PyTorch, AWS SageMaker, Time series, Transformers, Autoencoders]
 
 - id: wild-me
   order: 2
@@ -29,7 +29,7 @@
     analysis, and built Grafana dashboards so Wild Me staff could monitor workloads and report impact.
   facts:
     - { value: 78.8 → 92.5%, label: "accuracy: random-forest baseline to my LSA pipeline" }
-  tags: [scikit-learn, fastText, Grafana / PromQL]
+  tags: [scikit-learn, numpy, nltk, fastText, Grafana / PromQL]
   link: { label: Code on GitHub ↗, href: https://github.com/hoangj21/Whale-Sharks }
 
 - id: tcells
