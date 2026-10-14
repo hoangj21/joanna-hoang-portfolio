@@ -1,4 +1,5 @@
 # Field research cards. icon: pylon | fluke | helix
+# figure: optional image shown below the tags (put it under public/images/research/)
 - id: pge
   order: 1
   note: Field note 01
@@ -30,6 +31,12 @@
   facts:
     - { value: 78.8 → 92.5%, label: "accuracy: random-forest baseline to my LSA pipeline" }
   tags: [scikit-learn, numpy, nltk, fastText, Grafana / PromQL]
+  figure:
+    src: /images/research/wild-me-whale-shark.jpg
+    alt: A whale shark underwater, with its spot pattern matched to a catalogued individual named Wilma
+    caption: "Wild Me matching a whale shark by its spots. Image: Wild Me"
+    width: 960
+    height: 540
   link: { label: Code on GitHub ↗, href: https://github.com/hoangj21/Whale-Sharks }
 
 - id: tcells
@@ -39,12 +46,6 @@
   org: University of Portland
   icon: helix
   title: T cells that fight tumors
-  figure:
-    src: /images/research/tcell-clustering.png
-    alt: Hierarchical clustering heatmap of sample-to-sample distances across the 24 samples
-    caption: Sample-to-sample clustering from our analysis
-    width: 290
-    height: 181
   body: >-
     Does an antibody-peptide MHC drug activate T cells to kill tumor cells in mice? Our four-person team, working
     with a faculty collaborator, compared T cells from blood and from inside tumors, with and without treatment. My

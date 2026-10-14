@@ -31,15 +31,15 @@ const entries = (await getCollection('research')).sort(byOrder);
             <Icon name={e.icon} class="size-10 shrink-0 text-peach-deep" />
           </div>
           <h3 class="m-0 text-[1.35rem] font-medium text-band-fg">{e.title}</h3>
-          {e.figure && (
-            <figure class="m-0 rounded-md bg-white px-2 pb-1.5 pt-2">
-              <img src={e.figure.src} alt={e.figure.alt} width={e.figure.width} height={e.figure.height} loading="lazy" class="block h-auto w-full max-w-full rounded-[3px]" />
-              <figcaption class="mt-1.5 font-mono text-[0.66rem] tracking-[0.03em] text-[#4D604E]">{e.figure.caption}</figcaption>
-            </figure>
-          )}
           <p class="m-0 text-[0.93rem] text-band-muted">{e.body}</p>
           <Facts facts={e.facts} tone="band" />
           <Tags tags={e.tags} tone="band" class="mt-1" />
+          {e.figure && (
+            <figure class="m-0 mt-2">
+              <img src={e.figure.src} alt={e.figure.alt} width={e.figure.width} height={e.figure.height} loading="lazy" class="block h-auto w-full max-w-full rounded-md border border-band-border" />
+              <figcaption class="mt-1.5 font-mono text-[0.66rem] tracking-[0.03em] text-band-muted">{e.figure.caption}</figcaption>
+            </figure>
+          )}
           {e.link && (
             <a href={e.link.href} target="_blank" rel="noopener" class="mt-auto pt-1.5 text-[0.9rem] font-semibold text-peach hover:text-[#F6D2B2]">
               {e.link.label}
