@@ -11,7 +11,8 @@ interface Props {
   header: { label: string; title: string; intro?: string };
 }
 const { header } = Astro.props;
-const items = (await getCollection('live')).sort(byOrder);
+// Featured cards span the full width, so they go after the regular two-column grid
+const items = (await getCollection('live')).sort((a, b) => Number(a.data.featured) - Number(b.data.featured) || byOrder(a, b));
 ---
 
 <Section id="live" numeral="04" tone="alt" topo="topo-b">
@@ -19,8 +20,14 @@ const items = (await getCollection('live')).sort(byOrder);
   <div class="grid gap-6 md:grid-cols-2" data-stagger>
     {
       items.map(({ data: item }, i) => (
-        <article class="flex flex-col overflow-hidden rounded-[10px] border border-border bg-card transition duration-300 hover:-translate-y-[3px] hover:shadow-[0_10px_34px_var(--glow)]" style={`--i: ${i}`}>
-          <div class="border-b border-border" aria-hidden="true">
+        <article
+          class:list={[
+            'flex flex-col overflow-hidden rounded-[10px] border border-border bg-card transition duration-300 hover:-translate-y-[3px] hover:shadow-[0_10px_34px_var(--glow)]',
+            item.featured && 'md:col-span-2 md:grid md:grid-cols-[3fr_2fr]',
+          ]}
+          style={`--i: ${i}`}
+        >
+          <div class:list={['border-b border-border', item.featured && 'md:border-b-0 md:border-r']} aria-hidden="true">
             <div class="flex items-center gap-1.5 border-b border-border bg-bg-alt px-3 py-2">
               <i class="size-2 rounded-full bg-border-strong"></i>
               <i class="size-2 rounded-full bg-border-strong"></i>
@@ -33,7 +40,7 @@ const items = (await getCollection('live')).sort(byOrder);
               <ImageSlot src={item.image.src} alt={item.image.alt} caption={item.image.caption} topo="topo-a" surface="bg" class="aspect-video px-4" />
             )}
           </div>
-          <div class="flex flex-1 flex-col gap-2 px-[1.4rem] pb-6 pt-5">
+          <div class:list={['flex flex-1 flex-col gap-2 px-[1.4rem] pb-6 pt-5', item.featured && 'md:justify-center md:px-8 md:py-8']}>
             <p class="m-0 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-fg-faint">{item.kicker}</p>
             <h3 class="m-0 text-[1.3rem] font-medium tracking-[-0.01em]">{item.title}</h3>
             <p class="m-0 text-[0.93rem] text-fg-muted">{item.description}</p>

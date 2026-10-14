@@ -65,3 +65,18 @@
     alt: Vision Transfer Learning README on GitHub showing the quick start steps and configuration variables
     caption: "Add screenshot · 16:9"
   tags: [TensorFlow, Docker, conda]
+
+- id: art-portfolio
+  order: 5
+  featured: true
+  host: artsfromjoanna.com
+  href: https://www.artsfromjoanna.com/
+  linkLabel: Visit the gallery ↗
+  kicker: Off hours · 2026
+  title: Art portfolio
+  description: >-
+    My illustration, sequential art, ink and photography portfolio, with category filtering and commission
+    info. Built with Next.js, React and Tailwind on Vercel. A work in progress, like any sketchbook.
+  image: { caption: "Add screenshot · 16:9" }
+  video: { mp4: /videos/art-portfolio.mp4, webm: /videos/art-portfolio.webm, poster: /videos/art-portfolio.jpg }
+  tags: [Next.js, React, Tailwind CSS, Vercel]

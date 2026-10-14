@@ -95,6 +95,8 @@ const live = defineCollection({
   loader: file('src/content/live.yaml'),
   schema: z.object({
     order: z.number(),
+    // Spans the full grid width, media beside the text, after the regular cards
+    featured: z.boolean().default(false),
     host: z.string(),
     href: z.string(),
     linkLabel: z.string(),
