@@ -253,6 +253,10 @@
     color: var(--fg-faint);
     margin-right: 0.4rem;
   }
+  .flow > .mine {
+    border: 1.5px solid var(--ember);
+    background: color-mix(in srgb, var(--ember) 12%, var(--card));
+  }
   .flow > li:not(:last-child)::after {
     content: '↓';
     position: absolute;
@@ -266,9 +270,73 @@
     .flow > li:not(:last-child)::after { content: '→'; left: auto; top: auto; right: -1.25rem; }
   }
 
-  /* Gentle reveal on scroll (only when the visitor hasn't asked for reduced motion) */
+  /* Shown only where it can drift (see below) */
+  .hero-fog { opacity: 0; }
+
+  /*
+   * Motion. Everything below is gated on `.js` and on the visitor not asking for reduced
+   * motion, and the scroll-driven parts on `animation-timeline` support, so without any of
+   * those the page renders in its final state.
+   */
   @media (prefers-reduced-motion: no-preference) {
+    /* Gentle reveal on scroll */
     .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .js .reveal.in { opacity: 1; transform: none; }
+
+    /* Cards rise one after another once their section reveals. `backwards` fill only, so
+       the cards' own hover transforms still work afterwards. */
+    .js .reveal.in [data-stagger] > * { animation: rise 0.6s ease backwards; animation-delay: calc(var(--i, 0) * 60ms); }
+
+    /* Flow diagrams play left to right when a case opens; the steps I owned light up last */
+    .js .flow > li { opacity: 0; transform: translateY(8px); transition: opacity 0.35s ease, transform 0.35s ease; }
+    .js .flow > li::after { opacity: 0; transition: opacity 0.3s ease; }
+    .js .flow > .mine { border-color: var(--border-strong); background: var(--card); transition-property: opacity, transform, border-color, background-color; }
+    .js [data-play] .flow > li { opacity: 1; transform: none; transition-delay: calc(var(--i) * 70ms); }
+    .js [data-play] .flow > li::after { opacity: 1; transition-delay: calc(var(--i) * 70ms + 140ms); }
+    .js [data-play] .flow > .mine {
+      border-color: var(--ember);
+      background: color-mix(in srgb, var(--ember) 12%, var(--card));
+      transition-delay: calc(var(--i) * 70ms), calc(var(--i) * 70ms), calc(var(--n) * 70ms + 300ms), calc(var(--n) * 70ms + 300ms);
+    }
+
+    /* Hero: one slow fog band drifting between the mid and near ridges */
+    .js .hero-fog { opacity: 1; animation: drift 52s ease-in-out infinite alternate; }
+
+    /*
+     * Scroll-driven. Longhands only, with the timeline set through a custom property: the
+     * minifier otherwise folds animation-timeline into the `animation` shorthand, which
+     * browsers reject.
+     */
+    @supports (animation-timeline: view()) {
+      .js .trail::before,
+      .js .waypoint,
+      .js .waypoint::before,
+      .js .hero-layer {
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: var(--timeline);
+      }
+      /* Experience trail draws itself, its tip holding at 60% of the viewport height */
+      .js .trail { view-timeline-name: --trail; }
+      .js .trail::before {
+        --timeline: --trail;
+        transform-origin: top;
+        animation-name: grow;
+        animation-range: cover 40vh cover calc(100% - 60vh);
+      }
+      /* Each role fades in as the line reaches it, and its marker pops */
+      .js .waypoint { view-timeline-name: --wp; --timeline: --wp; animation-name: rise; animation-range: cover 10vh cover 38vh; }
+      .js .waypoint::before { --timeline: --wp; animation-name: pop; animation-range: cover 34vh cover 44vh; }
+
+      /* Hero parallax: far layers drift down as the page scrolls, so they move slower */
+      .js .hero-layer { --timeline: scroll(root); animation-name: sink; animation-range: 0 100vh; }
+    }
   }
 }
+
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+@keyframes grow { from { transform: scaleY(0); } }
+@keyframes pop { from { opacity: 0; scale: 0.2; } }
+@keyframes sink { to { translate: 0 calc(var(--depth, 0) * var(--parallax, 1px)); } }
+@keyframes drift { from { translate: -70px 0; } to { translate: 70px 0; } }
+@media (width < 86.25rem) { :root { --parallax: 0.4px; } }

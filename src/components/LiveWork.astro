@@ -15,10 +15,10 @@ const items = (await getCollection('live')).sort(byOrder);
 
 <Section id="live" numeral="04" tone="alt" topo="topo-b">
   <SectionHeader {...header} />
-  <div class="grid gap-6 md:grid-cols-2">
+  <div class="grid gap-6 md:grid-cols-2" data-stagger>
     {
-      items.map(({ data: item }) => (
-        <article class="flex flex-col overflow-hidden rounded-[10px] border border-border bg-card transition duration-300 hover:-translate-y-[3px] hover:shadow-[0_10px_34px_var(--glow)]">
+      items.map(({ data: item }, i) => (
+        <article class="flex flex-col overflow-hidden rounded-[10px] border border-border bg-card transition duration-300 hover:-translate-y-[3px] hover:shadow-[0_10px_34px_var(--glow)]" style={`--i: ${i}`}>
           <div class="border-b border-border" aria-hidden="true">
             <div class="flex items-center gap-1.5 border-b border-border bg-bg-alt px-3 py-2">
               <i class="size-2 rounded-full bg-border-strong"></i>

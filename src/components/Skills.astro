@@ -13,10 +13,10 @@ const groups = (await getCollection('skills')).sort(byOrder);
 
 <Section id="skills" numeral="06">
   <SectionHeader {...header} />
-  <div class="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-x-8 gap-y-9">
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-x-8 gap-y-9" data-stagger>
     {
-      groups.map(({ data: g }) => (
-        <div>
+      groups.map(({ data: g }, i) => (
+        <div style={`--i: ${i}`}>
           <h3 class="mb-3 border-b-2 border-tree pb-3 font-mono text-[0.72rem] font-medium uppercase tracking-[0.1em] text-ember-text">
             {g.group}
           </h3>

@@ -26,6 +26,7 @@ const showPhoto = c.image?.src || !c.diagram;
   class="group overflow-hidden rounded-[10px] border border-border bg-card transition-[border-color,box-shadow] hover:border-border-strong hover:shadow-[0_6px_28px_var(--glow)] data-open:border-border-strong data-open:shadow-[0_6px_28px_var(--glow)]"
   data-case
   data-open={c.open ? '' : undefined}
+  style={`--i: ${index}`}
 >
   <h3 class="m-0">
     <button

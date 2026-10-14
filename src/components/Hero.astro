@@ -61,17 +61,34 @@ const h = terrain.hero;
     preserveAspectRatio="xMaxYMax slice"
     aria-hidden="true"
   >
-    <defs><clipPath id="hood-clip"><path d={h.hood} /></clipPath></defs>
-    <path d={h.hood} fill="#5B7A72" />
-    <g clip-path="url(#hood-clip)">
-      <path d={h.snow} fill="#EEE9DF" />
-      <path d={h.ribs} fill="#4E6B66" opacity="0.7" />
-      <path d={h.shadow} fill="rgba(16,36,44,.34)" />
+    <defs>
+      <clipPath id="hood-clip"><path d={h.hood} /></clipPath>
+      <radialGradient id="fog-fill">
+        <stop offset="0" stop-color="#E8EDE4" stop-opacity="0.2" />
+        <stop offset="1" stop-color="#E8EDE4" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <!-- Layers, far to near; --depth is the parallax travel in px -->
+    <g class="hero-layer" style="--depth: 40">
+      <path d={h.hood} fill="#5B7A72" />
+      <g clip-path="url(#hood-clip)">
+        <path d={h.snow} fill="#EEE9DF" />
+        <path d={h.ribs} fill="#4E6B66" opacity="0.7" />
+        <path d={h.shadow} fill="rgba(16,36,44,.34)" />
+      </g>
     </g>
-    <path d={h.r1} fill="#3A5A4D" />
-    <path d={h.r2} fill="#2B4A3D" />
-    <path d={h.r3} fill="#1F3A2E" />
-    <path d={h.trees_far} fill="#1F3A2E" />
+    <path class="hero-layer" style="--depth: 30" d={h.r1} fill="#3A5A4D" />
+    <path class="hero-layer" style="--depth: 20" d={h.r2} fill="#2B4A3D" />
+    <g class="hero-layer" style="--depth: 15">
+      <g class="hero-fog" fill="url(#fog-fill)">
+        <ellipse cx="520" cy="522" rx="760" ry="30" />
+        <ellipse cx="1080" cy="512" rx="560" ry="22" />
+      </g>
+    </g>
+    <g class="hero-layer" style="--depth: 10">
+      <path d={h.r3} fill="#1F3A2E" />
+      <path d={h.trees_far} fill="#1F3A2E" />
+    </g>
     <path d={h.ground} fill="#12271C" />
     <path d={h.trees_near} fill="#12271C" />
   </svg>

@@ -18,10 +18,10 @@ const entries = (await getCollection('research')).sort(byOrder);
 <Ridge into />
 <Section id="research" numeral="05" tone="band" topo="topo-c">
   <SectionHeader {...header} tone="band" />
-  <div class="grid gap-6 min-[900px]:grid-cols-3">
+  <div class="grid gap-6 min-[900px]:grid-cols-3" data-stagger>
     {
-      entries.map(({ data: e }) => (
-        <article class="flex flex-col gap-3 rounded-[10px] border border-band-border bg-band-card p-[1.6rem]">
+      entries.map(({ data: e }, i) => (
+        <article class="flex flex-col gap-3 rounded-[10px] border border-band-border bg-band-card p-[1.6rem]" style={`--i: ${i}`}>
           <div class="flex items-start justify-between gap-4">
             <p class="m-0 font-mono text-[0.7rem] uppercase leading-relaxed tracking-[0.07em] text-band-muted">
               {e.note}

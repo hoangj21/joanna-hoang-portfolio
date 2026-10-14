@@ -17,8 +17,10 @@ const { id, numeral, tone = 'plain', topo, topoFlip = false, reveal = true } = A
   id={id}
   class:list={[
     'relative py-[4.25rem] sm:py-24',
-    tone === 'alt' && 'overflow-hidden bg-bg-alt',
-    tone === 'band' && 'band overflow-hidden bg-band-bg text-band-fg',
+    // clip rather than hidden: a hidden section becomes a scroll container, which would
+    // stop the scroll-driven animations inside it from following the page
+    tone === 'alt' && 'overflow-clip bg-bg-alt',
+    tone === 'band' && 'band overflow-clip bg-band-bg text-band-fg',
   ]}
 >
   {topo && <Topo id={topo} tone={tone === 'band' ? 'band' : 'default'} flip={topoFlip} />}

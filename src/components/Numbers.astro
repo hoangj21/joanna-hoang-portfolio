@@ -22,7 +22,7 @@ const { numbers } = Astro.props;
               i === 2 && 'md:border-l md:border-[#EEF3EC]/20 md:pl-6',
             ]}
           >
-            <p class:list={['mb-2.5 font-display text-[clamp(2.6rem,5vw,3.8rem)] font-light leading-none tracking-[-0.03em]', i === 0 && 'text-peach']}>
+            <p class:list={['mb-2.5 font-display text-[clamp(2.6rem,5vw,3.8rem)] font-light leading-none tracking-[-0.03em] tabular-nums', i === 0 && 'text-peach']} data-count>
               {n.value}
             </p>
             <p class="m-0 max-w-[24ch] text-[0.88rem] leading-snug text-[#EEF3EC]/75">{n.label}</p>
