@@ -6,6 +6,37 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canObserve = 'IntersectionObserver' in window;
 
+// The head script applies the initial theme before styles paint. Manual choices persist;
+// system changes continue to apply until the visitor makes a choice.
+const themePreference = window.matchMedia('(prefers-color-scheme: dark)');
+let manualTheme = false;
+try { manualTheme = ['light', 'dark'].includes(localStorage.getItem('portfolio-theme') ?? ''); } catch {}
+const themeButtons = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+function applyTheme(theme: 'light' | 'dark') {
+  document.documentElement.dataset.theme = theme;
+  const themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = theme === 'dark' ? '#0E1811' : '#F3F2EA';
+  for (const button of themeButtons) {
+    button.hidden = false;
+    button.setAttribute('aria-pressed', String(theme === 'dark'));
+    button.setAttribute('title', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
+    const label = button.querySelector('[data-theme-label]');
+    if (label) label.textContent = theme === 'dark' ? 'Dark' : 'Light';
+  }
+}
+applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+for (const button of themeButtons) {
+  button.addEventListener('click', () => {
+    const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    manualTheme = true;
+    try { localStorage.setItem('portfolio-theme', theme); } catch {}
+    applyTheme(theme);
+  });
+}
+themePreference.addEventListener('change', (event) => {
+  if (!manualTheme) applyTheme(event.matches ? 'dark' : 'light');
+});
+
 /** Calls `fn` once for each element the first time `threshold` of it is on screen. */
 function onFirstView(elements: Iterable<Element>, threshold: number, fn: (el: Element) => void) {
   const observer = new IntersectionObserver(

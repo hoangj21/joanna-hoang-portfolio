@@ -25,14 +25,23 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#F3F5EF" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0E1811" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#F3F2EA" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary" />
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        let saved;
+        try { saved = localStorage.getItem('portfolio-theme'); } catch {}
+        root.dataset.theme = saved === 'light' || saved === 'dark'
+          ? saved : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.querySelector('meta[name="theme-color"]').content = root.dataset.theme === 'dark' ? '#0E1811' : '#F3F2EA';
+        root.classList.add('js');
+      })();
+    </script>
   </head>
   <body>
     <a

@@ -10,6 +10,7 @@ interface Props {
 const { label, title, intro, tone = 'default' } = Astro.props;
 ---
 
+<div class="section-heading">
 <Label text={label} tone={tone} />
 <h2 class="mb-4 text-[clamp(2.2rem,5vw,3.4rem)] tracking-[-0.025em]">{title}</h2>
 {
@@ -19,3 +20,4 @@ const { label, title, intro, tone = 'default' } = Astro.props;
     </p>
   )
 }
+</div>
