@@ -14,7 +14,9 @@
   group: Integration
   items:
     - REST APIs, JSON, webhooks
+    - OpenAPI
     - OAuth2 & SAML SSO
+    - JWT & mutual TLS
     - Postman & Tavern
     - React
     - Git
@@ -25,12 +27,14 @@
     - Python
     - SQL & PostgreSQL
     - PyTorch & TensorFlow
-    - LLM & RAG concepts
+    - LLMs & RAG
+    - NLP & computer vision
     - Grafana & PromQL
 - id: cloud
   order: 4
-  group: Cloud & infrastructure
+  group: Cloud & dev
   items:
+    - TypeScript
     - AWS (EC2, S3, SageMaker)
     - Azure
     - Docker
