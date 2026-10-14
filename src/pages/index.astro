@@ -29,7 +29,7 @@ const header = (key: string) => {
 <Base title={site.title} description={site.description}>
   <Nav name={site.name} />
   <Hero site={site} />
-  <main>
+  <main id="main-content" tabindex="-1">
     <Credits site={site} />
     <About site={site} />
     <Numbers numbers={site.numbers} />

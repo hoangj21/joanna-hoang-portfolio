@@ -8,10 +8,7 @@
   icon: pylon
   title: Transformers, before they were famous
   body: >-
-    The goal was general-purpose features from household electricity usage, the kind of signal that could flag
-    likely EV owners so the utility could tailor its services. A convolutional autoencoder fell short, so I tried a
-    transformer when nearly every example was still about language. The reconstruction got much closer to the real
-    series.
+    I explored how household electricity-use patterns could help classify behind-the-meter appliances, including potential EV ownership. This information could help utilities estimate market size and plan for added demand.  A convolutional autoencoder fell short, so I tried a transformer when nearly every example was still about language. The reconstruction got much closer to the real series. Because labeled examples are essential for classification, I also built an interactive widget to make manual review and annotation easier.
   facts:
     - { value: ">40%", label: lower loss than the autoencoder }
   tags: [PyTorch, AWS SageMaker, Time series, Transformers, Autoencoders]

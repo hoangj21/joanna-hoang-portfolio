@@ -5,13 +5,16 @@
   quote: "[Two or three sentences]"
   name: "Jim Robell"
   title: "President & CEO, Fortior Solutions"
+  photo: "/images/Jim-Robell.jpg"
 - id: intel
   order: 2
   quote: "Great to work with Joanna, and she did a great job at customers' training and AI events presentations. She also covered many Intel AI products and contributed a lot upon those AI products."
   name: "Louie Tsai"
   title: "Artificial Intelligence Software Solution Engineer, Intel"
+  photo: "/images/Louie-Tsai.webp"
 - id: kgh
   order: 3
   quote: "[Two or three sentences from a client about a build you delivered.]"
   name: "Dr. Kathleen Kiernan, Ed.D"
   title: "CEO, Kiernan Group Holdings"
+  photo: "/images/dr-k.jpeg"

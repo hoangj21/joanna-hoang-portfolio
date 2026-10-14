@@ -35,6 +35,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>
+    <a
+      href="#main-content"
+      class="fixed left-4 top-4 z-[100] -translate-y-[200%] rounded-md bg-btn-bg px-4 py-2 font-medium text-btn-fg shadow-lg transition-transform focus:translate-y-0 focus:outline-2 focus:outline-offset-2 focus:outline-ember"
+    >
+      Skip to content
+    </a>
     <TopoSymbols />
     <slot />
     <script>

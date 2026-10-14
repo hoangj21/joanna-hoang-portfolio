@@ -102,7 +102,7 @@ profile:
 
   footer:
     builtWith: >-
-      Designed and built by Joanna Hoang with [Claude](https://claude.ai). Built with
+      Designed and built by Joanna Hoang. Built with
       [Astro](https://astro.build), TypeScript and [Tailwind CSS](https://tailwindcss.com), deployed on
       [Vercel](https://vercel.com). Contour lines, ridgelines and trees are generated in Python (NumPy, SciPy,
       scikit-image). Set in [Fraunces](https://fonts.google.com/specimen/Fraunces),
