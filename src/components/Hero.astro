@@ -20,8 +20,9 @@ const [first, ...rest] = site.name.split(' ');
 const roleParts = site.role.split(' · ');
 const h = terrain.hero;
 // The window onto the terrain art: centred on the summit (x 1060, y 116), down to the
-// ground. .hero-arch takes its aspect ratio from these numbers.
-const view = { x: 792, y: 30, w: 536, h: h.H - 30 };
+// ground. .hero-arch takes its aspect ratio from these numbers. The window starts just
+// below the summit, so the peak rises above the top of the arch.
+const view = { x: 838, y: 136, w: 444, h: h.H - 136 };
 ---
 
 <header id="top" class="portfolio-hero relative overflow-hidden">
@@ -65,20 +66,22 @@ const view = { x: 792, y: 30, w: 536, h: h.H - 30 };
       <svg class="hero-scene" viewBox={`${view.x} ${view.y} ${view.w} ${view.h}`} preserveAspectRatio="xMidYMax slice">
         <defs>
           <clipPath id="hood-clip"><path d={h.hood} /></clipPath>
+          <!-- Drawn here and again, unclipped, in .hero-summit -->
+          <g id="hero-hood">
+            <path class="hero-hood-shape" d={h.hood} fill="#5B7A72" />
+            <g clip-path="url(#hood-clip)">
+              <path d={h.snow} fill="#EEE9DF" />
+              <path d={h.ribs} fill="#4E6B66" opacity="0.7" />
+              <path d={h.shadow} fill="rgba(16,36,44,.34)" />
+            </g>
+          </g>
           <radialGradient id="fog-fill">
             <stop offset="0" stop-color="#E8EDE4" stop-opacity="0.2" />
             <stop offset="1" stop-color="#E8EDE4" stop-opacity="0" />
           </radialGradient>
         </defs>
         <!-- Layers, far to near; --depth is the parallax travel in px -->
-        <g class="hero-layer" style="--depth: 40">
-          <path d={h.hood} fill="#5B7A72" />
-          <g clip-path="url(#hood-clip)">
-            <path d={h.snow} fill="#EEE9DF" />
-            <path d={h.ribs} fill="#4E6B66" opacity="0.7" />
-            <path d={h.shadow} fill="rgba(16,36,44,.34)" />
-          </g>
-        </g>
+        <use href="#hero-hood" class="hero-layer" style="--depth: 40" />
         <path class="hero-layer" style="--depth: 30" d={h.r1} fill="#3A5A4D" />
         <path class="hero-layer" style="--depth: 20" d={h.r2} fill="#2B4A3D" />
         <g class="hero-layer" style="--depth: 15">
@@ -95,5 +98,18 @@ const view = { x: 792, y: 30, w: 536, h: h.H - 30 };
         <path d={h.trees_near} fill="#12271C" />
       </svg>
     </div>
+    <!-- The summit again, aligned with the scene but outside the arch's clip: only the part
+         above the arch's top line shows, so the peak breaks the frame -->
+    <svg class="hero-summit" viewBox={`${view.x} ${view.y} ${view.w} ${view.h}`} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <defs>
+        <clipPath id="above-arch"><rect x={view.x} y="0" width={view.w} height={view.y} /></clipPath>
+      </defs>
+      <g clip-path="url(#above-arch)">
+        <g class="hero-layer" style="--depth: 40">
+          <path class="hero-summit-gap" d={h.hood} />
+          <use href="#hero-hood" />
+        </g>
+      </g>
+    </svg>
   </div>
 </header>

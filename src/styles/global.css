@@ -417,6 +417,13 @@ div.bg-tree > div {
   box-shadow: 0 0 0 1px var(--border-strong), var(--arch-halo);
 }
 .hero-scene { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+/* The peak above the arch: edged with a hairline in the arch outline's colour (so the pale
+   snow holds on cream), then a page-coloured gap that cuts the arch outline where the peak
+   crosses it, so the overlap reads as deliberate. Both strokes sit behind the fill. */
+.hero-summit { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.hero-summit { --summit-edge: var(--border-strong); }
+.hero-summit-gap { fill: var(--bg); stroke: var(--bg); stroke-width: 7px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.hero-hood-shape { stroke: var(--summit-edge, none); stroke-width: 2px; paint-order: stroke; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
 .portfolio-section { padding-block: clamp(72px, 9vw, 124px); border-top: 1px solid var(--border); }
 .portfolio-section.band { border-color: var(--band-border); }
 .portfolio-section > svg { opacity: .55; }
