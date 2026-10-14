@@ -38,6 +38,9 @@
   --hood-snow: #FAFBF7;
   --hood-ridge: #6E8E7A;
   --glow: rgba(43, 77, 58, 0.12);
+  /* Hero arch: the top stop of its sky, and a halo around the frame */
+  --arch-sky-top: #0A1A12;
+  --arch-halo: 0 0 #0000;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -71,6 +74,8 @@
     --hood-snow: #9FB3A6;
     --hood-ridge: #1B3024;
     --glow: rgba(0, 0, 0, 0.35);
+    --arch-sky-top: #16301F;
+    --arch-halo: 0 30px 80px -40px rgba(224, 154, 94, 0.25);
     color-scheme: dark;
   }
 }
@@ -105,6 +110,8 @@
   --hood-snow: #9FB3A6;
   --hood-ridge: #1B3024;
   --glow: rgba(0, 0, 0, 0.35);
+  --arch-sky-top: #16301F;
+  --arch-halo: 0 30px 80px -40px rgba(224, 154, 94, 0.25);
   color-scheme: dark;
 }
 
@@ -372,7 +379,6 @@ div.bg-tree > div {
   min-height: 740px; max-width: var(--page-width); margin-inline: auto;
   padding: 76px var(--page-gutter) 70px; align-items: center;
 }
-.portfolio-hero > div:first-child { display: none; }
 .hero-copy { padding-right: 30px; }
 .hero-name { font-size: clamp(4.4rem, 8.3vw, 7.8rem); color: var(--fg); font-variation-settings: 'SOFT' 15, 'WONK' 1; }
 .hero-name em { color: var(--pine); }
@@ -380,13 +386,22 @@ div.bg-tree > div {
 .hero-intro { color: var(--fg-muted); font-size: 1.05rem; }
 .hero-copy > .flex { gap: 10px; }
 .portfolio-button { border-radius: 2px; padding: 14px 18px; font-size: .82rem; }
-.hero-landscape {
-  position: absolute; right: var(--page-gutter); top: 64px;
-  width: 44%; height: calc(100% - 134px); border: 1px solid var(--border-strong);
-  border-radius: 48% 48% 2px 2px;
-  background: linear-gradient(180deg, #0a1a12 0%, #233f31 40%, #657561 100%);
+.hero-arch {
+  --arch-rise: 46%;
+  position: relative; justify-self: end;
+  width: min(100%, calc((100svh - 230px) * var(--arch-aspect)));
+  aspect-ratio: var(--arch-aspect);
 }
-.hero-landscape-fade { display: none; }
+/* Sky, sunset glow (behind the mountain) and scene, all clipped to the arch */
+.hero-arch-frame {
+  position: absolute; inset: 0; overflow: hidden;
+  border-radius: 50% 50% 3px 3px / var(--arch-rise) var(--arch-rise) 3px 3px;
+  background:
+    radial-gradient(ellipse 60% 40% at 60% 52%, rgba(232, 150, 92, 0.45), transparent 70%),
+    linear-gradient(180deg, var(--arch-sky-top) 0%, #233F31 40%, #657561 100%);
+  box-shadow: 0 0 0 1px var(--border-strong), var(--arch-halo);
+}
+.hero-scene { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
 .portfolio-section { padding-block: clamp(72px, 9vw, 124px); border-top: 1px solid var(--border); }
 .portfolio-section.band { border-color: var(--band-border); }
 .portfolio-section > svg { opacity: .55; }
@@ -442,7 +457,7 @@ footer { border-top: 1px solid var(--band-border); }
   .hero-copy { padding: 0; }
   .hero-name { font-size: clamp(4.4rem, 16vw, 6.8rem); }
   .hero-role { margin-top: 24px; }
-  .hero-landscape { position: relative; top: auto; right: auto; width: 100%; height: 330px; border-radius: 42% 42% 2px 2px; }
+  .hero-arch { --arch-rise: 34%; justify-self: stretch; width: 100%; }
   .section-heading { padding-right: 0; margin-bottom: 32px; }
   #about > div { grid-template-columns: 1fr; }
   #about > div > div:first-child > div { max-width: 320px; }

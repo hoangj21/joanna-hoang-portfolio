@@ -1,8 +1,10 @@
 ---
 /**
- * The existing dusk scene over Mt. Hood becomes an arched editorial illustration.
- * The landscape keeps its fixed dusk palette while the surrounding copy follows the
- * active theme. It sits beside the introduction on desktop and below it on phones.
+ * The dusk scene over Mt. Hood, framed in an arch beside the introduction (below it on
+ * narrower screens). The landscape keeps its fixed dusk palette in both themes; only the
+ * sky top and the frame's outline follow the theme. The scene is a fixed window onto the
+ * 1440×640 terrain art, centred on the summit, and the frame has the same aspect ratio,
+ * so the summit is never cropped at any width.
  */
 import type { CollectionEntry } from 'astro:content';
 import { terrain } from '../lib/terrain';
@@ -15,18 +17,12 @@ interface Props {
 const { site } = Astro.props;
 const [first, ...rest] = site.name.split(' ');
 const h = terrain.hero;
+// The window onto the terrain art: centred on the summit (x 1060, y 116), down to the
+// ground. .hero-arch takes its aspect ratio from these numbers.
+const view = { x: 792, y: 30, w: 536, h: h.H - 30 };
 ---
 
-<header
-  id="top"
-  class="portfolio-hero relative overflow-hidden"
->
-  <div
-    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_46%_30%_at_72%_78%,rgba(232,150,92,0.5),transparent_70%)]"
-    aria-hidden="true"
-  >
-  </div>
-
+<header id="top" class="portfolio-hero relative overflow-hidden">
   <div class="hero-copy relative z-3">
     <h1 class="hero-name mb-5 font-light leading-[0.95] tracking-[-0.045em]">
       {first}<br /><em class="font-light">{rest.join(' ')}</em>
@@ -53,44 +49,40 @@ const h = terrain.hero;
     </div>
   </div>
 
-  <svg
-    class="hero-landscape"
-    viewBox={`0 0 ${h.W} ${h.H}`}
-    preserveAspectRatio="xMaxYMax slice"
-    aria-hidden="true"
-  >
-    <defs>
-      <clipPath id="hood-clip"><path d={h.hood} /></clipPath>
-      <radialGradient id="fog-fill">
-        <stop offset="0" stop-color="#E8EDE4" stop-opacity="0.2" />
-        <stop offset="1" stop-color="#E8EDE4" stop-opacity="0" />
-      </radialGradient>
-    </defs>
-    <!-- Layers, far to near; --depth is the parallax travel in px -->
-    <g class="hero-layer" style="--depth: 40">
-      <path d={h.hood} fill="#5B7A72" />
-      <g clip-path="url(#hood-clip)">
-        <path d={h.snow} fill="#EEE9DF" />
-        <path d={h.ribs} fill="#4E6B66" opacity="0.7" />
-        <path d={h.shadow} fill="rgba(16,36,44,.34)" />
-      </g>
-    </g>
-    <path class="hero-layer" style="--depth: 30" d={h.r1} fill="#3A5A4D" />
-    <path class="hero-layer" style="--depth: 20" d={h.r2} fill="#2B4A3D" />
-    <g class="hero-layer" style="--depth: 15">
-      <g class="hero-fog" fill="url(#fog-fill)">
-        <ellipse cx="520" cy="522" rx="760" ry="30" />
-        <ellipse cx="1080" cy="512" rx="560" ry="22" />
-      </g>
-    </g>
-    <g class="hero-layer" style="--depth: 10">
-      <path d={h.r3} fill="#1F3A2E" />
-      <path d={h.trees_far} fill="#1F3A2E" />
-    </g>
-    <path d={h.ground} fill="#12271C" />
-    <path d={h.trees_near} fill="#12271C" />
-  </svg>
-
-  <div class="hero-landscape-fade" aria-hidden="true">
+  <div class="hero-arch" style={`--arch-aspect: ${view.w} / ${view.h}`}>
+    <div class="hero-arch-frame" aria-hidden="true">
+      <svg class="hero-scene" viewBox={`${view.x} ${view.y} ${view.w} ${view.h}`} preserveAspectRatio="xMidYMax slice">
+        <defs>
+          <clipPath id="hood-clip"><path d={h.hood} /></clipPath>
+          <radialGradient id="fog-fill">
+            <stop offset="0" stop-color="#E8EDE4" stop-opacity="0.2" />
+            <stop offset="1" stop-color="#E8EDE4" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <!-- Layers, far to near; --depth is the parallax travel in px -->
+        <g class="hero-layer" style="--depth: 40">
+          <path d={h.hood} fill="#5B7A72" />
+          <g clip-path="url(#hood-clip)">
+            <path d={h.snow} fill="#EEE9DF" />
+            <path d={h.ribs} fill="#4E6B66" opacity="0.7" />
+            <path d={h.shadow} fill="rgba(16,36,44,.34)" />
+          </g>
+        </g>
+        <path class="hero-layer" style="--depth: 30" d={h.r1} fill="#3A5A4D" />
+        <path class="hero-layer" style="--depth: 20" d={h.r2} fill="#2B4A3D" />
+        <g class="hero-layer" style="--depth: 15">
+          <g class="hero-fog" fill="url(#fog-fill)">
+            <ellipse cx="520" cy="522" rx="760" ry="30" />
+            <ellipse cx="1080" cy="512" rx="560" ry="22" />
+          </g>
+        </g>
+        <g class="hero-layer" style="--depth: 10">
+          <path d={h.r3} fill="#1F3A2E" />
+          <path d={h.trees_far} fill="#1F3A2E" />
+        </g>
+        <path d={h.ground} fill="#12271C" />
+        <path d={h.trees_near} fill="#12271C" />
+      </svg>
+    </div>
   </div>
 </header>
