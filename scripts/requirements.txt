@@ -1,0 +1,4 @@
+# Only needed to regenerate src/data/terrain.json (npm run terrain), not to build the site.
+numpy>=1.26
+scipy>=1.11
+scikit-image>=0.22

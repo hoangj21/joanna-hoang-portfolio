@@ -1,0 +1,53 @@
+# Live & published work. image.src: a 16:9 screenshot under public/ (e.g. /images/live/copilot.png)
+- id: copilot
+  order: 1
+  host: investment-intelligence.si
+  href: https://investment-intelligence.si
+  linkLabel: Open demo ↗
+  kicker: Kiernan Group Holdings · 2026
+  title: Investment Intelligence copilot
+  description: >-
+    AI investment-research copilot demo with document analysis, company comparison, portfolio views and a chat
+    interface, running on public and simulated data.
+  image: { caption: "Add screenshot · 16:9" }
+  tags: [React, Supabase, Cloudflare Workers]
+
+- id: kgh-site
+  order: 2
+  host: kghpreview.com
+  href: https://kghpreview.com
+  linkLabel: Visit site ↗
+  kicker: Kiernan Group Holdings · 2026
+  title: KGH website rebuild
+  description: >-
+    Rebuilt site for a risk and resilience firm, scoped as a front-end-only first version so the client could make
+    an early direction decision. In preview for approval.
+  image: { caption: "Add screenshot · 16:9" }
+  tags: [React, TanStack Start, Tailwind / shadcn]
+
+- id: hackathon
+  order: 3
+  host: community.intel.com
+  href: https://community.intel.com/t5/Blogs/Tech-Innovation/Artificial-Intelligence-AI/Innovation-2022-AI-for-Social-Good-Hackathon/post/1424124
+  linkLabel: Read Intel's recap ↗
+  kicker: Intel Innovation · 2022
+  title: AI for Social Good hackathon
+  description: >-
+    A day-long hackathon where 100+ developers built on Intel AI Reference Kits: safe drinking water,
+    weed-detecting drones, and humor classification with transformers. I provisioned the AWS lab infrastructure and
+    prepared the lab materials.
+  image: { caption: "Add event photo · 16:9" }
+  tags: [AI Reference Kits, AWS EC2, Habana Gaudi]
+
+- id: ai-workflow
+  order: 4
+  host: github.com/intel/ai-workflows
+  href: https://github.com/intel/ai-workflows/tree/main/transfer_learning/tensorflow/resnet50
+  linkLabel: View on GitHub ↗
+  kicker: Intel · 2022
+  title: Vision transfer-learning workflow
+  description: >-
+    Intel's published ResNet-50 transfer-learning workflow. I tested it end to end as a developer would, validated
+    its Docker image and conda environment, and updated the documentation before it shipped.
+  image: { caption: "Add screenshot · 16:9" }
+  tags: [TensorFlow, Docker, conda]

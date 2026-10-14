@@ -1,0 +1,46 @@
+# Skill columns, in page order.
+- id: customer
+  order: 1
+  group: Customer-facing
+  items:
+    - Technical discovery & requirements
+    - Demos & proofs of concept
+    - Stakeholder briefings & pilot readouts
+    - Training & onboarding
+    - Technical writing
+    - RFP responses
+- id: integration
+  order: 2
+  group: Integration
+  items:
+    - REST APIs, JSON, webhooks
+    - OAuth2 & SAML SSO
+    - Postman & Tavern
+    - React
+    - Git
+- id: data-ai
+  order: 3
+  group: Data & AI
+  items:
+    - Python
+    - SQL & PostgreSQL
+    - PyTorch & TensorFlow
+    - LLM & RAG concepts
+    - Grafana & PromQL
+- id: cloud
+  order: 4
+  group: Cloud & infrastructure
+  items:
+    - AWS (EC2, S3, SageMaker)
+    - Azure
+    - Docker
+    - CI/CD pipelines
+    - Linux, Bash & PowerShell
+- id: security
+  order: 5
+  group: Security & compliance
+  items:
+    - NIST controls & CMMC 2.0
+    - Container scanning (Trivy)
+    - Secure federal environments
+    - FedRAMP, SOC 2, ISO 27001

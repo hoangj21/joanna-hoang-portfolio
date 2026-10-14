@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens.
+ * Light values live on :root; the two dark blocks redefine the same tokens so the page
+ * follows the OS setting and an explicit data-theme attribute either way.
+ * Tailwind reads them through @theme inline below, so utilities like bg-bg, text-fg-muted
+ * and border-border switch themes automatically — no dark: variants needed.
+ */
+:root {
+  --bg: #F3F5EF;
+  --bg-alt: #E7ECE1;
+  --card: #FAFBF7;
+  --fg: #1A2C1F;
+  --fg-muted: #4D604E;
+  --fg-faint: #6F806F;
+  --pine: #3A6B4C;
+  --ember: #C7713E;
+  --ember-text: #A4562A;
+  --accent-light: #D5E2D6;
+  --border: #C3D1BF;
+  --border-strong: #9DB39A;
+  --topo-index: rgba(43, 77, 58, 0.26);
+  --tree: #2B4D3A;
+  --tree-back: #8FAE93;
+  --btn-bg: #2B4D3A;
+  --btn-fg: #F7F4EE;
+  --btn-hover: #1E3A2B;
+  --band-bg: #1B3426;
+  --band-card: #22402F;
+  --band-fg: #E8EEE6;
+  --band-muted: #A9C0AE;
+  --band-border: #35553F;
+  --band-topo-index: rgba(232, 238, 230, 0.14);
+  --ridge-back: #5E8A6C;
+  --hood: #9DB3A6;
+  --hood-snow: #FAFBF7;
+  --hood-ridge: #6E8E7A;
+  --glow: rgba(43, 77, 58, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1811;
+    --bg-alt: #132019;
+    --card: #17261C;
+    --fg: #DCE6DC;
+    --fg-muted: #9DB8A4;
+    --fg-faint: #7A9583;
+    --pine: #6AB487;
+    --ember: #E09A5E;
+    --ember-text: #E6A46C;
+    --accent-light: #1D3526;
+    --border: #253D2E;
+    --border-strong: #3A5A45;
+    --topo-index: rgba(124, 199, 154, 0.15);
+    --tree: #23402F;
+    --tree-back: #1A3024;
+    --btn-bg: #7CC79A;
+    --btn-fg: #0E1811;
+    --btn-hover: #95D6AE;
+    --band-bg: #08110B;
+    --band-card: #0F1C14;
+    --band-fg: #DCE6DC;
+    --band-muted: #93AF9B;
+    --band-border: #1E3426;
+    --band-topo-index: rgba(124, 199, 154, 0.12);
+    --ridge-back: #1C3426;
+    --hood: #26402F;
+    --hood-snow: #9FB3A6;
+    --hood-ridge: #1B3024;
+    --glow: rgba(0, 0, 0, 0.35);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0E1811;
+  --bg-alt: #132019;
+  --card: #17261C;
+  --fg: #DCE6DC;
+  --fg-muted: #9DB8A4;
+  --fg-faint: #7A9583;
+  --pine: #6AB487;
+  --ember: #E09A5E;
+  --ember-text: #E6A46C;
+  --accent-light: #1D3526;
+  --border: #253D2E;
+  --border-strong: #3A5A45;
+  --topo-index: rgba(124, 199, 154, 0.15);
+  --tree: #23402F;
+  --tree-back: #1A3024;
+  --btn-bg: #7CC79A;
+  --btn-fg: #0E1811;
+  --btn-hover: #95D6AE;
+  --band-bg: #08110B;
+  --band-card: #0F1C14;
+  --band-fg: #DCE6DC;
+  --band-muted: #93AF9B;
+  --band-border: #1E3426;
+  --band-topo-index: rgba(124, 199, 154, 0.12);
+  --ridge-back: #1C3426;
+  --hood: #26402F;
+  --hood-snow: #9FB3A6;
+  --hood-ridge: #1B3024;
+  --glow: rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-card: var(--card);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-faint: var(--fg-faint);
+  --color-pine: var(--pine);
+  --color-ember: var(--ember);
+  --color-ember-text: var(--ember-text);
+  --color-accent-light: var(--accent-light);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-tree: var(--tree);
+  --color-tree-back: var(--tree-back);
+  --color-btn-bg: var(--btn-bg);
+  --color-btn-fg: var(--btn-fg);
+  --color-btn-hover: var(--btn-hover);
+  --color-band-bg: var(--band-bg);
+  --color-band-card: var(--band-card);
+  --color-band-fg: var(--band-fg);
+  --color-band-muted: var(--band-muted);
+  --color-band-border: var(--band-border);
+  --color-ridge-back: var(--ridge-back);
+  --color-hood: var(--hood);
+  --color-hood-snow: var(--hood-snow);
+  --color-hood-ridge: var(--hood-ridge);
+  --color-glow: var(--glow);
+}
+
+@theme {
+  /* Fixed colors for the dusk hero and dark bands, identical in both themes */
+  --color-cream: #F4F0E6;
+  --color-cream-bright: #F6F2E9;
+  --color-peach: #F0B98A;
+  --color-peach-soft: #F0C9A4;
+  --color-peach-deep: #E09A5E;
+  --color-dusk: #12291D;
+
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* The hero overlays the mountain on the text only on wide screens */
+  --breakpoint-hero: 86.25rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+  p { max-width: 65ch; }
+  a { color: var(--pine); }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  ::selection { background: color-mix(in srgb, var(--ember) 30%, transparent); }
+}
+
+/*
+ * The few patterns that are clearer as named rules than as utility strings:
+ * pseudo-element decorations, counters and the scroll reveal.
+ */
+@layer components {
+  /* Outlined section numerals */
+  .numeral {
+    position: absolute;
+    top: 2.5rem;
+    right: max(24px, calc((100vw - 1100px) / 2 + 24px));
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(6rem, 15vw, 11rem);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--border-strong);
+    opacity: 0.55;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+  .band .numeral { -webkit-text-stroke-color: var(--band-border); opacity: 1; }
+  @media (max-width: 700px) { .numeral { display: none; } }
+
+  /* Experience trail: dashed line plus waypoint markers */
+  .trail { position: relative; }
+  .trail::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    bottom: 40px;
+    left: 6px;
+    width: 2px;
+    background-image: linear-gradient(to bottom, var(--ember) 0 8px, transparent 8px 16px);
+    background-size: 2px 16px;
+    opacity: 0.55;
+  }
+  .waypoint::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: -1.85rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg-alt);
+    border: 2px solid var(--ember);
+  }
+  .waypoint.now::before {
+    border: none;
+    border-radius: 0;
+    width: 16px;
+    height: 14px;
+    left: -32px;
+    top: -1.95rem;
+    background: var(--ember);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  }
+  @media (min-width: 701px) {
+    .trail::before { left: 189px; top: 10px; }
+    .waypoint::before { left: -27px; top: 0.55rem; }
+    .waypoint.now::before { left: -29px; top: 0.4rem; }
+  }
+
+  /* Architecture flow diagrams */
+  .flow { counter-reset: step; }
+  .flow > li { counter-increment: step; position: relative; }
+  .flow > li::before {
+    content: counter(step);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--fg-faint);
+    margin-right: 0.4rem;
+  }
+  .flow > li:not(:last-child)::after {
+    content: '↓';
+    position: absolute;
+    left: 1rem;
+    top: calc(100% + 0.1rem);
+    color: var(--ember-text);
+    font-size: 0.9rem;
+  }
+  @media (min-width: 601px) {
+    .flow > li:not(:last-child) { margin-right: 1.6rem; }
+    .flow > li:not(:last-child)::after { content: '→'; left: auto; top: auto; right: -1.25rem; }
+  }
+
+  /* Gentle reveal on scroll (only when the visitor hasn't asked for reduced motion) */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .js .reveal.in { opacity: 1; transform: none; }
+  }
+}

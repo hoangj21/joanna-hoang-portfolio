@@ -1,0 +1,18 @@
+---
+/** Section label with the ember trail-blaze marker. */
+interface Props {
+  text: string;
+  tone?: 'default' | 'band';
+}
+const { text, tone = 'default' } = Astro.props;
+---
+
+<p
+  class:list={[
+    'mb-3.5 flex max-w-none items-center gap-3 font-mono text-[0.74rem] font-medium uppercase tracking-[0.08em]',
+    "before:h-4 before:w-2.5 before:shrink-0 before:rounded-[2px] before:content-['']",
+    tone === 'band' ? 'text-peach before:bg-peach-deep' : 'text-ember-text before:bg-ember',
+  ]}
+>
+  {text}
+</p>

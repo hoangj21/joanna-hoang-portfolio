@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import { byOrder } from '../lib/order';
+import Section from './ui/Section.astro';
+import SectionHeader from './ui/SectionHeader.astro';
+import Treeline from './Treeline.astro';
+
+interface Props {
+  header: { label: string; title: string; intro?: string };
+}
+const { header } = Astro.props;
+const quotes = (await getCollection('testimonials')).sort(byOrder);
+---
+
+{
+  quotes.length > 0 && (
+    <>
+      <Treeline variant="b" />
+      <Section id="testimonials" numeral="07" tone="alt" topo="topo-a" topoFlip>
+        <SectionHeader {...header} />
+        <div class="mt-8 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
+          {quotes.map(({ data: q }) => (
+            <figure class="relative m-0 flex flex-col gap-6 rounded-[10px] border border-border bg-card px-7 pb-6 pt-8 before:absolute before:left-5 before:top-1.5 before:font-display before:text-[4.5rem] before:leading-none before:text-ember/30 before:content-['\201C']">
+              <blockquote class="relative m-0 font-display text-[1.08rem] font-light italic leading-[1.6]">{q.quote}</blockquote>
+              <figcaption class="mt-auto flex items-center gap-3">
+                {q.photo ? (
+                  <img src={q.photo} alt="" width="44" height="44" class="size-11 shrink-0 rounded-full object-cover" />
+                ) : (
+                  <span class="size-11 shrink-0 rounded-full border-[1.5px] border-dashed border-border-strong bg-accent-light" aria-hidden="true"></span>
+                )}
+                <span>
+                  <span class="block text-[0.92rem] font-semibold">{q.name}</span>
+                  <span class="block text-[0.8rem] text-fg-muted">{q.title}</span>
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </Section>
+    </>
+  )
+}

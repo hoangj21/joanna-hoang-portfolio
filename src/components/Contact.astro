@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Section from './ui/Section.astro';
+import Label from './ui/Label.astro';
+import Button from './ui/Button.astro';
+
+interface Props {
+  site: CollectionEntry<'site'>['data'];
+}
+const { site } = Astro.props;
+const { contact } = site;
+---
+
+<Section id="contact" numeral="08">
+  <Label text={site.sections.contact?.label ?? 'Contact'} />
+  <div class="grid items-end gap-6 md:grid-cols-[7fr_5fr] md:gap-12">
+    <div>
+      <h2 class="mb-4 text-[clamp(2.6rem,6.5vw,4.6rem)] font-light tracking-[-0.035em]">
+        {contact.headline} <em class="text-ember-text">{contact.emphasis}</em>?
+      </h2>
+      <p class="text-[1.05rem] text-fg-muted">{contact.body}</p>
+    </div>
+    <div>
+      <div class="flex items-stretch overflow-hidden rounded-[10px] border-[1.5px] border-border-strong bg-card">
+        <a
+          href={`mailto:${site.email}`}
+          class="min-w-0 flex-1 px-5 py-4 font-mono text-[clamp(0.85rem,2.3vw,1.02rem)] text-fg [overflow-wrap:anywhere] hover:no-underline"
+          data-copy-target
+        >
+          {site.email}
+        </a>
+        <button
+          type="button"
+          class="cursor-pointer border-l border-border px-4 font-mono text-[0.72rem] uppercase tracking-[0.08em] text-ember-text hover:bg-bg-alt focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ember"
+          data-copy={site.email}
+          aria-label="Copy email address"
+        >
+          <span data-copy-label>Copy</span>
+        </button>
+      </div>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <Button href={site.linkedin} external>LinkedIn ↗</Button>
+        {site.resumeUrl && <Button variant="ghost" href={site.resumeUrl} external>Résumé (PDF)</Button>}
+      </div>
+    </div>
+  </div>
+</Section>

@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Logo from './ui/Logo.astro';
+
+interface Props {
+  site: CollectionEntry<'site'>['data'];
+}
+const { site } = Astro.props;
+const label = 'font-mono text-[0.72rem] uppercase tracking-[0.08em] text-fg-faint';
+const row = 'grid items-center gap-3 border-t border-border py-4 sm:grid-cols-[150px_1fr] sm:gap-6';
+---
+
+<div class="mx-auto max-w-[1100px] px-[18px] pb-14 pt-10 sm:px-6">
+  <div class={row}>
+    <span class={label}>Worked at</span>
+    <ul class="flex list-none flex-wrap items-center gap-x-7 gap-y-4 p-0 text-fg-muted sm:gap-x-[2.6rem]">
+      {site.employers.map((e) => <li class="transition-colors hover:text-fg"><Logo name={e.logo} /></li>)}
+    </ul>
+  </div>
+  <div class:list={[row, 'border-b']}>
+    <span class={label}>Delivered for</span>
+    <ul class="m-0 flex list-none flex-wrap gap-x-[1.4rem] gap-y-1 p-0 font-mono text-[0.85rem] text-fg-muted">
+      {site.agencies.map((a) => <li>{a}</li>)}
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { inline } from '../lib/inline';
+import Section from './ui/Section.astro';
+import Label from './ui/Label.astro';
+import Topo from './ui/Topo.astro';
+
+interface Props {
+  site: CollectionEntry<'site'>['data'];
+}
+const { site } = Astro.props;
+const { about } = site;
+const notes = about.fieldNotes.map((n) =>
+  n.label === 'Off hours' && site.artPortfolioUrl && !n.href ? { ...n, href: site.artPortfolioUrl } : n,
+);
+---
+
+<Section id="about">
+  <div class="grid items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-16">
+    <div>
+      <div class="relative flex aspect-[4/5] max-w-[320px] items-end overflow-hidden rounded-[4px_4px_120px_4px] border border-border bg-bg-alt p-5 md:max-w-full">
+        {
+          site.portrait ? (
+            <img src={site.portrait} alt={`Portrait of ${site.name}`} class="absolute inset-0 h-full w-full object-cover" />
+          ) : (
+            <>
+              <Topo id="topo-c" />
+              <span class="relative font-mono text-[0.72rem] uppercase tracking-[0.06em] text-fg-faint">Portrait · 4:5</span>
+            </>
+          )
+        }
+      </div>
+      <dl class="mt-8 grid">
+        {
+          notes.map((n) => (
+            <div class="grid grid-cols-[110px_1fr] gap-4 border-t border-border py-3 last:border-b">
+              <dt class="pt-0.5 font-mono text-[0.72rem] uppercase tracking-[0.08em] text-fg-faint">{n.label}</dt>
+              <dd class="m-0 text-[0.95rem]">
+                {n.href ? <a href={n.href} target="_blank" rel="noopener">{n.value} ↗</a> : n.value}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+    <div>
+      <Label text={site.sections.about?.label ?? 'About'} />
+      <p
+        class="mb-6 font-display text-[clamp(1.4rem,2.6vw,1.85rem)] font-light leading-[1.4] tracking-[-0.01em] [&_strong]:font-medium [&_strong]:text-pine"
+        set:html={inline(about.lead)}
+      ></p>
+      {about.paragraphs.map((p) => <p class="mb-4 text-[1.02rem] text-fg-muted" set:html={inline(p)}></p>)}
+    </div>
+  </div>
+</Section>

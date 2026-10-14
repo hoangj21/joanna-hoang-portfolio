@@ -1,0 +1,29 @@
+---
+import type { TopoId } from '../../lib/terrain';
+import Topo from './Topo.astro';
+
+interface Props {
+  id?: string;
+  numeral?: string;
+  tone?: 'plain' | 'alt' | 'band';
+  topo?: TopoId;
+  topoFlip?: boolean;
+  reveal?: boolean;
+}
+const { id, numeral, tone = 'plain', topo, topoFlip = false, reveal = true } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={[
+    'relative py-[4.25rem] sm:py-24',
+    tone === 'alt' && 'overflow-hidden bg-bg-alt',
+    tone === 'band' && 'band overflow-hidden bg-band-bg text-band-fg',
+  ]}
+>
+  {topo && <Topo id={topo} tone={tone === 'band' ? 'band' : 'default'} flip={topoFlip} />}
+  {numeral && <span class="numeral" aria-hidden="true">{numeral}</span>}
+  <div class:list={['relative z-1 mx-auto max-w-[1100px] px-[18px] sm:px-6', reveal && 'reveal']}>
+    <slot />
+  </div>
+</section>

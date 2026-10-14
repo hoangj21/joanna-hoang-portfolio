@@ -1,0 +1,21 @@
+---
+/** Ridgeline edge that carries the page into (or out of) the dark Field research band. */
+import { terrain } from '../lib/terrain';
+
+interface Props {
+  into?: boolean;
+}
+const into = Astro.props.into ?? true;
+const r = into ? terrain.ridge_a : terrain.ridge_b;
+---
+
+<div class:list={[into ? '-mb-px bg-bg-alt' : '-mt-px bg-bg']} aria-hidden="true">
+  <svg
+    class:list={['block h-[clamp(50px,6vw,90px)] w-full', !into && '-scale-y-100']}
+    viewBox={`0 0 ${r.W} ${r.H}`}
+    preserveAspectRatio="none"
+  >
+    <path class="fill-ridge-back" d={r.back} />
+    <path class="fill-band-bg" d={r.front} />
+  </svg>
+</div>

@@ -1,0 +1,118 @@
+# Site-wide text: hero, about, numbers, section headings, contact, footer.
+# Inline formatting: **bold**, *italic*, [link text](https://…)
+profile:
+  name: Joanna Hoang
+  title: Joanna Hoang · Solutions Engineer
+  description: >-
+    Solutions engineer in Portland, Oregon. Discovery, demos and deployments for federal identity and
+    security programs at NEC, and hands-on AI enablement at Intel.
+  role: Solutions Engineer · Public sector & applied AI
+  email: joanna.v.hoang@gmail.com
+  linkedin: https://www.linkedin.com/in/joanna-hoang
+  # Put the PDF at public/resume.pdf and set this to /resume.pdf
+  resumeUrl: ""
+  # Portrait photo under public/ (e.g. /images/joanna.jpg), 4:5 crop works best
+  portrait: ""
+  # Set once the art portfolio is live; it's linked from "Off hours" in About
+  artPortfolioUrl: ""
+
+  collar:
+    - Portland Quadrangle · Oregon
+    - 45°31′N 122°41′W
+  heroIntro: >-
+    Five years on the technical side of the deal: discovery, demos and deployments for federal
+    identity and security programs at NEC, and hands-on AI enablement for enterprise developers at Intel.
+  heroTag:
+    - Mt. Hood · 11,249 ft
+    - Wy'east
+
+  employers:
+    - { name: Intel, logo: intel }
+    - { name: NEC National Security Systems, logo: nec }
+    - { name: Portland General Electric, logo: pge }
+    - { name: Seeq, logo: seeq }
+    - { name: Kiernan Group Holdings, logo: kgh }
+  agencies:
+    - DHS
+    - CBP
+    - U.S. Secret Service
+    - U.S. Marshals Service
+    - U.S. Courts
+    - State police
+
+  about:
+    lead: >-
+      I'm a solutions engineer who has been **the technical counterpart to federal sales**, the person
+      running the lab at a developer conference, and the one on site when the cameras go up.
+    paragraphs:
+      - >-
+        For nearly three years at NEC National Security Systems I ran discovery and requirements sessions,
+        tailored demos, and stayed through deployment and post-sales support for identity, access and
+        perimeter-security programs with DHS, CBP, the Secret Service, the U.S. Marshals Service and U.S. Courts.
+      - >-
+        Before that, at Intel, I built and ran hands-on AI labs, demos and a 100-developer hackathon for
+        Intel Innovation 2022. Before *that*, I was training transformer models on household energy data
+        at Portland General Electric, two years before ChatGPT made the architecture famous.
+      - >-
+        Today I build AI-assisted web applications as a freelance forward deployed engineer, and I'm looking
+        for my next solutions or sales engineering role.
+    fieldNotes:
+      - { label: Based in, value: "Portland, Oregon" }
+      - { label: Education, value: "B.S. Computer Science, University of Portland" }
+      - { label: Co-op, value: "MECOP: Portland General Electric, Seeq" }
+      - { label: Clearance, value: "Previously adjudicated TS · inactive, clearable" }
+      - { label: Off hours, value: "Illustration & comics" }
+
+  numbers:
+    - { value: "100+", label: "Customer-facing engagements at NEC: discovery, demos, briefings" }
+    - { value: "30+", label: "Demos, workshops and proof-of-concept sessions at Intel" }
+    - { value: "5+", label: "Years across software, AI, data and technical delivery" }
+    - { value: "100+", label: "Developers at the Intel Innovation AI hackathon I helped run" }
+
+  sections:
+    about: { label: "01 · About", title: About }
+    experience:
+      label: "02 · Experience"
+      title: The trail so far
+      intro: Most recent first. Figures are mine; where a result belonged to the team, the note says what my part was.
+    cases:
+      label: "03 · Case studies"
+      title: Solutions breakdown
+      intro: >-
+        Five engagements, start to finish: the customer's problem, my role, what we did, and how it ended.
+        The diagrams mark the parts I owned.
+    live:
+      label: "04 · Live & published"
+      title: Work you can open right now
+      intro: Shipped applications and published enablement material.
+    research:
+      label: "05 · Field research"
+      title: Where the AI roots come from
+      intro: Earlier machine learning and data work on energy, wildlife and cancer biology.
+    skills:
+      label: "06 · Toolkit"
+      title: Skills & tools
+      intro: What I'd be comfortable being interviewed on.
+    testimonials:
+      label: "07 · Testimonials"
+      title: From people I've worked with
+    contact:
+      label: "08 · Contact"
+      title: Contact
+
+  contact:
+    headline: Hiring a
+    emphasis: solutions engineer
+    body: >-
+      I'm looking for solutions engineering and sales engineering roles, especially in public sector and
+      applied AI. Email is the fastest way to reach me.
+
+  footer:
+    mark: Wy'east / Mt. Hood · 45°22′N 121°42′W
+    builtWith: >-
+      Designed and built by Joanna Hoang with [Claude](https://claude.ai). Built with
+      [Astro](https://astro.build), TypeScript and [Tailwind CSS](https://tailwindcss.com), deployed on
+      [Vercel](https://vercel.com). Contour lines, ridgelines and trees are generated in Python (NumPy, SciPy,
+      scikit-image). Set in [Fraunces](https://fonts.google.com/specimen/Fraunces),
+      [DM Sans](https://fonts.google.com/specimen/DM+Sans) and
+      [IBM Plex Mono](https://fonts.google.com/specimen/IBM+Plex+Mono).

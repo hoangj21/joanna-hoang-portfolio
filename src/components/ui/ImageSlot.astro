@@ -1,0 +1,39 @@
+---
+/**
+ * Shows the image when `src` is set; otherwise a contour-line placeholder with a caption
+ * describing what belongs there.
+ */
+import type { TopoId } from '../../lib/terrain';
+import Topo from './Topo.astro';
+
+interface Props {
+  src?: string;
+  alt?: string;
+  caption: string;
+  topo?: TopoId;
+  class?: string;
+  surface?: 'bg' | 'bg-alt';
+}
+const { src, alt = '', caption, topo = 'topo-b', class: className, surface = 'bg-alt' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'relative flex max-w-full items-center justify-center overflow-hidden text-center',
+    surface === 'bg' ? 'bg-bg' : 'bg-bg-alt',
+    className,
+  ]}
+>
+  {
+    src ? (
+      <img src={src} alt={alt} loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+    ) : (
+      <>
+        <Topo id={topo} />
+        <p class:list={['relative m-0 rounded px-3 py-1.5 font-mono text-[0.74rem] tracking-[0.04em] text-fg-faint', surface === 'bg' ? 'bg-bg' : 'bg-bg-alt']}>
+          {caption}
+        </p>
+      </>
+    )
+  }
+</div>

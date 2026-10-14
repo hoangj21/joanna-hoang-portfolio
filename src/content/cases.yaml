@@ -1,0 +1,159 @@
+# Case studies, in page order. The first one with open: true starts expanded.
+# diagram: a left-to-right flow; mine: true highlights the steps you owned.
+# image: set src to a file under public/ (e.g. /images/cases/neva.jpg) to show a photo
+#        instead of the diagram or placeholder.
+- id: neva
+  order: 1
+  title: Identifying every occupant without stopping the car
+  subtitle: NEC National Security Systems · U.S. Customs and Border Protection
+  status: Deal won · pilot rollout
+  open: true
+  diagram:
+    steps:
+      - { label: Vehicle sensor }
+      - { label: Multi-camera capture, mine: true }
+      - { label: Face detection }
+      - { label: Group by occupant }
+      - { label: Best image per occupant }
+      - { label: Biometric API, mine: true }
+      - { label: 1:N watchlist match, mine: true }
+      - { label: Access or alert }
+    note: NEVA pipeline. I ran the field tests on capture and validated the API and matching workflow.
+  situation: >-
+    CBP wanted to identify everyone in a moving vehicle at secured entry points. NEC's NEVA system triggers
+    several high-resolution cameras as a car passes and sends the best face image of each occupant to a
+    biometric matcher.
+  role: >-
+    Hands-on for about nine months of the pilot: test-data collection and cleaning, configuring test
+    environments, validating the biometric API and matching workflow, and running repeated field tests.
+  approach: >-
+    The controlled demo worked; the field didn't. Night lighting, rain, tinted windows, camera angles and moving
+    vehicles all hurt capture. In one test round I coordinated a same-day fix with portable event lighting and
+    pop-up canopies over the capture zone. Matching recovered, which proved the environment was the cause, and
+    engineering designed the permanent solution.
+  outcome: >-
+    That evaluation is what the customer bought on. The deal landed and the pilot rollout began; full rollout
+    continued after I left.
+  facts:
+    - { value: ~9 mo, label: hands-on in the pilot }
+    - { value: 1 day, label: to prove the field problem was the environment }
+  tags: [Biometric API, Multi-camera capture, Field testing, Test-data collection]
+
+- id: ipids
+  order: 2
+  title: From facial recognition to fiber-optic sensing
+  subtitle: NEC National Security Systems · secure government facility
+  status: Deployed · post-sales support
+  diagram:
+    steps:
+      - { label: Disturbance at the fence }
+      - { label: Sensing fiber }
+      - { label: Interrogator }
+      - { label: AI classifies & locates }
+      - { label: Event stream, mine: true }
+      - { label: Operator dashboard, mine: true }
+      - { label: Operator responds }
+    note: IPIDS event path. I validated events end to end and built the operator dashboard.
+  situation: >-
+    A federal customer came to NEC asking about facial recognition. Discovery showed the real need was long-term
+    intrusion detection around a large, rugged outdoor perimeter, with little capacity for maintenance.
+  role: >-
+    Gathered requirements with the customer and operators and worked through fit with engineering, who made the
+    final recommendation. I explained it to the customer, coordinated through installation, built the operator
+    dashboard and stayed on for post-sales support.
+  approach: >-
+    IPIDS turns buried or fence-mounted fiber into the sensor, with AI that tells climbing, cutting and digging
+    apart from rain, wind and animals, and no powered equipment along the fence. I built the dashboard on a
+    real-time event platform, similar in role to AWS IoT: each intrusion as it happened, what was detected and
+    when, the live camera feed for the alert area, and charts of activity over time. When events stopped arriving
+    after an environment migration right before a demo, I traced the path and fixed the network configuration
+    with the platform's engineer.
+  outcome: >-
+    The system was deployed and I supported it after the sale. IPIDS itself won the 2023 ASTORS Platinum award for
+    Best Perimeter Protection Solution.
+  tags: [Discovery, Fiber-optic sensing, Real-time event dashboard, Live video integration]
+
+- id: smart-access
+  order: 3
+  title: The API contract for visitor vetting
+  subtitle: NEC National Security Systems · Smart Access visitor management
+  status: OpenAPI 3.0 contract
+  diagram:
+    steps:
+      - { label: Candidate record, mine: true }
+      - { label: Submit vetting job, mine: true }
+      - { label: "Poll status: pending · completed · error", mine: true }
+      - { label: Retrieve result, mine: true }
+      - { label: Pass · fail · needs review, mine: true }
+    note: >-
+      Optional callback URL in place of polling. JWT bearer auth on our API; mutual TLS on the provider's.
+      Every request is keyed to a transaction ID.
+  situation: >-
+    NEC's Smart Access visitor-management system needed to send candidates to a third-party background-vetting
+    provider and get a pass, fail or needs-review decision back.
+  role: >-
+    Wrote the integration contract in OpenAPI 3.0, covering the provider's side from its integration guide and
+    Smart Access's side from our system diagrams, and defined the vetting scenarios.
+  approach: >-
+    An asynchronous job pattern: submit, poll status, retrieve the result, with an optional callback. Twelve
+    scenarios covered 2- and 3-point identity checks, with or without a photo, against criminal-history and DMV
+    records plus a face match. My main design call: key each vetting request to a transaction ID instead of the
+    person, because one candidate can be vetted more than once.
+  outcome: >-
+    A validated OpenAPI 3.0 contract for both systems, with Java models generated from it using OpenAPI Generator
+    for the build.
+  tags: [OpenAPI 3.0, REST, JWT, Mutual TLS, Async jobs & callbacks, OpenAPI Generator]
+
+- id: intel-labs
+  order: 4
+  title: Hands-on AI labs at Intel Innovation 2022
+  subtitle: Intel Corporation · enterprise developers
+  status: 30+ sessions
+  image:
+    caption: "Add image: Intel Innovation 2022 hackathon, lab or booth photo"
+  situation: >-
+    Enterprise teams had data-science skills but little practice with distributed training or Intel's optimized
+    AI frameworks, which slowed adoption of Intel's AI hardware.
+  role: >-
+    Ran the AWS EC2 side of the hands-on PyTorch and TensorFlow optimization labs and prepared their instructions,
+    scripts, notebooks and Docker images. Staffed the Deep Learning Boost demo booth and supported the AI Reference
+    Kit hackathon.
+  approach: >-
+    Labs at Intel Innovation 2022 and developer-summit webinars; a two-node PyTorch distributed-training lab on AWS
+    that let developers watch training spread across machines; and the AI for Social Good hackathon, where 100+
+    developers built on Intel AI Reference Kits. Each environment had to hold up with hundreds of people using it
+    at once.
+  outcome: >-
+    Over 30 demos, workshops, conference labs and proof-of-concept sessions, reaching hundreds of lab participants
+    and more than 100 hackathon developers.
+  facts:
+    - { value: "30+", label: sessions }
+    - { value: "100+", label: hackathon developers }
+    - { value: 100s, label: of lab participants }
+  tags: [PyTorch, TensorFlow, Intel Extension for PyTorch, AWS EC2, oneCCL, Docker]
+
+- id: intel-workflows
+  order: 5
+  title: Customer-ready AI reference workflows
+  subtitle: Intel Corporation · developer solution catalogs
+  status: Shipped to developers
+  image:
+    caption: "Add image: the workflow README or a sample run"
+  situation: >-
+    Intel packaged AI workflows into catalogs developers could run on their own, such as ResNet-50 transfer
+    learning for image classification on sports, medical histology and satellite imagery. Anything that broke on a
+    developer's first try would cost adoption.
+  role: >-
+    The customer's stand-in, working with Intel's AI development teams. I didn't write the original workflows; I
+    made sure they worked for the people who would use them.
+  approach: >-
+    Ran the vision transfer-learning workflow end to end the way a developer would, reported every breakage,
+    validated the Docker image and conda environment, ran the sample and benchmark runs, and updated the
+    documentation to match what actually worked.
+  outcome: >-
+    The workflow shipped in Intel's public AI workflows catalog. Separately, I validated Intel's MLPerf benchmark
+    results on AWS EC2.
+  outcomeLink:
+    label: See the published workflow ↗
+    href: https://github.com/intel/ai-workflows/tree/main/transfer_learning/tensorflow/resnet50
+  tags: [TensorFlow, Transfer learning, Docker, conda, MLPerf]

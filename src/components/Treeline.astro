@@ -1,0 +1,19 @@
+---
+import { terrain } from '../lib/terrain';
+
+interface Props {
+  variant?: 'a' | 'b';
+}
+const t = Astro.props.variant === 'b' ? terrain.treeline_b : terrain.treeline_a;
+---
+
+<svg
+  class="block h-[clamp(64px,8vw,110px)] w-full"
+  viewBox={`0 0 ${t.W} ${t.H}`}
+  preserveAspectRatio="xMidYMax slice"
+  aria-hidden="true"
+>
+  <path class="fill-tree-back" d={t.back} />
+  <path class="fill-tree" d={t.front} />
+  <path class="fill-tree" d={t.ground} />
+</svg>

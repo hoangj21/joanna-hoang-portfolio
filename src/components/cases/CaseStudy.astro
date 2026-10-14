@@ -1,0 +1,97 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Flow from './Flow.astro';
+import ImageSlot from '../ui/ImageSlot.astro';
+import Facts from '../ui/Facts.astro';
+import Tags from '../ui/Tags.astro';
+import Icon from '../ui/Icon.astro';
+
+interface Props {
+  entry: CollectionEntry<'cases'>;
+  index: number;
+}
+const { entry, index } = Astro.props;
+const c = entry.data;
+const num = String(index + 1).padStart(2, '0');
+const bodyId = `case-${entry.id}`;
+const blocks = [
+  { heading: 'The situation', text: c.situation },
+  { heading: 'My role', text: c.role },
+  { heading: 'The approach', text: c.approach },
+];
+const showPhoto = c.image?.src || !c.diagram;
+---
+
+<article
+  class="group overflow-hidden rounded-[10px] border border-border bg-card transition-[border-color,box-shadow] hover:border-border-strong hover:shadow-[0_6px_28px_var(--glow)] data-open:border-border-strong data-open:shadow-[0_6px_28px_var(--glow)]"
+  data-case
+  data-open={c.open ? '' : undefined}
+>
+  <h3 class="m-0">
+    <button
+      type="button"
+      class="grid w-full cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-[0.9rem] p-5 text-left focus-visible:rounded-[10px] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ember sm:gap-[1.4rem] sm:px-[1.6rem] sm:py-[1.4rem]"
+      aria-expanded={c.open ? 'true' : 'false'}
+      aria-controls={bodyId}
+      data-case-toggle
+    >
+      <span class="min-w-[2.2ch] font-display text-[1.7rem] font-light leading-none text-ember-text sm:text-[2.2rem]">{num}</span>
+      <span class="min-w-0">
+        <span class="mb-1 block font-display text-[1.3rem] font-medium leading-tight text-fg">{c.title}</span>
+        <span class="block font-body text-[0.86rem] font-normal text-fg-muted">{c.subtitle}</span>
+      </span>
+      <span class="flex items-center gap-4">
+        <span class="hidden whitespace-nowrap rounded-full bg-accent-light px-3 py-1 font-mono text-[0.7rem] font-normal tracking-[0.04em] text-pine sm:inline">
+          {c.status}
+        </span>
+        <Icon name="chevron" class="size-5 shrink-0 text-fg-muted transition-transform duration-300 group-data-open:rotate-180" />
+      </span>
+    </button>
+  </h3>
+
+  <div
+    id={bodyId}
+    class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-400 ease-out group-data-open:grid-rows-[1fr]"
+    data-case-body
+    inert={!c.open}
+  >
+    <div class="min-h-0 overflow-hidden">
+      <div class="grid gap-x-10 gap-y-6 px-5 pb-6 sm:px-[1.6rem] sm:pb-7 md:grid-cols-2">
+        {
+          showPhoto ? (
+            <ImageSlot
+              src={c.image?.src}
+              alt={c.image?.alt}
+              caption={c.image?.caption ?? 'Add image'}
+              class="col-span-full aspect-[21/9] rounded-md border border-dashed border-border-strong p-4"
+            />
+          ) : (
+            c.diagram && <Flow steps={c.diagram.steps} note={c.diagram.note} />
+          )
+        }
+        {
+          blocks.map((b) => (
+            <div>
+              <h4 class="mb-2 font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-ember-text">{b.heading}</h4>
+              <p class="m-0 text-[0.95rem] text-fg-muted">{b.text}</p>
+            </div>
+          ))
+        }
+        <div>
+          <h4 class="mb-2 font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-ember-text">The outcome</h4>
+          <p class="m-0 text-[0.95rem] text-fg-muted">
+            {c.outcome}
+            {c.outcomeLink && (
+              <>
+                {' '}
+                <a href={c.outcomeLink.href} target="_blank" rel="noopener">{c.outcomeLink.label}</a>
+              </>
+            )}
+          </p>
+          <Facts facts={c.facts} />
+        </div>
+        <Tags tags={c.tags} class="col-span-full mt-0" />
+      </div>
+    </div>
+  </div>
+</article>

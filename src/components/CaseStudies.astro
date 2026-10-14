@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import { byOrder } from '../lib/order';
+import Section from './ui/Section.astro';
+import SectionHeader from './ui/SectionHeader.astro';
+import CaseStudy from './cases/CaseStudy.astro';
+
+interface Props {
+  header: { label: string; title: string; intro?: string };
+}
+const { header } = Astro.props;
+const cases = (await getCollection('cases')).sort(byOrder);
+---
+
+<Section id="work" numeral="03">
+  <SectionHeader {...header} />
+  <div class="flex flex-col gap-4">
+    {cases.map((entry, index) => <CaseStudy entry={entry} index={index} />)}
+  </div>
+</Section>

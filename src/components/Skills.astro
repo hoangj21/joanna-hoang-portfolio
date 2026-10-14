@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import { byOrder } from '../lib/order';
+import Section from './ui/Section.astro';
+import SectionHeader from './ui/SectionHeader.astro';
+
+interface Props {
+  header: { label: string; title: string; intro?: string };
+}
+const { header } = Astro.props;
+const groups = (await getCollection('skills')).sort(byOrder);
+---
+
+<Section id="skills" numeral="06">
+  <SectionHeader {...header} />
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-x-8 gap-y-9">
+    {
+      groups.map(({ data: g }) => (
+        <div>
+          <h3 class="mb-3 border-b-2 border-tree pb-3 font-mono text-[0.72rem] font-medium uppercase tracking-[0.1em] text-ember-text">
+            {g.group}
+          </h3>
+          <ul class="m-0 grid list-none gap-2 p-0">
+            {g.items.map((item) => <li class="text-[0.95rem]">{item}</li>)}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</Section>

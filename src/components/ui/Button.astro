@@ -1,0 +1,29 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'solid' | 'ghost' | 'hero' | 'hero-ghost';
+type Props = HTMLAttributes<'a'> & { variant?: Variant; external?: boolean };
+
+const { variant = 'solid', external = false, class: className, ...rest } = Astro.props;
+
+const variants: Record<Variant, string> = {
+  solid: 'bg-btn-bg text-btn-fg hover:bg-btn-hover hover:text-btn-fg',
+  ghost: 'border-border-strong text-fg hover:border-fg hover:text-fg',
+  hero: 'bg-cream text-dusk hover:bg-white hover:text-dusk',
+  'hero-ghost': 'border-cream/35 bg-cream/5 text-cream hover:border-cream hover:text-cream',
+};
+---
+
+<a
+  class:list={[
+    'inline-flex items-center gap-2 rounded-full border-[1.5px] border-transparent px-5 py-3 text-[0.9rem] font-semibold leading-tight no-underline transition',
+    'hover:-translate-y-px hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember',
+    variants[variant],
+    className,
+  ]}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener' : undefined}
+  {...rest}
+>
+  <slot />
+</a>

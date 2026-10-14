@@ -1,0 +1,27 @@
+---
+/**
+ * Contour-line patterns, defined once and reused by <Topo /> through <use>,
+ * so each pattern ships in the HTML only once however many places show it.
+ */
+import { terrain } from '../lib/terrain';
+
+const symbols = [
+  { id: 'topo-a', data: terrain.topo_a },
+  { id: 'topo-b', data: terrain.topo_b },
+  { id: 'topo-c', data: terrain.topo_c },
+  { id: 'topo-tall', data: terrain.topo_tall },
+];
+---
+
+<svg width="0" height="0" class="absolute" aria-hidden="true">
+  <defs>
+    {
+      symbols.map(({ id, data }) => (
+        <symbol id={id} viewBox={`0 0 ${data.w} ${data.h}`} preserveAspectRatio="xMidYMid slice">
+          <path d={data.minor} fill="none" stroke="currentColor" stroke-opacity="0.5" stroke-width="1" vector-effect="non-scaling-stroke" />
+          <path d={data.index} fill="none" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+        </symbol>
+      ))
+    }
+  </defs>
+</svg>

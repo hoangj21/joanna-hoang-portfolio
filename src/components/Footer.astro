@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { terrain } from '../lib/terrain';
+import { inline } from '../lib/inline';
+
+interface Props {
+  site: CollectionEntry<'site'>['data'];
+}
+const { site } = Astro.props;
+const f = terrain.footer;
+const year = new Date().getFullYear();
+---
+
+<svg
+  class="block h-[clamp(110px,15vw,220px)] w-full bg-bg"
+  viewBox={`0 0 ${f.W} ${f.H}`}
+  preserveAspectRatio="xMidYMax slice"
+  aria-hidden="true"
+>
+  <path class="fill-hood" d={f.hood} />
+  <path class="fill-hood-snow" d={f.snow} />
+  <path class="fill-hood-ridge" d={f.ridge} />
+  <path class="fill-band-bg" d={f.ground} />
+  <path class="fill-band-bg" d={f.trees} />
+</svg>
+<footer class="-mt-0.5 bg-band-bg pb-12 pt-6 text-[0.85rem] text-band-muted">
+  <div class="mx-auto max-w-[1100px] px-[18px] sm:px-6">
+    <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-4">
+      <p class="m-0">© {year} {site.name} · Portland, Oregon</p>
+      <p class="m-0 font-mono text-[0.7rem] uppercase tracking-[0.1em] opacity-75">{site.footer.mark}</p>
+    </div>
+    <p
+      class="mt-5 max-w-[70ch] text-[0.8rem] opacity-80 [&_a]:text-band-fg [&_a]:underline [&_a]:decoration-band-border [&_a]:underline-offset-[3px]"
+      set:html={inline(site.footer.builtWith)}
+    ></p>
+  </div>
+</footer>

@@ -1,0 +1,17 @@
+# Testimonials. photo: a square image under public/ (e.g. /images/people/jane.jpg), optional.
+# The section hides itself if this list is empty, so delete the placeholders rather than shipping them.
+- id: nec
+  order: 1
+  quote: "[Two or three sentences from a manager or sales partner about a specific deal or deployment you worked on together.]"
+  name: "[Name]"
+  title: "[Title], NEC National Security Systems"
+- id: intel
+  order: 2
+  quote: "[Two or three sentences from an Intel teammate about a lab, demo or workshop.]"
+  name: "[Name]"
+  title: "[Title], Intel"
+- id: kgh
+  order: 3
+  quote: "[Two or three sentences from a client about a build you delivered.]"
+  name: "[Name]"
+  title: "[Title], Kiernan Group Holdings"

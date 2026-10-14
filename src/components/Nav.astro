@@ -1,0 +1,36 @@
+---
+interface Props {
+  name: string;
+}
+const { name } = Astro.props;
+const links = [
+  { href: '#about', label: 'About' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#work', label: 'Case studies' },
+  { href: '#live', label: 'Live work' },
+  { href: '#research', label: 'Research' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<nav
+  class="sticky top-[env(safe-area-inset-top,0px)] z-50 border-b border-border bg-bg/85 backdrop-blur-md"
+  aria-label="Primary"
+>
+  <div class="mx-auto flex max-w-[1100px] items-center gap-4 px-[18px] py-3.5 sm:gap-6 sm:px-6">
+    <a href="#top" class="whitespace-nowrap font-display text-[1.15rem] font-medium text-fg hover:no-underline">{name}</a>
+    <ul
+      class="ml-auto flex min-w-0 list-none gap-4 overflow-x-auto p-0 pr-6 text-[0.82rem] font-medium [mask-image:linear-gradient(to_right,#000_80%,transparent)] [scrollbar-width:none] sm:gap-[1.4rem] sm:pr-0 sm:text-[0.88rem] md:[mask-image:none]"
+    >
+      {
+        links.map((l) => (
+          <li>
+            <a href={l.href} class="whitespace-nowrap text-fg-muted hover:text-ember-text hover:no-underline">
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</nav>

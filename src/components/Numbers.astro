@@ -1,0 +1,34 @@
+---
+import Treeline from './Treeline.astro';
+import Label from './ui/Label.astro';
+
+interface Props {
+  numbers: { value: string; label: string }[];
+}
+const { numbers } = Astro.props;
+---
+
+<Treeline variant="a" />
+<div class="bg-tree pb-16 pt-14 text-[#EEF3EC]">
+  <div class="mx-auto max-w-[1100px] px-[18px] sm:px-6">
+    <Label text="By the numbers" tone="band" />
+    <div class="mt-6 grid grid-cols-2 gap-y-8 md:grid-cols-4 md:gap-y-0">
+      {
+        numbers.map((n, i) => (
+          <div
+            class:list={[
+              'py-2 pr-6',
+              i % 2 === 1 && 'border-l border-[#EEF3EC]/20 pl-6',
+              i === 2 && 'md:border-l md:border-[#EEF3EC]/20 md:pl-6',
+            ]}
+          >
+            <p class:list={['mb-2.5 font-display text-[clamp(2.6rem,5vw,3.8rem)] font-light leading-none tracking-[-0.03em]', i === 0 && 'text-peach']}>
+              {n.value}
+            </p>
+            <p class="m-0 max-w-[24ch] text-[0.88rem] leading-snug text-[#EEF3EC]/75">{n.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import { byOrder } from '../lib/order';
+import Section from './ui/Section.astro';
+import SectionHeader from './ui/SectionHeader.astro';
+import ImageSlot from './ui/ImageSlot.astro';
+import Tags from './ui/Tags.astro';
+
+interface Props {
+  header: { label: string; title: string; intro?: string };
+}
+const { header } = Astro.props;
+const items = (await getCollection('live')).sort(byOrder);
+---
+
+<Section id="live" numeral="04" tone="alt" topo="topo-b">
+  <SectionHeader {...header} />
+  <div class="grid gap-6 md:grid-cols-2">
+    {
+      items.map(({ data: item }) => (
+        <article class="flex flex-col overflow-hidden rounded-[10px] border border-border bg-card transition duration-300 hover:-translate-y-[3px] hover:shadow-[0_10px_34px_var(--glow)]">
+          <div class="border-b border-border" aria-hidden="true">
+            <div class="flex items-center gap-1.5 border-b border-border bg-bg-alt px-3 py-2">
+              <i class="size-2 rounded-full bg-border-strong"></i>
+              <i class="size-2 rounded-full bg-border-strong"></i>
+              <i class="size-2 rounded-full bg-border-strong"></i>
+              <span class="ml-2.5 min-w-0 truncate font-mono text-[0.7rem] text-fg-faint">{item.host}</span>
+            </div>
+            <ImageSlot src={item.image.src} alt={item.image.alt} caption={item.image.caption} topo="topo-a" surface="bg" class="aspect-video px-4" />
+          </div>
+          <div class="flex flex-1 flex-col gap-2 px-[1.4rem] pb-6 pt-5">
+            <p class="m-0 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-fg-faint">{item.kicker}</p>
+            <h3 class="m-0 text-[1.3rem] font-medium tracking-[-0.01em]">{item.title}</h3>
+            <p class="m-0 text-[0.93rem] text-fg-muted">{item.description}</p>
+            <Tags tags={item.tags} class="mt-1" />
+            <a href={item.href} target="_blank" rel="noopener" class="mt-auto inline-flex items-center gap-1 pt-2.5 text-[0.9rem] font-semibold">
+              {item.linkLabel}
+            </a>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</Section>

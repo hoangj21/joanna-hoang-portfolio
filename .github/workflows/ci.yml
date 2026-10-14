@@ -1,0 +1,21 @@
+name: CI
+
+# Type-checks the site and validates every content file against its schema on each push and PR.
+# Vercel builds and deploys separately through its GitHub integration.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Type-check, validate content and build
+        run: npm run build

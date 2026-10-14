@@ -1,0 +1,25 @@
+---
+interface Props {
+  tags: string[];
+  tone?: 'default' | 'band';
+  class?: string;
+}
+const { tags, tone = 'default', class: className } = Astro.props;
+---
+
+{
+  tags.length > 0 && (
+    <ul class:list={['mt-4 flex list-none flex-wrap gap-1.5 p-0', className]}>
+      {tags.map((t) => (
+        <li
+          class:list={[
+            'whitespace-nowrap rounded-[4px] border px-2.5 py-0.5 font-mono text-[0.72rem]',
+            tone === 'band' ? 'border-band-border text-band-muted' : 'border-border-strong text-fg-muted',
+          ]}
+        >
+          {t}
+        </li>
+      ))}
+    </ul>
+  )
+}

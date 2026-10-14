@@ -1,0 +1,57 @@
+# Field research cards. icon: pylon | fluke | helix
+- id: pge
+  order: 1
+  note: Field note 01
+  dates: "2020"
+  org: Portland General Electric
+  icon: pylon
+  title: Transformers, before they were famous
+  body: >-
+    The goal was general-purpose features from household electricity usage, the kind of signal that could flag
+    likely EV owners so the utility could tailor its services. A convolutional autoencoder fell short, so I tried a
+    transformer when nearly every example was still about language. The reconstruction got much closer to the real
+    series.
+  facts:
+    - { value: ">40%", label: lower loss than the autoencoder }
+  tags: [PyTorch, AWS SageMaker, Time series]
+
+- id: wild-me
+  order: 2
+  note: Field note 02
+  dates: 2019–2022
+  org: Wild Me Lab
+  icon: fluke
+  title: Is that a whale shark?
+  body: >-
+    Wild Me uses photos and video to identify individual animals for conservation research. In a two-person course
+    project, we classified about 3,800 YouTube videos as real whale-shark encounters or not from their titles, tags
+    and descriptions, comparing five models. I later rebuilt a collaborator's classifier with latent semantic
+    analysis, and built Grafana dashboards so Wild Me staff could monitor workloads and report impact.
+  facts:
+    - { value: 78.8 → 92.5%, label: "accuracy: random-forest baseline to my LSA pipeline" }
+  tags: [scikit-learn, fastText, Grafana / PromQL]
+  link: { label: Code on GitHub ↗, href: https://github.com/hoangj21/Whale-Sharks }
+
+- id: tcells
+  order: 3
+  note: Field note 03
+  dates: "2019"
+  org: University of Portland
+  icon: helix
+  title: T cells that fight tumors
+  figure:
+    src: /images/research/tcell-clustering.png
+    alt: Hierarchical clustering heatmap of sample-to-sample distances across the 24 samples
+    caption: Sample-to-sample clustering from our analysis
+    width: 290
+    height: 181
+  body: >-
+    Does an antibody-peptide MHC drug activate T cells to kill tumor cells in mice? Our four-person team, working
+    with a faculty collaborator, compared T cells from blood and from inside tumors, with and without treatment. My
+    part was data cleaning and the bioinformatics analysis: filtering, normalization and differential expression in
+    R with DESeq, checked with PCA and clustering. Treated tumor T cells upregulated activation genes such as
+    TNFRSF9, CD160, CCL1, XCL1 and CCL3, the signature you'd expect if the drug was working.
+  facts:
+    - { value: "24", label: RNA-seq samples across 4 groups }
+  tags: [R, DESeq2 / Bioconductor, PCA & clustering]
+  link: { label: Code on GitHub ↗, href: https://github.com/hoangj21/DGE_Analysis }

@@ -1,0 +1,45 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Credits from '../components/Credits.astro';
+import About from '../components/About.astro';
+import Numbers from '../components/Numbers.astro';
+import Experience from '../components/Experience.astro';
+import CaseStudies from '../components/CaseStudies.astro';
+import LiveWork from '../components/LiveWork.astro';
+import Research from '../components/Research.astro';
+import Skills from '../components/Skills.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+
+const entry = await getEntry('site', 'profile');
+if (!entry) throw new Error('src/content/site.yaml must define a `profile` entry');
+const site = entry.data;
+
+const header = (key: string) => {
+  const s = site.sections[key];
+  if (!s) throw new Error(`site.yaml is missing sections.${key}`);
+  return s;
+};
+---
+
+<Base title={site.title} description={site.description}>
+  <Nav name={site.name} />
+  <Hero site={site} />
+  <main>
+    <Credits site={site} />
+    <About site={site} />
+    <Numbers numbers={site.numbers} />
+    <Experience header={header('experience')} />
+    <CaseStudies header={header('cases')} />
+    <LiveWork header={header('live')} />
+    <Research header={header('research')} />
+    <Skills header={header('skills')} />
+    <Testimonials header={header('testimonials')} />
+    <Contact site={site} />
+  </main>
+  <Footer site={site} />
+</Base>

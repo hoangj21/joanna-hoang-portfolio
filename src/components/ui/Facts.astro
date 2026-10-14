@@ -1,0 +1,30 @@
+---
+/** Inline "field note" metrics: a large figure with a short label. */
+interface Props {
+  facts: { value: string; label: string }[];
+  tone?: 'default' | 'band';
+}
+const { facts, tone = 'default' } = Astro.props;
+---
+
+{
+  facts.length > 0 && (
+    <ul class="mt-4 flex list-none flex-wrap gap-x-8 gap-y-3 p-0">
+      {facts.map((f) => (
+        <li class="flex items-baseline gap-2">
+          <b
+            class:list={[
+              'whitespace-nowrap font-display text-[1.55rem] font-normal leading-none tracking-[-0.02em]',
+              tone === 'band' ? 'text-peach' : 'text-ember-text',
+            ]}
+          >
+            {f.value}
+          </b>
+          <span class:list={['max-w-[22ch] text-[0.82rem] leading-snug', tone === 'band' ? 'text-band-muted' : 'text-fg-muted']}>
+            {f.label}
+          </span>
+        </li>
+      ))}
+    </ul>
+  )
+}
