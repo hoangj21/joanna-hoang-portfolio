@@ -102,6 +102,8 @@ const live = defineCollection({
     title: z.string(),
     description: z.string(),
     image: z.object({ src: z.string().optional(), alt: z.string().optional(), caption: z.string() }),
+    // Looped preview recorded with `npm run record`; the image stays as the fallback
+    video: z.strictObject({ mp4: z.string(), webm: z.string(), poster: z.string() }).optional(),
     tags: z.array(z.string()).default([]),
   }),
 });

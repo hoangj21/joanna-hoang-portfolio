@@ -1,0 +1,31 @@
+---
+/**
+ * Looped, muted preview of a live site. Decorative: the card around it carries the meaning.
+ * It never autoplays on its own; main.ts plays it while it's on screen, and leaves the poster
+ * up for visitors who prefer reduced motion or have data saver on. Browsers that can't play
+ * either source fall back to the screenshot.
+ */
+interface Props {
+  video: { mp4: string; webm: string; poster: string };
+  fallback: { src?: string; alt?: string };
+  class?: string;
+}
+const { video, fallback, class: className } = Astro.props;
+---
+
+<div class:list={['relative overflow-hidden bg-bg', className]}>
+  <video
+    class="absolute inset-0 h-full w-full object-cover"
+    muted
+    loop
+    playsinline
+    preload="none"
+    poster={video.poster}
+    aria-hidden="true"
+    data-preview
+  >
+    <source src={video.webm} type="video/webm" />
+    <source src={video.mp4} type="video/mp4" />
+    {fallback.src && <img src={fallback.src} alt={fallback.alt ?? ''} class="h-full w-full object-cover" />}
+  </video>
+</div>

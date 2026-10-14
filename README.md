@@ -7,8 +7,9 @@ identity: a Mt. Hood dusk scene, generated topographic contours, conifer treelin
 content collections with Zod schemas · self-hosted variable fonts · Python terrain generator ·
 GitHub Actions · [Vercel](https://vercel.com)
 
-The page ships as static HTML with about 1 KB of JavaScript (the case-study accordion, copy-email
-button and scroll reveal). Everything still works with JavaScript off.
+The page ships as static HTML with about 2 KB of JavaScript (the case-study accordion, copy-email
+button, scroll reveal, count-up and video playback). Everything still works with JavaScript off, and
+all motion respects reduced-motion settings.
 
 ---
 
@@ -70,12 +71,13 @@ src/
   components/         one component per page section, plus ui/ primitives
   layouts/Base.astro  <head>, fonts, shared contour patterns
   styles/global.css   theme tokens (light and dark) and Tailwind setup
-  scripts/main.ts     accordion, copy button, scroll reveal
+  scripts/main.ts     accordion, copy button, scroll reveal, count-up, video playback
   data/terrain.json   generated terrain art
   lib/                inline formatter, logos, terrain types, sorting
 scripts/
   generate_terrain.py contour, ridgeline, treeline and Mt. Hood generator
-public/               favicon, images, résumé
+  record-previews.mjs records the Live & published video previews
+public/               favicon, images, videos, résumé
 ```
 
 ### Theming
@@ -83,6 +85,25 @@ public/               favicon, images, résumé
 Colors are CSS variables in `src/styles/global.css`, defined once for light and redefined for dark.
 Tailwind reads them through `@theme inline`, so `bg-bg` or `text-fg-muted` switches with the visitor's
 OS setting without `dark:` variants. The hero is the same dusk scene in both themes.
+
+### Video previews
+
+Live & published cards can show a looped, muted preview of the site instead of a screenshot. The
+previews play only while on screen, and visitors with reduced motion or data saver on see the poster.
+Recordings come from `scripts/record-previews.mjs`, which drives the live site in Chromium along a
+scripted path (with a visible cursor) and encodes `public/videos/<id>.mp4`, `.webm` and a `.jpg` poster.
+
+```bash
+npx playwright install chromium   # once, after npm install
+npm run record                    # every enabled preview
+npm run record -- copilot         # just one
+```
+
+- **Changing a path:** edit its `steps` in the `PREVIEWS` list at the top of the script. Each run
+  replaces the files, and each preview is sped up if needed to fit 12 seconds.
+- **Turning on `kgh-site`:** it's recorded but switched off while the site awaits client approval. Set
+  `enabled: true` for it in the script, run `npm run record -- kgh-site`, then add the same `video:` line
+  the copilot entry has to `kgh-site` in `live.yaml`, pointing at `/videos/kgh-site.*`.
 
 ### Terrain art
 

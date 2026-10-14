@@ -68,6 +68,25 @@ const revealables = document.querySelectorAll('.reveal');
 if (reduceMotion || !canObserve) revealables.forEach((el) => el.classList.add('in'));
 else onFirstView(revealables, 0.06, (el) => el.classList.add('in'));
 
+// Live-site previews play only while at least 35% on screen. With reduced motion or data
+// saver on they never load, and the poster stays up.
+const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+if (!reduceMotion && !saveData && canObserve) {
+  const videos = new IntersectionObserver(
+    (entries) => {
+      for (const { target, isIntersecting } of entries) {
+        const video = target as HTMLVideoElement;
+        if (isIntersecting) {
+          video.preload = 'auto';
+          video.play().catch(() => {});
+        } else video.pause();
+      }
+    },
+    { threshold: 0.35 },
+  );
+  document.querySelectorAll('video[data-preview]').forEach((v) => videos.observe(v));
+}
+
 // Count numeric stats up from zero on first view. The real value stays in the HTML;
 // only values shaped like "100+", ">40%" or "5" animate.
 if (!reduceMotion && canObserve) {

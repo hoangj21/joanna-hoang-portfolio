@@ -1,4 +1,5 @@
 # Live & published work. image.src: a 16:9 screenshot under public/ (e.g. /images/live/copilot.png)
+# video: a looped preview recorded with `npm run record` (see README); the image stays as its fallback
 - id: copilot
   order: 1
   host: investment-intelligence.si
@@ -13,6 +14,7 @@
     src: /images/live/copilot.jpg
     alt: Portfolio Lab view of an illustrative $25 million portfolio with asset classes, sector exposure and largest positions
     caption: "Add screenshot · 16:9"
+  video: { mp4: /videos/copilot.mp4, webm: /videos/copilot.webm, poster: /videos/copilot.jpg }
   tags: [React, Supabase, Cloudflare Workers]
 
 - id: kgh-site

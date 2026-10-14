@@ -4,6 +4,7 @@ import { byOrder } from '../lib/order';
 import Section from './ui/Section.astro';
 import SectionHeader from './ui/SectionHeader.astro';
 import ImageSlot from './ui/ImageSlot.astro';
+import VideoSlot from './ui/VideoSlot.astro';
 import Tags from './ui/Tags.astro';
 
 interface Props {
@@ -26,7 +27,11 @@ const items = (await getCollection('live')).sort(byOrder);
               <i class="size-2 rounded-full bg-border-strong"></i>
               <span class="ml-2.5 min-w-0 truncate font-mono text-[0.7rem] text-fg-faint">{item.host}</span>
             </div>
-            <ImageSlot src={item.image.src} alt={item.image.alt} caption={item.image.caption} topo="topo-a" surface="bg" class="aspect-video px-4" />
+            {item.video ? (
+              <VideoSlot video={item.video} fallback={item.image} class="aspect-video" />
+            ) : (
+              <ImageSlot src={item.image.src} alt={item.image.alt} caption={item.image.caption} topo="topo-a" surface="bg" class="aspect-video px-4" />
+            )}
           </div>
           <div class="flex flex-1 flex-col gap-2 px-[1.4rem] pb-6 pt-5">
             <p class="m-0 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-fg-faint">{item.kicker}</p>
