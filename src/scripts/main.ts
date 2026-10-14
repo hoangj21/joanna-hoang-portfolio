@@ -6,36 +6,58 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canObserve = 'IntersectionObserver' in window;
 
-// The head script applies the initial theme before styles paint. Manual choices persist;
-// system changes continue to apply until the visitor makes a choice.
-const themePreference = window.matchMedia('(prefers-color-scheme: dark)');
-let manualTheme = false;
-try { manualTheme = ['light', 'dark'].includes(localStorage.getItem('portfolio-theme') ?? ''); } catch {}
-const themeButtons = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
-function applyTheme(theme: 'light' | 'dark') {
-  document.documentElement.dataset.theme = theme;
-  const themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
-  if (themeColor) themeColor.content = theme === 'dark' ? '#0E1811' : '#F3F2EA';
-  for (const button of themeButtons) {
-    button.hidden = false;
-    button.setAttribute('aria-pressed', String(theme === 'dark'));
-    button.setAttribute('title', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
-    const label = button.querySelector('[data-theme-label]');
-    if (label) label.textContent = theme === 'dark' ? 'Dark' : 'Light';
+/*
+ * Theme. Three states: no data-theme (follow the OS, the default), or a chosen light/dark
+ * saved in localStorage. The head script in Base.astro applies a saved choice before first
+ * paint; this keeps the toggle's label, the "Auto" reset and theme-color in step.
+ */
+type Theme = 'light' | 'dark';
+const root = document.documentElement;
+const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+const themeMetas = [...document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')];
+const themeToggles = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+const themeResets = document.querySelectorAll<HTMLButtonElement>('[data-theme-reset]');
+
+const chosenTheme = (): Theme | undefined =>
+  root.dataset.theme === 'light' || root.dataset.theme === 'dark' ? root.dataset.theme : undefined;
+const activeTheme = (): Theme => chosenTheme() ?? (systemDark.matches ? 'dark' : 'light');
+
+function syncThemeControls() {
+  const chosen = chosenTheme();
+  // A choice points every theme-color meta at its colour; no choice restores each one's own
+  const chosenColor = themeMetas.find((m) => m.dataset.scheme === chosen)?.dataset.color;
+  for (const meta of themeMetas) meta.content = chosenColor ?? meta.dataset.color ?? meta.content;
+  const label = `Switch to ${activeTheme() === 'dark' ? 'light' : 'dark'} mode`;
+  for (const button of themeToggles) {
+    button.setAttribute('aria-label', label);
+    button.title = label;
   }
+  for (const button of themeResets) button.hidden = !chosen;
 }
-applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
-for (const button of themeButtons) {
+
+function setTheme(theme: Theme | undefined) {
+  if (theme) root.dataset.theme = theme;
+  else delete root.dataset.theme;
+  try {
+    if (theme) localStorage.setItem('portfolio-theme', theme);
+    else localStorage.removeItem('portfolio-theme');
+  } catch {}
+  syncThemeControls();
+}
+
+for (const button of themeToggles) {
+  button.addEventListener('click', () => setTheme(activeTheme() === 'dark' ? 'light' : 'dark'));
+}
+for (const button of themeResets) {
   button.addEventListener('click', () => {
-    const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    manualTheme = true;
-    try { localStorage.setItem('portfolio-theme', theme); } catch {}
-    applyTheme(theme);
+    setTheme(undefined);
+    // The reset hides itself, so hand focus to the toggle beside it
+    button.parentElement?.querySelector<HTMLButtonElement>('[data-theme-toggle]')?.focus();
   });
 }
-themePreference.addEventListener('change', (event) => {
-  if (!manualTheme) applyTheme(event.matches ? 'dark' : 'light');
-});
+systemDark.addEventListener('change', syncThemeControls);
+syncThemeControls();
+for (const el of document.querySelectorAll<HTMLElement>('[data-theme-switch]')) el.hidden = false;
 
 /** Calls `fn` once for each element the first time `threshold` of it is on screen. */
 function onFirstView(elements: Iterable<Element>, threshold: number, fn: (el: Element) => void) {

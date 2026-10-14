@@ -25,21 +25,27 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#F3F2EA" />
+    <!-- Browser chrome follows the OS until a theme is chosen; then main.ts and the
+         script below point both at the chosen colour (data-color keeps the originals). -->
+    <meta name="theme-color" content="#F3F2EA" data-color="#F3F2EA" data-scheme="light" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0E1811" data-color="#0E1811" data-scheme="dark" media="(prefers-color-scheme: dark)" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary" />
     <script is:inline>
+      // Runs before first paint. With no saved choice there's no data-theme at all and
+      // the CSS follows prefers-color-scheme; a saved choice is applied here, so it never flashes.
       (() => {
         const root = document.documentElement;
+        root.classList.add('js');
         let saved;
         try { saved = localStorage.getItem('portfolio-theme'); } catch {}
-        root.dataset.theme = saved === 'light' || saved === 'dark'
-          ? saved : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        document.querySelector('meta[name="theme-color"]').content = root.dataset.theme === 'dark' ? '#0E1811' : '#F3F2EA';
-        root.classList.add('js');
+        if (saved !== 'light' && saved !== 'dark') return;
+        root.dataset.theme = saved;
+        const color = document.querySelector(`meta[name="theme-color"][data-scheme="${saved}"]`).dataset.color;
+        for (const meta of document.querySelectorAll('meta[name="theme-color"]')) meta.content = color;
       })();
     </script>
   </head>

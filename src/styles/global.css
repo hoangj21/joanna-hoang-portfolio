@@ -369,15 +369,27 @@ div.bg-tree > div {
 .site-nav > div { flex-wrap: wrap; gap: 16px 28px; padding-block: 18px; }
 .site-nav > div > a { font-size: 1.3rem; letter-spacing: -.04em; }
 .site-nav ul { font-size: .78rem; gap: 24px; }
+.theme-switch { display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; }
+.theme-switch[hidden], .theme-reset[hidden] { display: none; }
 .theme-toggle {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  min-height: 40px; padding: 8px 12px; flex-shrink: 0;
-  border: 1px solid var(--border-strong); border-radius: 2px;
+  display: inline-grid; place-items: center; width: 40px; height: 40px; padding: 0;
+  border: 1px solid var(--border-strong); border-radius: 999px;
   color: var(--fg); background: var(--card); cursor: pointer;
-  font-family: var(--font-mono); font-size: .72rem;
 }
-.theme-toggle[hidden] { display: none; }
 .theme-toggle:hover { border-color: var(--pine); background: var(--accent-light); }
+.theme-reset {
+  min-height: 40px; padding: 0 8px; border: 0; background: none; cursor: pointer;
+  color: var(--fg-muted); font-family: var(--font-mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+}
+.theme-reset:hover { color: var(--ember-text); text-decoration: underline; text-underline-offset: 3px; }
+/* The toggle shows where a click goes: a moon while light, a sun while dark */
+.theme-icon-sun { display: none; }
+:root[data-theme="dark"] .theme-icon-sun { display: block; }
+:root[data-theme="dark"] .theme-icon-moon { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-sun { display: block; }
+  :root:not([data-theme="light"]) .theme-icon-moon { display: none; }
+}
 .portfolio-hero {
   isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
   min-height: 740px; max-width: var(--page-width); margin-inline: auto;
@@ -448,7 +460,7 @@ footer { border-top: 1px solid var(--band-border); }
 @media (max-width: 1000px) {
   .site-nav > div { gap: 12px 18px; }
   .site-nav ul { order: 3; width: 100%; padding-block: 4px; margin-left: 0; }
-  .theme-toggle { margin-left: auto; }
+  .theme-switch { margin-left: auto; }
   html { scroll-padding-top: 130px; }
   .portfolio-hero { min-height: 660px; padding-block: 58px; }
   .hero-name { font-size: clamp(4.3rem, 9vw, 6rem); }
