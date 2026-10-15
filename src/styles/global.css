@@ -184,6 +184,9 @@
  * pseudo-element decorations, counters and the scroll reveal.
  */
 @layer components {
+  /* Keep Experience contours subtle behind role descriptions in both themes. */
+  #experience > svg { opacity: 0.3; }
+
   /* Outlined section numerals */
   .numeral {
     position: absolute;
