@@ -19,6 +19,7 @@ const [first, ...rest] = site.name.split(' ');
 // Each half of the role keeps together, so if it wraps it breaks after the "·"
 const roleParts = site.role.split(' · ');
 const h = terrain.hero;
+const t = terrain.treeline_a;
 // The window onto the terrain art: centred on the summit (x 1060, y 116), down to the
 // ground. .hero-arch takes its aspect ratio from these numbers. The window starts just
 // below the summit, so the peak rises above the top of the arch.
@@ -112,4 +113,11 @@ const view = { x: 838, y: 136, w: 444, h: h.H - 136 };
       </g>
     </svg>
   </div>
+
+  <!-- The arch's foreground treeline carries on out of it, full width (hidden on phones).
+       Only the front layer, in the arch's own foreground colour, so it merges inside the arch. -->
+  <svg class="hero-treeline" viewBox={`0 0 ${t.W} ${t.H}`} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <path d={t.front} fill="#12271C" />
+    <path d={t.ground} fill="#12271C" />
+  </svg>
 </header>
