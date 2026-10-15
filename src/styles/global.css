@@ -397,6 +397,10 @@ div.bg-tree > div {
   padding: 88px max(var(--page-gutter), calc((100% - var(--page-width)) / 2 + var(--page-gutter))) 0;
 }
 .portfolio-hero { --treeline-h: clamp(64px, 8vw, 110px); }
+.hero-topo {
+  position: absolute; inset: 0; z-index: 0; opacity: .7; pointer-events: none;
+  mask-image: linear-gradient(to right, #000 30%, transparent 58%);
+}
 /* Clear of the treeline that runs along the hero's foot */
 .hero-copy { padding-right: 30px; padding-bottom: calc(var(--treeline-h) + 40px); }
 .hero-name { font-size: clamp(4.4rem, 8.3vw, 7.8rem); color: var(--fg); font-variation-settings: 'SOFT' 15, 'WONK' 1; }
@@ -487,6 +491,7 @@ footer { border-top: 1px solid var(--band-border); }
   .hero-copy { padding: 0; }
   .hero-name { font-size: clamp(4.3rem, 12vw, 6.4rem); }
   .hero-arch { align-self: center; width: 70%; }
+  .hero-topo { mask-image: linear-gradient(to bottom, #000 25%, transparent 55%); }
 }
 @media (max-width: 767px) {
   .portfolio-hero { gap: 36px; padding-block: 48px; }

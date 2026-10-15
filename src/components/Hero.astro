@@ -10,6 +10,7 @@ import type { CollectionEntry } from 'astro:content';
 import { terrain } from '../lib/terrain';
 import Button from './ui/Button.astro';
 import Icon from './ui/Icon.astro';
+import Topo from './ui/Topo.astro';
 
 interface Props {
   site: CollectionEntry<'site'>['data'];
@@ -27,6 +28,9 @@ const view = { x: 838, y: 136, w: 444, h: h.H - 136 };
 ---
 
 <header id="top" class="portfolio-hero relative overflow-hidden">
+  <!-- Trail-map contours behind the text, fading out toward the arch -->
+  <div class="hero-topo" aria-hidden="true"><Topo id="topo-c" /></div>
+
   <div class="hero-copy relative z-3">
     <h1 class="hero-name mb-5 font-light leading-[0.95] tracking-[-0.045em]">
       {first}<br /><em class="font-light">{rest.join(' ')}</em>
