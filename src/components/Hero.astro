@@ -30,12 +30,12 @@ const h = terrain.hero;
   </div>
 
   <div class="relative z-3 mx-auto w-full max-w-[1100px] px-[18px] pt-[clamp(4rem,10vh,7rem)] sm:px-6">
-    <h1 class="mb-5 text-[clamp(3.4rem,10vw,7.2rem)] font-light leading-[0.95] tracking-[-0.045em] text-cream-bright">
+    <h1 class="hero-enter mb-5 text-[clamp(3.4rem,10vw,7.2rem)] font-light leading-[0.95] tracking-[-0.045em] text-cream-bright" style="--hero-delay: 80ms">
       {first}<br /><em class="font-light text-peach-soft">{rest.join(' ')}</em>
     </h1>
-    <p class="mb-5 font-mono text-[clamp(0.78rem,1.6vw,0.88rem)] uppercase tracking-[0.08em] text-peach">{site.role}</p>
-    <p class="mb-8 max-w-[46ch] text-[clamp(1.05rem,1.9vw,1.2rem)] leading-[1.6] text-cream/85">{site.heroIntro}</p>
-    <div class="flex flex-wrap gap-3">
+    <p class="hero-enter mb-5 font-mono text-[clamp(0.78rem,1.6vw,0.88rem)] uppercase tracking-[0.08em] text-peach" style="--hero-delay: 220ms">{site.role}</p>
+    <p class="hero-enter mb-8 max-w-[46ch] text-[clamp(1.05rem,1.9vw,1.2rem)] leading-[1.6] text-cream/85" style="--hero-delay: 330ms">{site.heroIntro}</p>
+    <div class="hero-enter flex flex-wrap gap-3" style="--hero-delay: 460ms">
       <Button variant="hero" href={`mailto:${site.email}`}>
         <Icon name="mail" class="size-4 shrink-0" />
         <span class="font-mono text-[0.86rem] font-medium">{site.email}</span>
@@ -63,11 +63,38 @@ const h = terrain.hero;
   >
     <defs>
       <clipPath id="hood-clip"><path d={h.hood} /></clipPath>
+      <radialGradient id="mountain-glow">
+        <stop offset="0" stop-color="#E09A5E" stop-opacity="0.17" />
+        <stop offset="0.45" stop-color="#C7713E" stop-opacity="0.065" />
+        <stop offset="1" stop-color="#C7713E" stop-opacity="0" />
+      </radialGradient>
       <radialGradient id="fog-fill">
-        <stop offset="0" stop-color="#E8EDE4" stop-opacity="0.2" />
+        <stop offset="0" stop-color="#E8EDE4" stop-opacity="0.34" />
         <stop offset="1" stop-color="#E8EDE4" stop-opacity="0" />
       </radialGradient>
     </defs>
+    <!-- A restrained sunset glow, behind the mountain's right-hand silhouette. -->
+    <ellipse cx="1240" cy="390" rx="470" ry="300" fill="url(#mountain-glow)" />
+    <!-- Solid, low-opacity cloud silhouettes behind every mountain layer. -->
+    <g class="hero-clouds" fill="#E8EDE4" stroke="none">
+      <path transform="translate(45 2) scale(0.65)" d="M130 153 C165 147 202 146 234 137 C222 122 241 110 269 114 C272 94 291 85 316 91 C303 62 321 43 345 48 C362 50 371 67 386 69 C402 51 426 58 435 76 C457 72 472 86 473 103 C498 102 508 117 513 127 C549 131 578 136 610 145 L692 155 C616 158 558 154 500 156 C461 163 424 162 389 158 C345 157 313 165 271 160 C220 156 179 159 130 153 Z" />
+    </g>
+    <g class="hero-clouds hero-clouds-back" fill="#E8EDE4" stroke="none">
+      <path transform="translate(300 55) scale(0.65)" d="M845 213 C881 206 911 207 941 199 C940 183 957 174 978 181 C986 158 1009 153 1030 166 C1022 136 1038 115 1062 119 C1085 119 1093 142 1106 147 C1122 133 1145 138 1153 157 C1175 151 1193 168 1190 183 C1214 180 1228 190 1240 196 C1275 202 1310 199 1341 207 L1390 215 C1325 220 1274 214 1220 216 C1174 223 1140 216 1097 219 C1052 224 1020 218 981 217 C936 216 889 220 845 213 Z" />
+    </g>
+    <g class="hero-clouds hero-clouds-small" fill="#E8EDE4" stroke="none">
+      <path transform="translate(50 60) scale(0.65)" d="M50 302 C75 297 98 297 119 290 C113 279 123 270 140 274 C145 259 160 253 175 261 C167 240 177 226 193 230 C208 230 214 246 223 250 C236 240 252 245 257 258 C272 254 285 264 284 274 C301 272 310 281 319 284 C344 289 368 287 392 297 C362 302 331 298 303 302 C270 307 248 300 220 303 C183 307 159 301 129 303 C98 303 76 306 50 302 Z" />
+    </g>
+    <!-- Smaller, distinct silhouettes occupy separate lower altitude bands. -->
+    <g class="hero-clouds hero-clouds-extra" fill="#E8EDE4" stroke="none">
+      <path d="M240 321 C262 316 278 318 293 312 C290 301 301 294 313 300 C318 281 338 277 349 290 C364 283 379 295 376 305 C391 299 404 308 407 314 L477 323 C445 326 411 322 386 325 C349 328 315 322 290 325 Z" />
+    </g>
+    <g class="hero-clouds hero-clouds-back hero-clouds-extra" fill="#E8EDE4" stroke="none">
+      <path d="M925 376 L960 370 C970 355 986 357 995 363 C1003 349 1020 350 1027 360 C1041 353 1053 364 1050 371 C1071 370 1093 374 1128 379 C1097 384 1071 378 1040 381 C1009 384 983 377 958 380 Z" />
+    </g>
+    <g class="hero-clouds hero-clouds-small hero-clouds-extra" fill="#E8EDE4" stroke="none">
+      <path d="M65 425 C84 419 103 422 114 417 C110 405 122 400 131 407 C133 389 153 387 161 402 C174 399 184 408 180 415 C200 412 219 422 245 426 C214 430 190 426 167 429 C143 432 120 426 98 429 Z" />
+    </g>
     <!-- Layers, far to near; --depth is the parallax travel in px -->
     <g class="hero-layer" style="--depth: 40">
       <path d={h.hood} fill="#5B7A72" />
@@ -79,15 +106,14 @@ const h = terrain.hero;
     </g>
     <path class="hero-layer" style="--depth: 30" d={h.r1} fill="#3A5A4D" />
     <path class="hero-layer" style="--depth: 20" d={h.r2} fill="#2B4A3D" />
-    <g class="hero-layer" style="--depth: 15">
-      <g class="hero-fog" fill="url(#fog-fill)">
-        <ellipse cx="520" cy="522" rx="760" ry="30" />
-        <ellipse cx="1080" cy="512" rx="560" ry="22" />
-      </g>
-    </g>
     <g class="hero-layer" style="--depth: 10">
       <path d={h.r3} fill="#1F3A2E" />
       <path d={h.trees_far} fill="#1F3A2E" />
+    </g>
+    <!-- Low foreground fog floats over the distant trees, behind the nearest treeline. -->
+    <g fill="url(#fog-fill)">
+      <ellipse class="hero-fog" cx="450" cy="522" rx="530" ry="36" />
+      <ellipse class="hero-fog hero-fog-back" cx="1110" cy="512" rx="410" ry="28" />
     </g>
     <path d={h.ground} fill="#12271C" />
     <path d={h.trees_near} fill="#12271C" />

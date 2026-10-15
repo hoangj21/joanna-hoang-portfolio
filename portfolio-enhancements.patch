@@ -1,0 +1,205 @@
+diff --git a/src/components/Hero.astro b/src/components/Hero.astro
+index 91b1c71..debaab9 100644
+--- a/src/components/Hero.astro
++++ b/src/components/Hero.astro
+@@ -30,12 +30,12 @@ const h = terrain.hero;
+   </div>
+ 
+   <div class="relative z-3 mx-auto w-full max-w-[1100px] px-[18px] pt-[clamp(4rem,10vh,7rem)] sm:px-6">
+-    <h1 class="mb-5 text-[clamp(3.4rem,10vw,7.2rem)] font-light leading-[0.95] tracking-[-0.045em] text-cream-bright">
++    <h1 class="hero-enter mb-5 text-[clamp(3.4rem,10vw,7.2rem)] font-light leading-[0.95] tracking-[-0.045em] text-cream-bright" style="--hero-delay: 80ms">
+       {first}<br /><em class="font-light text-peach-soft">{rest.join(' ')}</em>
+     </h1>
+-    <p class="mb-5 font-mono text-[clamp(0.78rem,1.6vw,0.88rem)] uppercase tracking-[0.08em] text-peach">{site.role}</p>
+-    <p class="mb-8 max-w-[46ch] text-[clamp(1.05rem,1.9vw,1.2rem)] leading-[1.6] text-cream/85">{site.heroIntro}</p>
+-    <div class="flex flex-wrap gap-3">
++    <p class="hero-enter mb-5 font-mono text-[clamp(0.78rem,1.6vw,0.88rem)] uppercase tracking-[0.08em] text-peach" style="--hero-delay: 220ms">{site.role}</p>
++    <p class="hero-enter mb-8 max-w-[46ch] text-[clamp(1.05rem,1.9vw,1.2rem)] leading-[1.6] text-cream/85" style="--hero-delay: 330ms">{site.heroIntro}</p>
++    <div class="hero-enter flex flex-wrap gap-3" style="--hero-delay: 460ms">
+       <Button variant="hero" href={`mailto:${site.email}`}>
+         <Icon name="mail" class="size-4 shrink-0" />
+         <span class="font-mono text-[0.86rem] font-medium">{site.email}</span>
+diff --git a/src/components/Nav.astro b/src/components/Nav.astro
+index a01bf24..6dfbbe7 100644
+--- a/src/components/Nav.astro
++++ b/src/components/Nav.astro
+@@ -25,7 +25,7 @@ const links = [
+       {
+         links.map((l) => (
+           <li>
+-            <a href={l.href} class="whitespace-nowrap text-fg-muted hover:text-ember-text hover:no-underline">
++            <a href={l.href} data-nav-link class="whitespace-nowrap text-fg-muted hover:text-ember-text hover:no-underline">
+               {l.label}
+             </a>
+           </li>
+@@ -42,4 +42,5 @@ const links = [
+       </button>
+     </div>
+   </div>
++  <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
+ </nav>
+diff --git a/src/components/cases/Flow.astro b/src/components/cases/Flow.astro
+index f76813d..94700b5 100644
+--- a/src/components/cases/Flow.astro
++++ b/src/components/cases/Flow.astro
+@@ -11,10 +11,16 @@ const { steps, note } = Astro.props;
+ ---
+ 
+ <figure class="col-span-full m-0 min-w-0 rounded-md border border-border bg-bg-alt px-5 pb-4 pt-[1.1rem]">
+-  <p class="mb-3 flex max-w-none items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-fg-faint">
+-    <span class="h-2.5 w-3.5 rounded-[2px] border-[1.5px] border-ember bg-ember/15" aria-hidden="true"></span>
+-    My part
+-  </p>
++  <div class="mb-3 flex items-center justify-between gap-4">
++    <p class="m-0 flex max-w-none items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-fg-faint">
++      <span class="h-2.5 w-3.5 rounded-[2px] border-[1.5px] border-ember bg-ember/15" aria-hidden="true"></span>
++      My part
++    </p>
++    <button type="button" class="flow-replay" data-flow-replay hidden>
++      <span aria-hidden="true">↻</span>
++      <span>Replay flow</span>
++    </button>
++  </div>
+   <ol
+     class="flow m-0 flex list-none flex-col items-start gap-[1.35rem] p-0 min-[601px]:flex-row min-[601px]:flex-wrap min-[601px]:items-center min-[601px]:gap-x-0 min-[601px]:gap-y-[0.55rem]"
+     style={`--n: ${steps.length}`}
+diff --git a/src/scripts/main.ts b/src/scripts/main.ts
+index c6990ab..ffbe981 100644
+--- a/src/scripts/main.ts
++++ b/src/scripts/main.ts
+@@ -18,6 +18,37 @@ const themeMetas = [...document.querySelectorAll<HTMLMetaElement>('meta[name="th
+ const themeToggles = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+ const themeResets = document.querySelectorAll<HTMLButtonElement>('[data-theme-reset]');
+ 
++// Scroll-aware navigation and a slim progress line make the long portfolio easier to explore.
++const nav = document.querySelector<HTMLElement>('nav[aria-label="Primary"]');
++const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')];
++const progressBar = document.querySelector<HTMLElement>('[data-scroll-progress]');
++const navSections = navLinks
++  .map((link) => ({ link, section: document.querySelector<HTMLElement>(link.getAttribute('href') ?? '') }))
++  .filter((item): item is { link: HTMLAnchorElement; section: HTMLElement } => !!item.section);
++let navFrame = 0;
++function updateScrollNavigation() {
++  if (navFrame) return;
++  navFrame = requestAnimationFrame(() => {
++    navFrame = 0;
++    const maxScroll = root.scrollHeight - window.innerHeight;
++    const progress = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
++    progressBar?.style.setProperty('--scroll-progress', String(progress));
++
++    const activationLine = (nav?.getBoundingClientRect().bottom ?? 0) + 48;
++    let active: HTMLAnchorElement | undefined;
++    for (const { link, section } of navSections) {
++      if (section.getBoundingClientRect().top <= activationLine) active = link;
++    }
++    for (const { link } of navSections) {
++      if (link === active) link.setAttribute('aria-current', 'location');
++      else link.removeAttribute('aria-current');
++    }
++  });
++}
++window.addEventListener('scroll', updateScrollNavigation, { passive: true });
++window.addEventListener('resize', updateScrollNavigation, { passive: true });
++updateScrollNavigation();
++
+ const chosenTheme = (): Theme | undefined =>
+   root.dataset.theme === 'light' || root.dataset.theme === 'dark' ? root.dataset.theme : undefined;
+ const activeTheme = (): Theme => chosenTheme() ?? (systemDark.matches ? 'dark' : 'light');
+@@ -89,6 +120,22 @@ for (const button of document.querySelectorAll<HTMLButtonElement>('[data-case-to
+     body.inert = !open;
+   });
+ }
++
++// Let visitors replay a case-study flow after opening it, without closing the case.
++for (const button of document.querySelectorAll<HTMLButtonElement>('[data-flow-replay]')) {
++  if (reduceMotion) continue;
++  button.hidden = false;
++  button.setAttribute('aria-label', 'Replay this case study flow');
++  button.addEventListener('click', () => {
++    const card = button.closest<HTMLElement>('[data-case]');
++    if (!card?.hasAttribute('data-open')) return;
++    card.removeAttribute('data-play');
++    requestAnimationFrame(() => {
++      void card.offsetWidth;
++      card.setAttribute('data-play', '');
++    });
++  });
++}
+ const openCases = document.querySelectorAll('[data-case][data-open]');
+ if (reduceMotion || !canObserve) openCases.forEach((el) => el.setAttribute('data-play', ''));
+ else onFirstView(openCases, 0.35, (el) => el.setAttribute('data-play', ''));
+diff --git a/src/styles/global.css b/src/styles/global.css
+index 6fa8b37..62041c7 100644
+--- a/src/styles/global.css
++++ b/src/styles/global.css
+@@ -272,6 +272,26 @@
+     .flow > li:not(:last-child) { margin-right: 1.6rem; }
+     .flow > li:not(:last-child)::after { content: '→'; left: auto; top: auto; right: -1.25rem; }
+   }
++  .flow-replay {
++    display: inline-flex;
++    align-items: center;
++    gap: 0.4rem;
++    border: 1px solid var(--border-strong);
++    border-radius: 999px;
++    padding: 0.25rem 0.65rem;
++    color: var(--fg-muted);
++    background: var(--card);
++    font-family: var(--font-mono);
++    font-size: 0.64rem;
++    letter-spacing: 0.04em;
++    text-transform: uppercase;
++    cursor: pointer;
++    transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
++  }
++  .flow-replay[hidden] { display: none; }
++  .flow-replay:hover { color: var(--ember-text); border-color: var(--ember); background: var(--accent-light); }
++  .flow-replay:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
++  .flow-replay > span:first-child { font-size: 1rem; line-height: 1; }
+ 
+   /* Shown only where it can drift (see below) */
+   .hero-fog { opacity: 0; }
+@@ -282,6 +302,14 @@
+    * those the page renders in its final state.
+    */
+   @media (prefers-reduced-motion: no-preference) {
++    /* A single, staggered entrance gives the opening typography a little ceremony. */
++    .js .hero-enter {
++      opacity: 0;
++      transform: translateY(16px);
++      animation: hero-rise 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
++      animation-delay: var(--hero-delay, 0ms);
++    }
++
+     /* Gentle reveal on scroll */
+     .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+     .js .reveal.in { opacity: 1; transform: none; }
+@@ -358,9 +386,28 @@
+     :root:not([data-theme="light"]) .theme-icon-sun { display: block; }
+     :root:not([data-theme="light"]) .theme-icon-moon { display: none; }
+   }
++  /* Compact, branded progress track and active section marker in the sticky navigation. */
++  .scroll-progress { height: 2px; overflow: hidden; background: var(--border); }
++  .scroll-progress > span {
++    display: block;
++    width: 100%;
++    height: 100%;
++    transform: scaleX(var(--scroll-progress, 0));
++    transform-origin: left center;
++    background: linear-gradient(90deg, var(--pine), var(--ember));
++    will-change: transform;
++  }
++  nav[aria-label="Primary"] a[aria-current="location"] {
++    color: var(--pine);
++    text-decoration: underline;
++    text-decoration-color: var(--ember);
++    text-decoration-thickness: 2px;
++    text-underline-offset: 6px;
++  }
+ }
+ 
+ @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
++@keyframes hero-rise { to { opacity: 1; transform: translateY(0); } }
+ @keyframes grow { from { transform: scaleY(0); } }
+ @keyframes pop { from { opacity: 0; scale: 0.2; } }
+ @keyframes sink { to { translate: 0 calc(var(--depth, 0) * var(--parallax, 1px)); } }

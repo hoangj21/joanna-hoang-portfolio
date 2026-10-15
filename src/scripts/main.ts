@@ -18,6 +18,37 @@ const themeMetas = [...document.querySelectorAll<HTMLMetaElement>('meta[name="th
 const themeToggles = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
 const themeResets = document.querySelectorAll<HTMLButtonElement>('[data-theme-reset]');
 
+// Scroll-aware navigation and a slim progress line make the long portfolio easier to explore.
+const nav = document.querySelector<HTMLElement>('nav[aria-label="Primary"]');
+const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')];
+const progressBar = document.querySelector<HTMLElement>('[data-scroll-progress]');
+const navSections = navLinks
+  .map((link) => ({ link, section: document.querySelector<HTMLElement>(link.getAttribute('href') ?? '') }))
+  .filter((item): item is { link: HTMLAnchorElement; section: HTMLElement } => !!item.section);
+let navFrame = 0;
+function updateScrollNavigation() {
+  if (navFrame) return;
+  navFrame = requestAnimationFrame(() => {
+    navFrame = 0;
+    const maxScroll = root.scrollHeight - window.innerHeight;
+    const progress = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+    progressBar?.style.setProperty('--scroll-progress', String(progress));
+
+    const activationLine = (nav?.getBoundingClientRect().bottom ?? 0) + 48;
+    let active: HTMLAnchorElement | undefined;
+    for (const { link, section } of navSections) {
+      if (section.getBoundingClientRect().top <= activationLine) active = link;
+    }
+    for (const { link } of navSections) {
+      if (link === active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+  });
+}
+window.addEventListener('scroll', updateScrollNavigation, { passive: true });
+window.addEventListener('resize', updateScrollNavigation, { passive: true });
+updateScrollNavigation();
+
 const chosenTheme = (): Theme | undefined =>
   root.dataset.theme === 'light' || root.dataset.theme === 'dark' ? root.dataset.theme : undefined;
 const activeTheme = (): Theme => chosenTheme() ?? (systemDark.matches ? 'dark' : 'light');
@@ -87,6 +118,29 @@ for (const button of document.querySelectorAll<HTMLButtonElement>('[data-case-to
     card.toggleAttribute('data-play', open);
     button.setAttribute('aria-expanded', String(open));
     body.inert = !open;
+  });
+}
+
+// Let visitors replay a case-study flow after opening it, without closing the case.
+for (const button of document.querySelectorAll<HTMLButtonElement>('[data-flow-replay]')) {
+  if (reduceMotion) continue;
+  button.hidden = false;
+  button.setAttribute('aria-label', 'Replay this case study flow');
+  button.addEventListener('click', () => {
+    const card = button.closest<HTMLElement>('[data-case]');
+    if (!card?.hasAttribute('data-open')) return;
+    // Reset immediately: reversing a transition for only one frame barely changes its
+    // opacity, so toggling data-play alone can look like nothing happened.
+    button.disabled = true;
+    card.setAttribute('data-flow-reset', '');
+    card.removeAttribute('data-play');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        card.removeAttribute('data-flow-reset');
+        if (card.hasAttribute('data-open')) card.setAttribute('data-play', '');
+        button.disabled = false;
+      });
+    });
   });
 }
 const openCases = document.querySelectorAll('[data-case][data-open]');

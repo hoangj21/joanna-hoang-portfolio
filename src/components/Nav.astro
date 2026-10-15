@@ -25,7 +25,7 @@ const links = [
       {
         links.map((l) => (
           <li>
-            <a href={l.href} class="whitespace-nowrap text-fg-muted hover:text-ember-text hover:no-underline">
+            <a href={l.href} data-nav-link class="whitespace-nowrap text-fg-muted hover:text-ember-text hover:no-underline">
               {l.label}
             </a>
           </li>
@@ -42,4 +42,5 @@ const links = [
       </button>
     </div>
   </div>
+  <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
 </nav>

@@ -11,10 +11,16 @@ const { steps, note } = Astro.props;
 ---
 
 <figure class="col-span-full m-0 min-w-0 rounded-md border border-border bg-bg-alt px-5 pb-4 pt-[1.1rem]">
-  <p class="mb-3 flex max-w-none items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-fg-faint">
-    <span class="h-2.5 w-3.5 rounded-[2px] border-[1.5px] border-ember bg-ember/15" aria-hidden="true"></span>
-    My part
-  </p>
+  <div class="mb-3 flex items-center justify-between gap-4">
+    <p class="m-0 flex max-w-none items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-fg-faint">
+      <span class="h-2.5 w-3.5 rounded-[2px] border-[1.5px] border-ember bg-ember/15" aria-hidden="true"></span>
+      My part
+    </p>
+    <button type="button" class="flow-replay" data-flow-replay hidden>
+      <span aria-hidden="true">↻</span>
+      <span>Replay flow</span>
+    </button>
+  </div>
   <ol
     class="flow m-0 flex list-none flex-col items-start gap-[1.35rem] p-0 min-[601px]:flex-row min-[601px]:flex-wrap min-[601px]:items-center min-[601px]:gap-x-0 min-[601px]:gap-y-[0.55rem]"
     style={`--n: ${steps.length}`}
