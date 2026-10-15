@@ -29,6 +29,7 @@ const site = defineCollection({
     portrait: z.string().optional(),
     artPortfolioUrl: z.string().optional(),
     heroIntro: z.string(),
+    heroCaption: z.string().optional(),
     employers: z.array(z.strictObject({ name: z.string(), logo: logoKey })),
     agencies: z.array(z.string()),
     about: z.object({
