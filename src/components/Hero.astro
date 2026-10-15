@@ -24,7 +24,7 @@ const h = terrain.hero;
   class="relative flex flex-col overflow-hidden bg-[linear-gradient(180deg,#0A1A12_0%,#12291D_38%,#2C4E42_72%,#6F7A5F_100%)] text-cream hero:min-h-[max(clamp(720px,94vh,920px),calc(100vw/2.25*0.92))]"
 >
   <div
-    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_46%_30%_at_72%_78%,rgba(232,150,92,0.5),transparent_70%)]"
+    class="hero-sky-glow pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_46%_30%_at_72%_78%,rgba(232,150,92,0.5),transparent_70%)]"
     aria-hidden="true"
   >
   </div>
@@ -74,7 +74,7 @@ const h = terrain.hero;
       </radialGradient>
     </defs>
     <!-- A restrained sunset glow, behind the mountain's right-hand silhouette. -->
-    <ellipse cx="1240" cy="390" rx="470" ry="300" fill="url(#mountain-glow)" />
+    <ellipse class="hero-mountain-glow" cx="1240" cy="390" rx="470" ry="300" fill="url(#mountain-glow)" />
     <!-- Solid, low-opacity cloud silhouettes behind every mountain layer. -->
     <g class="hero-clouds" fill="#E8EDE4" stroke="none">
       <path transform="translate(45 2) scale(0.65)" d="M130 153 C165 147 202 146 234 137 C222 122 241 110 269 114 C272 94 291 85 316 91 C303 62 321 43 345 48 C362 50 371 67 386 69 C402 51 426 58 435 76 C457 72 472 86 473 103 C498 102 508 117 513 127 C549 131 578 136 610 145 L692 155 C616 158 558 154 500 156 C461 163 424 162 389 158 C345 157 313 165 271 160 C220 156 179 159 130 153 Z" />

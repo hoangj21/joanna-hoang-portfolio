@@ -439,3 +439,13 @@
   to { translate: var(--cloud-end) 0; }
 }
 @media (width < 86.25rem) { :root { --parallax: 0.4px; } }
+
+/* On phones, anchor the sunset to the landscape rather than the tall hero copy. */
+@media (max-width: 767px) {
+  .hero-sky-glow {
+    top: auto;
+    height: 280px;
+    background: radial-gradient(ellipse 65% 60% at 85% 85%, rgba(232, 150, 92, 0.12), transparent 75%);
+  }
+  .hero-mountain-glow { transform: translateY(90px); opacity: 0.55; }
+}
