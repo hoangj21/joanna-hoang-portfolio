@@ -332,6 +332,29 @@
       .js .hero-layer { --timeline: scroll(root); animation-name: sink; animation-range: 0 100vh; }
     }
   }
+
+  /* Theme toggle in the nav: a round icon button, plus an "Auto" reset once a theme is chosen */
+  .theme-switch { display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; }
+  .theme-switch[hidden], .theme-reset[hidden] { display: none; }
+  .theme-toggle {
+    display: inline-grid; place-items: center; width: 40px; height: 40px; padding: 0;
+    border: 1px solid var(--border-strong); border-radius: 999px;
+    color: var(--fg); background: var(--card); cursor: pointer;
+  }
+  .theme-toggle:hover { border-color: var(--pine); background: var(--accent-light); }
+  .theme-reset {
+    min-height: 40px; padding: 0 8px; border: 0; background: none; cursor: pointer;
+    color: var(--fg-muted); font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .theme-reset:hover { color: var(--ember-text); text-decoration: underline; text-underline-offset: 3px; }
+  /* The icon shows where a click goes: a moon while light, a sun while dark */
+  .theme-icon-sun { display: none; }
+  :root[data-theme="dark"] .theme-icon-sun { display: block; }
+  :root[data-theme="dark"] .theme-icon-moon { display: none; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-icon-sun { display: block; }
+    :root:not([data-theme="light"]) .theme-icon-moon { display: none; }
+  }
 }
 
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
