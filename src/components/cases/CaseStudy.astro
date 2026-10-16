@@ -5,6 +5,7 @@ import ImageSlot from '../ui/ImageSlot.astro';
 import Facts from '../ui/Facts.astro';
 import Tags from '../ui/Tags.astro';
 import Icon from '../ui/Icon.astro';
+import CaseCover from './CaseCover.astro';
 
 interface Props {
   entry: CollectionEntry<'cases'>;
@@ -23,11 +24,12 @@ const showPhoto = c.image?.src || !c.diagram;
 ---
 
 <article
-  class="group overflow-hidden rounded-[10px] border border-border bg-card transition-[border-color,box-shadow] hover:border-border-strong hover:shadow-[0_6px_28px_var(--glow)] data-open:border-border-strong data-open:shadow-[0_6px_28px_var(--glow)]"
+  class="case-card group overflow-hidden rounded-[10px] border border-border bg-card transition-[border-color,box-shadow] hover:border-border-strong hover:shadow-[0_6px_28px_var(--glow)] data-open:col-span-full data-open:border-border-strong data-open:shadow-[0_6px_28px_var(--glow)]"
   data-case
   data-open={c.open ? '' : undefined}
   style={`--i: ${index}`}
 >
+  <div class="case-preview"><CaseCover data={c} /></div>
   <h3 class="m-0">
     <button
       type="button"
@@ -40,6 +42,7 @@ const showPhoto = c.image?.src || !c.diagram;
       <span class="min-w-0">
         <span class="mb-1 block font-display text-[1.3rem] font-medium leading-tight text-fg">{c.title}</span>
         <span class="block font-body text-[0.86rem] font-normal text-fg-muted">{c.subtitle}</span>
+        <span class="collapsed-status mt-3 font-mono text-[0.7rem] font-normal leading-relaxed text-pine">{c.status}</span>
       </span>
       <span class="flex items-center gap-4">
         <span class="hidden whitespace-nowrap rounded-full bg-accent-light px-3 py-1 font-mono text-[0.7rem] font-normal tracking-[0.04em] text-pine sm:inline">
@@ -111,3 +114,18 @@ const showPhoto = c.image?.src || !c.diagram;
     </div>
   </div>
 </article>
+
+<style>
+  /* Keep the original full-width details and header treatment when expanded. */
+  .case-card[data-open] .case-preview { display: none; }
+  .collapsed-status { display: none; }
+  .case-card:not([data-open]) .collapsed-status { display: block; }
+  .case-card:not([data-open]) [data-case-toggle] {
+    padding: 20px;
+    gap: 14px;
+  }
+  .case-card:not([data-open]) [data-case-toggle] > span:last-child > span { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    [data-case-body], [data-case-toggle] :global(svg) { transition: none; }
+  }
+</style>
