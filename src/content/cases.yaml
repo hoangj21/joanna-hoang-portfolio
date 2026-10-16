@@ -6,7 +6,7 @@
 - id: neva
   order: 1
   title: Identifying every occupant without stopping the car
-  subtitle: NEC National Security Systems · U.S. Customs and Border Protection
+  subtitle: NEC National Security Systems · Department of Homeland Security
   status: Deal won · pilot rollout
   open: true
   diagram:
@@ -21,7 +21,7 @@
       - { label: Access or alert }
     note: NEVA pipeline. I ran the field tests on capture and validated the API and matching workflow.
   situation: >-
-    CBP wanted to identify everyone in a moving vehicle at secured entry points. NEC's NEVA system triggers
+    A DHS agency wanted to identify everyone in a moving vehicle at secured entry points. NEC's NEVA system triggers
     several high-resolution cameras as a car passes and sends the best face image of each occupant to a
     biometric matcher.
   role: >-

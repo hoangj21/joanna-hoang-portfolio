@@ -15,7 +15,7 @@ const { header } = Astro.props;
 const items = (await getCollection('live')).sort((a, b) => Number(a.data.featured) - Number(b.data.featured) || byOrder(a, b));
 ---
 
-<Section id="live" numeral="04" tone="alt" topo="topo-b">
+<Section id="live" numeral="03" tone="alt" topo="topo-b">
   <SectionHeader {...header} />
   <div class="grid gap-6 md:grid-cols-2" data-stagger>
     {

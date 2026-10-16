@@ -4,14 +4,14 @@ import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import Credits from '../components/Credits.astro';
-import About from '../components/About.astro';
 import Numbers from '../components/Numbers.astro';
-import Experience from '../components/Experience.astro';
 import CaseStudies from '../components/CaseStudies.astro';
+import Experience from '../components/Experience.astro';
 import LiveWork from '../components/LiveWork.astro';
+import Testimonials from '../components/Testimonials.astro';
+import About from '../components/About.astro';
 import Research from '../components/Research.astro';
 import Skills from '../components/Skills.astro';
-import Testimonials from '../components/Testimonials.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 
@@ -31,14 +31,14 @@ const header = (key: string) => {
   <Hero site={site} />
   <main id="main-content" tabindex="-1">
     <Credits site={site} />
-    <About site={site} />
     <Numbers numbers={site.numbers} />
-    <Experience header={header('experience')} />
     <CaseStudies header={header('cases')} />
+    <Experience header={header('experience')} />
     <LiveWork header={header('live')} />
+    <Testimonials header={header('testimonials')} />
+    <About site={site} />
     <Research header={header('research')} />
     <Skills header={header('skills')} />
-    <Testimonials header={header('testimonials')} />
     <Contact site={site} />
   </main>
   <Footer site={site} />

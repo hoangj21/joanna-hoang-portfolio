@@ -11,7 +11,7 @@ const { header } = Astro.props;
 const groups = (await getCollection('skills')).sort(byOrder);
 ---
 
-<Section id="skills" numeral="06">
+<Section id="skills" numeral="07">
   <SectionHeader {...header} />
   <div class="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-x-8 gap-y-9" data-stagger>
     {

@@ -12,7 +12,7 @@ const { header } = Astro.props;
 const cases = (await getCollection('cases')).sort(byOrder);
 ---
 
-<Section id="work" numeral="03">
+<Section id="work" numeral="01">
   <SectionHeader {...header} />
   <div class="grid grid-cols-1 items-start gap-4 min-[701px]:grid-cols-2" data-stagger>
     {cases.map((entry, index) => <CaseStudy entry={entry} index={index} />)}

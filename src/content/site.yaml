@@ -41,7 +41,7 @@ profile:
       - >-
         For nearly three years at NEC National Security Systems I ran discovery and requirements sessions,
         tailored demos, and stayed through deployment and post-sales support for identity, access and
-        perimeter-security programs with DHS, CBP, the Secret Service, the U.S. Marshals Service and U.S. Courts.
+        perimeter-security programs with a DHS agency, the Secret Service, the U.S. Marshals Service and U.S. Courts.
       - >-
         Before that, at Intel, I built and ran hands-on AI labs, demos and a 100-developer hackathon for
         Intel Innovation 2022. Before *that*, I was training transformer models on household energy data
@@ -63,31 +63,31 @@ profile:
     - { value: "100+", label: "Developers at the Intel Innovation AI hackathon I helped run" }
 
   sections:
-    about: { label: "01 · About", title: About }
+    about: { label: "05 · About", title: About }
     experience:
       label: "02 · Experience"
       title: The trail so far
       intro: Most recent first. 
     cases:
-      label: "03 · Case studies"
+      label: "01 · Case studies"
       title: Solutions breakdown
       intro: >-
         Five engagements, start to finish: the customer's problem, my role, what we did, and how it ended.
         The diagrams mark the parts I owned.
     live:
-      label: "04 · Live & published"
+      label: "03 · Live & published"
       title: Work you can open right now
       intro: Shipped applications and published enablement material.
     research:
-      label: "05 · Field research"
+      label: "06 · Field research"
       title: Where the AI roots come from
       intro: Earlier machine learning and data work on energy, wildlife and cancer biology.
     skills:
-      label: "06 · Toolkit"
+      label: "07 · Toolkit"
       title: Skills & tools
       intro: Technologies and methods I've applied in projects.
     testimonials:
-      label: "07 · Testimonials"
+      label: "04 · Testimonials"
       title: From people I've worked with
     contact:
       label: "08 · Contact"
