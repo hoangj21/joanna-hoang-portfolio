@@ -10,13 +10,14 @@ const { data: c } = Astro.props;
   {c.image?.src ? (
     <img src={c.image.src} alt={c.image.alt ?? ''} loading="lazy" />
   ) : c.diagram ? (
-    <div class="cover-diagram" aria-hidden="true">
+    <ol class="cover-diagram" role="list" aria-label="Workflow preview">
       {c.diagram.steps.map((step, i) => (
-        <span class:list={['cover-step', step.mine && 'cover-step-owned']}>
+        <li class:list={['cover-step', step.mine && 'cover-step-owned']}>
           <small>{String(i + 1).padStart(2, '0')}</small>{step.label}
-        </span>
+          {step.mine && <span class="sr-only"> (my part)</span>}
+        </li>
       ))}
-    </div>
+    </ol>
   ) : null}
 </div>
 
@@ -26,6 +27,7 @@ const { data: c } = Astro.props;
   .cover-diagram {
     display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-content: center; gap: 12px; min-height: 260px; padding: 20px;
+    margin: 0; list-style: none;
     background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
     background-size: 28px 28px;
   }
@@ -36,5 +38,11 @@ const { data: c } = Astro.props;
     line-height: 1.4; overflow-wrap: anywhere;
   }
   small { flex-shrink: 0; white-space: nowrap; font: .6rem var(--font-mono); color: var(--fg-muted); }
-  .cover-step-owned { border-color: var(--pine); box-shadow: inset 3px 0 var(--pine); }
+  .cover-step-owned {
+    border: 1.5px solid var(--ember);
+    background: color-mix(in srgb, var(--ember) 12%, var(--card));
+    box-shadow: inset 3px 0 var(--ember);
+  }
+  /* Keep the small ember numbers above 4.5:1 on the tinted light surface. */
+  .cover-step-owned small { color: color-mix(in srgb, var(--ember-text) 98%, var(--fg)); }
 </style>
