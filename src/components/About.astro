@@ -6,16 +6,17 @@ import Label from './ui/Label.astro';
 import Topo from './ui/Topo.astro';
 
 interface Props {
+  num: string;
   site: CollectionEntry<'site'>['data'];
 }
-const { site } = Astro.props;
+const { site, num } = Astro.props;
 const { about } = site;
 const notes = about.fieldNotes.map((n) =>
   n.label === 'Off hours' && site.artPortfolioUrl && !n.href ? { ...n, href: site.artPortfolioUrl } : n,
 );
 ---
 
-<Section id="about">
+<Section id="about" numeral={num}>
   <div class="grid items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-16">
     <div>
       <div class="relative flex aspect-[4/5] max-w-[320px] items-end overflow-hidden rounded-[4px_4px_120px_4px] border border-border bg-bg-alt p-5 md:max-w-full">
@@ -44,7 +45,7 @@ const notes = about.fieldNotes.map((n) =>
       </dl>
     </div>
     <div>
-      <Label text={site.sections.about?.label ?? 'About'} />
+      <Label text={`${num} · ${site.sections.about?.label ?? 'About'}`} />
       <p
         class="mb-6 font-display text-[clamp(1.4rem,2.6vw,1.85rem)] font-light leading-[1.4] tracking-[-0.01em] [&_strong]:font-medium [&_strong]:text-pine"
         set:html={inline(about.lead)}

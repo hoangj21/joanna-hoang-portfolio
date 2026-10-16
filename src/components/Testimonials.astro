@@ -6,9 +6,10 @@ import SectionHeader from './ui/SectionHeader.astro';
 import Treeline from './Treeline.astro';
 
 interface Props {
+  num: string;
   header: { label: string; title: string; intro?: string };
 }
-const { header } = Astro.props;
+const { header, num } = Astro.props;
 const quotes = (await getCollection('testimonials')).sort(byOrder);
 ---
 
@@ -16,8 +17,8 @@ const quotes = (await getCollection('testimonials')).sort(byOrder);
   quotes.length > 0 && (
     <>
       <Treeline variant="b" />
-      <Section id="testimonials" numeral="04" tone="alt" topo="topo-a" topoFlip>
-        <SectionHeader {...header} />
+      <Section id="testimonials" numeral={num} tone="alt" topo="topo-a" topoFlip>
+        <SectionHeader {...header} num={num} />
         <div class="mt-8 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6" data-stagger>
           {quotes.map(({ data: q }, i) => (
             <figure class="relative m-0 flex flex-col gap-6 rounded-[10px] border border-border bg-card px-7 pb-6 pt-8 before:absolute before:left-5 before:top-1.5 before:font-display before:text-[4.5rem] before:leading-none before:text-ember/30 before:content-['\201C']" style={`--i: ${i}`}>

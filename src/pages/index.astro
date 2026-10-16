@@ -1,5 +1,6 @@
 ---
-import { getEntry } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
+import type { SectionKey } from '../lib/sections';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
@@ -19,27 +20,36 @@ const entry = await getEntry('site', 'profile');
 if (!entry) throw new Error('src/content/site.yaml must define a `profile` entry');
 const site = entry.data;
 
-const header = (key: string) => {
+const header = (key: SectionKey) => {
   const s = site.sections[key];
   if (!s) throw new Error(`site.yaml is missing sections.${key}`);
   return s;
 };
+const components = {
+  cases: CaseStudies,
+  experience: Experience,
+  live: LiveWork,
+  testimonials: Testimonials,
+  about: About,
+  research: Research,
+  skills: Skills,
+  contact: Contact,
+};
+const hasTestimonials = (await getCollection('testimonials')).length > 0;
+const sectionOrder = site.sectionOrder.filter((key) => key !== 'testimonials' || hasTestimonials);
+const numbers = Object.fromEntries(sectionOrder.map((key, index) => [key, String(index + 1).padStart(2, '0')]));
 ---
 
 <Base title={site.title} description={site.description}>
-  <Nav name={site.name} />
+  <Nav name={site.name} sectionOrder={sectionOrder} sections={site.sections} />
   <Hero site={site} />
   <main id="main-content" tabindex="-1">
     <Credits site={site} />
     <Numbers numbers={site.numbers} />
-    <CaseStudies header={header('cases')} />
-    <Experience header={header('experience')} />
-    <LiveWork header={header('live')} />
-    <Testimonials header={header('testimonials')} />
-    <About site={site} />
-    <Research header={header('research')} />
-    <Skills header={header('skills')} />
-    <Contact site={site} />
+    {sectionOrder.map((key) => {
+      const Component = components[key];
+      return <Component header={header(key)} site={site} num={numbers[key]} />;
+    })}
   </main>
   <Footer site={site} />
 </Base>

@@ -9,14 +9,15 @@ import Facts from './ui/Facts.astro';
 import Tags from './ui/Tags.astro';
 
 interface Props {
+  num: string;
   header: { label: string; title: string; intro?: string };
 }
-const { header } = Astro.props;
+const { header, num } = Astro.props;
 const roles = (await getCollection('experience')).sort(byOrder);
 ---
 
-<Section id="experience" numeral="02" tone="alt" topo="topo-tall">
-  <SectionHeader {...header} />
+<Section id="experience" numeral={num} tone="alt" topo="topo-tall">
+  <SectionHeader {...header} num={num} />
   <ol class="trail list-none p-0">
     {
       roles.map(({ data: r }, i) => (

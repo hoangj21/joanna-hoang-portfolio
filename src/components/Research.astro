@@ -9,15 +9,16 @@ import Icon from './ui/Icon.astro';
 import Ridge from './Ridge.astro';
 
 interface Props {
+  num: string;
   header: { label: string; title: string; intro?: string };
 }
-const { header } = Astro.props;
+const { header, num } = Astro.props;
 const entries = (await getCollection('research')).sort(byOrder);
 ---
 
 <Ridge into />
-<Section id="research" numeral="06" tone="band" topo="topo-c">
-  <SectionHeader {...header} tone="band" />
+<Section id="research" numeral={num} tone="band" topo="topo-c">
+  <SectionHeader {...header} num={num} tone="band" />
   <div class="research-grid grid items-start gap-6 min-[900px]:grid-cols-3" data-stagger>
     {
       entries.map(({ data: e }, i) => (

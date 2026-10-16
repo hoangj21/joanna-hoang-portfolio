@@ -1,16 +1,16 @@
 ---
+import type { CollectionEntry } from 'astro:content';
+import { sectionIds, type SectionKey } from '../lib/sections';
+
 interface Props {
   name: string;
+  sectionOrder: SectionKey[];
+  sections: CollectionEntry<'site'>['data']['sections'];
 }
-const { name } = Astro.props;
-const links = [
-  { href: '#work', label: 'Case studies' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#live', label: 'Live work' },
-  { href: '#about', label: 'About' },
-  { href: '#research', label: 'Research' },
-  { href: '#contact', label: 'Contact' },
-];
+const { name, sectionOrder, sections } = Astro.props;
+const links = sectionOrder
+  .filter((key) => sections[key]?.nav !== false)
+  .map((key) => ({ href: `#${sectionIds[key]}`, label: sections[key].navLabel ?? sections[key].label }));
 ---
 
 <nav

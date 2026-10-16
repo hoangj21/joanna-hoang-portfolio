@@ -9,6 +9,7 @@
 import { defineCollection } from 'astro:content';
 import { file } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { sectionKeys } from './lib/sections';
 
 // Strict objects: an unexpected key (often an unquoted comma in YAML's { } syntax) fails the build
 // instead of silently dropping text.
@@ -37,7 +38,16 @@ const site = defineCollection({
       fieldNotes: z.array(z.strictObject({ label: z.string(), value: z.string(), href: z.string().optional() })),
     }),
     numbers: z.array(fact),
-    sections: z.record(z.string(), z.object({ label: z.string(), title: z.string(), intro: z.string().optional() })),
+    sectionOrder: z.array(z.enum(sectionKeys)).refine((keys) => new Set(keys).size === keys.length, {
+      message: 'sectionOrder must not contain duplicate section keys',
+    }),
+    sections: z.record(z.string(), z.object({
+      label: z.string(),
+      title: z.string(),
+      intro: z.string().optional(),
+      nav: z.boolean().optional(),
+      navLabel: z.string().optional(),
+    })),
     contact: z.object({ headline: z.string(), emphasis: z.string(), body: z.string() }),
     footer: z.object({ builtWith: z.string() }),
   }),

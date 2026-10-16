@@ -40,6 +40,8 @@ All text lives in `src/content/`. You shouldn't need to touch a component to cha
 
 **Ordering:** each list item has an `order` number; the page sorts by it.
 
+Homepage section order lives in `profile.sectionOrder` in `site.yaml`. Move a key in that list to reorder the page, section numbers, and navigation together; Hero, Credits, and By the numbers stay at the top and remain unnumbered. Keep section labels unnumbered, use `nav: false` to omit a section from navigation, and optionally set `navLabel` for a shorter link name. Empty Testimonials are skipped without leaving a numbering gap.
+
 **Inline formatting:** text fields accept `**bold**`, `*italic*` and `[link text](https://…)`.
 
 **Quoting:** inside `{ … }` one-liners, wrap any value containing a comma in quotes:

@@ -5,14 +5,15 @@ import Section from './ui/Section.astro';
 import SectionHeader from './ui/SectionHeader.astro';
 
 interface Props {
+  num: string;
   header: { label: string; title: string; intro?: string };
 }
-const { header } = Astro.props;
+const { header, num } = Astro.props;
 const groups = (await getCollection('skills')).sort(byOrder);
 ---
 
-<Section id="skills" numeral="07">
-  <SectionHeader {...header} />
+<Section id="skills" numeral={num}>
+  <SectionHeader {...header} num={num} />
   <div class="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-x-8 gap-y-9" data-stagger>
     {
       groups.map(({ data: g }, i) => (

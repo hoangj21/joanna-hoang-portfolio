@@ -8,15 +8,16 @@ import VideoSlot from './ui/VideoSlot.astro';
 import Tags from './ui/Tags.astro';
 
 interface Props {
+  num: string;
   header: { label: string; title: string; intro?: string };
 }
-const { header } = Astro.props;
+const { header, num } = Astro.props;
 // Featured cards span the full width, so they go after the regular two-column grid
 const items = (await getCollection('live')).sort((a, b) => Number(a.data.featured) - Number(b.data.featured) || byOrder(a, b));
 ---
 
-<Section id="live" numeral="03" tone="alt" topo="topo-b">
-  <SectionHeader {...header} />
+<Section id="live" numeral={num} tone="alt" topo="topo-b">
+  <SectionHeader {...header} num={num} />
   <div class="grid gap-6 md:grid-cols-2" data-stagger>
     {
       items.map(({ data: item }, i) => (

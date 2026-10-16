@@ -62,35 +62,41 @@ profile:
     - { value: "5+", label: "Years across software, AI, data and technical delivery" }
     - { value: "100+", label: "Developers at the Intel Innovation AI hackathon I helped run" }
 
+  sectionOrder: [cases, experience, live, testimonials, about, research, skills, contact]
+
   sections:
-    about: { label: "05 · About", title: About }
+    about: { label: About, title: About }
     experience:
-      label: "02 · Experience"
+      label: Experience
       title: The trail so far
       intro: Most recent first. 
     cases:
-      label: "01 · Case studies"
+      label: Case studies
       title: Solutions breakdown
       intro: >-
         Five engagements, start to finish: the customer's problem, my role, what we did, and how it ended.
         The diagrams mark the parts I owned.
     live:
-      label: "03 · Live & published"
+      label: Live & published
+      navLabel: Live work
       title: Work you can open right now
       intro: Shipped applications and published enablement material.
     research:
-      label: "06 · Field research"
+      label: Field research
+      navLabel: Research
       title: Where the AI roots come from
       intro: Earlier machine learning and data work on energy, wildlife and cancer biology.
     skills:
-      label: "07 · Toolkit"
+      label: Toolkit
+      nav: false
       title: Skills & tools
       intro: Technologies and methods I've applied in projects.
     testimonials:
-      label: "04 · Testimonials"
+      label: Testimonials
+      nav: false
       title: From people I've worked with
     contact:
-      label: "08 · Contact"
+      label: Contact
       title: Contact
 
   contact:
