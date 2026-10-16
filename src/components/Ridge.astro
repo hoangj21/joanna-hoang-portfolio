@@ -1,15 +1,19 @@
 ---
 /** Ridgeline edge that carries the page into (or out of) the dark Field research band. */
 import { terrain } from '../lib/terrain';
+import type { SectionBackground } from '../lib/sections';
 
 interface Props {
   into?: boolean;
+  from?: SectionBackground;
+  to?: SectionBackground;
 }
-const into = Astro.props.into ?? true;
+const { into = true, from = 'bg', to = 'bg' } = Astro.props;
+const background = into ? from : to;
 const r = into ? terrain.ridge_a : terrain.ridge_b;
 ---
 
-<div class:list={[into ? '-mb-px bg-bg-alt' : '-mt-px bg-bg']} aria-hidden="true">
+<div class:list={[into ? '-mb-px' : '-mt-px', background === 'bg-alt' ? 'bg-bg-alt' : 'bg-bg']} aria-hidden="true">
   <svg
     class:list={['block h-[clamp(50px,6vw,90px)] w-full', !into && '-scale-y-100']}
     viewBox={`0 0 ${r.W} ${r.H}`}

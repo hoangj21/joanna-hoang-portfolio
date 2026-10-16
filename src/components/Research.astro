@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { byOrder } from '../lib/order';
+import type { SectionBackground } from '../lib/sections';
 import Section from './ui/Section.astro';
 import SectionHeader from './ui/SectionHeader.astro';
 import Facts from './ui/Facts.astro';
@@ -10,13 +11,15 @@ import Ridge from './Ridge.astro';
 
 interface Props {
   num: string;
+  from?: SectionBackground;
+  to?: SectionBackground;
   header: { label: string; title: string; intro?: string };
 }
-const { header, num } = Astro.props;
+const { header, num, from = 'bg', to = 'bg' } = Astro.props;
 const entries = (await getCollection('research')).sort(byOrder);
 ---
 
-<Ridge into />
+<Ridge into from={from} />
 <Section id="research" numeral={num} tone="band" topo="topo-c">
   <SectionHeader {...header} num={num} tone="band" />
   <div class="research-grid grid items-start gap-6 min-[900px]:grid-cols-3" data-stagger>
@@ -79,7 +82,7 @@ const entries = (await getCollection('research')).sort(byOrder);
     }
   </div>
 </Section>
-<Ridge into={false} />
+<Ridge into={false} to={to} />
 
 <script>
   const researchGrid = document.querySelector<HTMLElement>('.research-grid');

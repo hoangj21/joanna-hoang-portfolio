@@ -12,3 +12,15 @@ export const sectionIds: Record<SectionKey, string> = {
   skills: 'skills',
   testimonials: 'testimonials',
 };
+
+export type SectionBackground = 'bg' | 'bg-alt';
+// Surfaces adjoining the research band, used to blend its ridgeline edges.
+export const sectionBackgrounds: Partial<Record<SectionKey, SectionBackground>> = {
+  about: 'bg',
+  cases: 'bg',
+  contact: 'bg',
+  experience: 'bg-alt',
+  live: 'bg-alt',
+  skills: 'bg',
+  testimonials: 'bg-alt',
+};

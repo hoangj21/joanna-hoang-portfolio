@@ -62,7 +62,7 @@ profile:
     - { value: "5+", label: "Years across software, AI, data and technical delivery" }
     - { value: "100+", label: "Developers at the Intel Innovation AI hackathon I helped run" }
 
-  sectionOrder: [cases, experience, live, testimonials, about, research, skills, contact]
+  sectionOrder: [cases, experience, live, testimonials, about, skills, research, contact]
 
   sections:
     about: { label: About, title: About }

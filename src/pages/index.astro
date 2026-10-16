@@ -1,6 +1,6 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
-import type { SectionKey } from '../lib/sections';
+import { sectionBackgrounds, type SectionKey } from '../lib/sections';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
@@ -46,9 +46,11 @@ const numbers = Object.fromEntries(sectionOrder.map((key, index) => [key, String
   <main id="main-content" tabindex="-1">
     <Credits site={site} />
     <Numbers numbers={site.numbers} />
-    {sectionOrder.map((key) => {
+    {sectionOrder.map((key, index) => {
       const Component = components[key];
-      return <Component header={header(key)} site={site} num={numbers[key]} />;
+      const from = sectionBackgrounds[sectionOrder[index - 1]] ?? 'bg';
+      const to = sectionBackgrounds[sectionOrder[index + 1]] ?? 'bg';
+      return <Component header={header(key)} site={site} num={numbers[key]} from={from} to={to} />;
     })}
   </main>
   <Footer site={site} />
