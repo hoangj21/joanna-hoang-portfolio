@@ -120,6 +120,7 @@ const research = defineCollection({
     icon: z.enum(['pylon', 'fluke', 'helix']),
     title: z.string(),
     body: z.string(),
+    previewImage: z.object({ src: z.string(), alt: z.string() }).optional(),
     figure: z.object({ src: z.string(), alt: z.string(), caption: z.string(), width: z.number(), height: z.number() }).optional(),
     facts: z.array(fact).default([]),
     tags: z.array(z.string()).default([]),
