@@ -2,7 +2,7 @@
 # The section hides itself if this list is empty, so delete the placeholders rather than shipping them.
 - id: nec
   order: 1
-  quote: "[Two or three sentences]"
+  quote: "Joanna has a keen understanding of how AI can transform businesses, and she is a pleasure to work with. She is a great communicator and has a strong ability to translate complex technical concepts into clear and actionable insights for clients."
   name: "Jim Robell"
   title: "President & CEO, Fortior Solutions"
   photo: "/images/Jim-Robell.jpg"
@@ -14,7 +14,7 @@
   photo: "/images/Louie-Tsai.webp"
 - id: kgh
   order: 3
-  quote: "[Two or three sentences from a client about a build you delivered.]"
+  quote: "Joanna has consistently delivered exceptional results for every project of hers I have overseen. She is a highly skilled and knowledgeable solutions engineer who has a deep understanding of AI and its applications, and I would highly recommend her for any AI-related project."
   name: "Dr. Kathleen Kiernan, Ed.D"
   title: "CEO, Kiernan Group Holdings"
   photo: "/images/dr-k.jpeg"
