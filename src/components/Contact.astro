@@ -5,14 +5,15 @@ import Label from './ui/Label.astro';
 import Button from './ui/Button.astro';
 
 interface Props {
+  num: string;
   site: CollectionEntry<'site'>['data'];
 }
-const { site } = Astro.props;
+const { site, num } = Astro.props;
 const { contact } = site;
 ---
 
-<Section id="contact" numeral="08">
-  <Label text={site.sections.contact?.label ?? 'Contact'} />
+<Section id="contact" numeral={num}>
+  <Label text={`${num} · ${site.sections.contact?.label ?? 'Contact'}`} />
   <div class="grid items-end gap-6 md:grid-cols-[7fr_5fr] md:gap-12">
     <div>
       <h2 class="mb-4 text-[clamp(2.6rem,6.5vw,4.6rem)] font-light tracking-[-0.035em]">

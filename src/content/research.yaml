@@ -1,5 +1,6 @@
 # Field research cards. icon: pylon | fluke | helix
 # figure: optional image shown below the tags (put it under public/images/research/)
+# previewImage: optional cover image; otherwise use figure or the existing research icon
 - id: pge
   order: 1
   note: Field note 01
@@ -7,11 +8,14 @@
   org: Portland General Electric
   icon: pylon
   title: Transformers, before they were famous
+  previewImage:
+    src: /images/research/pge.jpg
+    alt: Wind turbines across rolling green hills
   body: >-
     I explored how household electricity-use patterns could help classify behind-the-meter appliances, including potential EV ownership. This information could help utilities estimate market size and plan for added demand.  A convolutional autoencoder fell short, so I tried a transformer when nearly every example was still about language. The reconstruction got much closer to the real series. Because labeled examples are essential for classification, I also built an interactive widget to make manual review and annotation easier.
   facts:
     - { value: ">40%", label: lower loss than the autoencoder }
-  tags: [PyTorch, AWS SageMaker, Time series, Transformers, Autoencoders]
+  tags: [PyTorch, AWS SageMaker, Time series, Transformers]
 
 - id: wild-me
   order: 2
@@ -40,16 +44,18 @@
   order: 3
   note: Field note 03
   dates: "2019"
-  org: University of Portland
+  org: University of Portland and OHSU
   icon: helix
   title: T cells that fight tumors
   body: >-
-    Does an antibody-peptide MHC drug activate T cells to kill tumor cells in mice? Our four-person team, working
-    with a faculty collaborator, compared T cells from blood and from inside tumors, with and without treatment. My
-    part was data cleaning and the bioinformatics analysis: filtering, normalization and differential expression in
-    R with DESeq, checked with PCA and clustering. Treated tumor T cells upregulated activation genes such as
-    TNFRSF9, CD160, CCL1, XCL1 and CCL3, the signature you'd expect if the drug was working.
+    Does an antibody-peptide MHC drug activate T cells to kill tumor cells in mice? Our four-person team, working with University of Portland and Oregon Health & Science University (OHSU) faculty collaborators, compared T cells from blood and from inside tumors, with and without treatment. I performed data cleaning and the bioinformatics analysis: filtering, normalization and differential expression in R with DESeq, checked with PCA and clustering. Treated tumor T cells upregulated activation genes such as TNFRSF9, CD160, CCL1, XCL1 and CCL3, the signature you'd expect if the drug was working.
   facts:
     - { value: "24", label: RNA-seq samples across 4 groups }
   tags: [R, DESeq2 / Bioconductor, PCA & clustering]
+  figure:
+    src: /images/research/healthy-human-t-cell.jpg
+    alt: Colorized scanning electron micrograph of a healthy human T cell with a textured surface
+    caption: "Illustrative T-cell micrograph. Image: NIAID/NIH, public domain."
+    width: 960
+    height: 960
   link: { label: Code on GitHub ↗, href: https://github.com/hoangj21/DGE_Analysis }

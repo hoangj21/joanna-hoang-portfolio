@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { byOrder } from '../lib/order';
+import type { SectionBackground } from '../lib/sections';
 import Section from './ui/Section.astro';
 import SectionHeader from './ui/SectionHeader.astro';
 import Facts from './ui/Facts.astro';
@@ -9,45 +10,137 @@ import Icon from './ui/Icon.astro';
 import Ridge from './Ridge.astro';
 
 interface Props {
+  num: string;
+  from?: SectionBackground;
+  to?: SectionBackground;
   header: { label: string; title: string; intro?: string };
 }
-const { header } = Astro.props;
+const { header, num, from = 'bg', to = 'bg' } = Astro.props;
 const entries = (await getCollection('research')).sort(byOrder);
 ---
 
-<Ridge into />
-<Section id="research" numeral="05" tone="band" topo="topo-c">
-  <SectionHeader {...header} tone="band" />
-  <div class="grid gap-6 min-[900px]:grid-cols-3" data-stagger>
+<Ridge into from={from} />
+<Section id="research" numeral={num} tone="band" topo="topo-c">
+  <SectionHeader {...header} num={num} tone="band" />
+  <div class="research-grid grid items-start gap-6 min-[900px]:grid-cols-3" data-stagger>
     {
       entries.map(({ data: e }, i) => (
-        <article class="flex flex-col gap-3 rounded-[10px] border border-band-border bg-band-card p-[1.6rem]" style={`--i: ${i}`}>
-          <div class="flex items-start justify-between gap-4">
-            <p class="m-0 font-mono text-[0.7rem] uppercase leading-relaxed tracking-[0.07em] text-band-muted">
-              {e.note}
-              <br />
-              {e.dates} · {e.org}
-            </p>
-            <Icon name={e.icon} class="size-10 shrink-0 text-peach-deep" />
+        <article class="research-card flex flex-col overflow-hidden rounded-[10px] border border-band-border bg-band-card" data-compact style={`--i: ${i}`}>
+          <div class="research-preview">
+            {(e.previewImage ?? e.figure) ? (
+              <img src={(e.previewImage ?? e.figure)!.src} alt={(e.previewImage ?? e.figure)!.alt} width="640" height="360" loading="lazy" />
+            ) : (
+              <div class="research-illustration" role="img" aria-label={`${e.title} illustration`}>
+                <Icon name={e.icon} class="size-28 text-peach-deep" />
+              </div>
+            )}
           </div>
-          <h3 class="m-0 text-[1.35rem] font-medium text-band-fg">{e.title}</h3>
-          <p class="m-0 text-[0.93rem] text-band-muted">{e.body}</p>
-          <Facts facts={e.facts} tone="band" />
-          <Tags tags={e.tags} tone="band" class="mt-1" />
-          {e.figure && (
-            <figure class="m-0 mt-2">
-              <img src={e.figure.src} alt={e.figure.alt} width={e.figure.width} height={e.figure.height} loading="lazy" class="block h-auto w-full max-w-full rounded-md border border-band-border" />
-              <figcaption class="mt-1.5 font-mono text-[0.66rem] tracking-[0.03em] text-band-muted">{e.figure.caption}</figcaption>
-            </figure>
-          )}
-          {e.link && (
-            <a href={e.link.href} target="_blank" rel="noopener" class="mt-auto pt-1.5 text-[0.9rem] font-semibold text-peach hover:text-[#F6D2B2]">
-              {e.link.label}
-            </a>
-          )}
+          <div id={`research-note-${i + 1}`} class="research-body flex flex-1 flex-col gap-3 p-[1.6rem]">
+            <div class="flex items-start justify-between gap-4">
+              <p class="m-0 font-mono text-[0.7rem] uppercase leading-relaxed tracking-[0.07em] text-band-muted">
+                {e.note}
+                <br />
+                {e.dates} · {e.org}
+              </p>
+              <Icon name={e.icon} class="size-10 shrink-0 text-peach-deep" />
+            </div>
+            <h3 class="m-0 text-[1.35rem] font-medium text-band-fg">{e.title}</h3>
+            <p class="research-description m-0 text-[0.93rem] text-band-muted">{e.body}</p>
+            <div class="research-highlights">
+              <Facts facts={e.facts} tone="band" />
+              <Tags tags={e.tags} tone="band" class="mt-1" />
+            </div>
+            {!e.figure && e.previewImage && (
+              <img src={e.previewImage.src} alt={e.previewImage.alt} width="640" height="360" loading="lazy" class="research-detail mt-2 block h-auto w-full max-w-full rounded-md border border-band-border" />
+            )}
+            {e.figure && (
+              <figure class="research-detail m-0 mt-2">
+                <img src={e.figure.src} alt={e.figure.alt} width={e.figure.width} height={e.figure.height} loading="lazy" class="block h-auto w-full max-w-full rounded-md border border-band-border" />
+                <figcaption class="mt-1.5 font-mono text-[0.66rem] tracking-[0.03em] text-band-muted">{e.figure.caption}</figcaption>
+              </figure>
+            )}
+            {e.link && (
+              <a href={e.link.href} target="_blank" rel="noopener" class="research-detail mt-auto pt-1.5 text-[0.9rem] font-semibold text-peach hover:text-[#F6D2B2]">
+                {e.link.label}
+              </a>
+            )}
+          </div>
+          <button
+            type="button"
+            class="research-toggle self-end mr-2 mb-2 items-center justify-center rounded-full text-band-muted"
+            aria-controls={`research-note-${i + 1}`}
+            aria-expanded="false"
+            aria-label={`Expand field note: ${e.title}`}
+            data-research-toggle
+            data-title={e.title}
+            hidden
+          >
+            <Icon name="chevron" class="size-5 shrink-0" />
+          </button>
         </article>
       ))
     }
   </div>
 </Section>
-<Ridge into={false} />
+<Ridge into={false} to={to} />
+
+<script>
+  const researchGrid = document.querySelector<HTMLElement>('.research-grid');
+  if (researchGrid) {
+    const cards = Array.from(researchGrid.querySelectorAll<HTMLElement>('.research-card'));
+    const normalizePreviews = () => {
+      // Measure the natural compact heights, even when a card is currently open.
+      const compactStates = cards.map((card) => card.hasAttribute('data-compact'));
+      researchGrid.style.removeProperty('--research-preview-height');
+      cards.forEach((card) => card.setAttribute('data-compact', ''));
+      const height = Math.ceil(Math.max(...cards.map((card) => card.getBoundingClientRect().height)));
+      cards.forEach((card, i) => card.toggleAttribute('data-compact', compactStates[i]));
+      researchGrid.style.setProperty('--research-preview-height', `${height}px`);
+    };
+    normalizePreviews();
+    document.fonts.ready.then(normalizePreviews);
+    let previousWidth = 0;
+    new ResizeObserver(([entry]) => {
+      if (entry.contentRect.width === previousWidth) return;
+      previousWidth = entry.contentRect.width;
+      normalizePreviews();
+    }).observe(researchGrid);
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-research-toggle]').forEach((toggle) => {
+    const card = toggle.closest<HTMLElement>('.research-card');
+    if (!card) return;
+    toggle.hidden = false;
+    toggle.addEventListener('click', () => {
+      const compact = card.toggleAttribute('data-compact');
+      toggle.setAttribute('aria-expanded', String(!compact));
+      toggle.setAttribute('aria-label', `${compact ? 'Expand' : 'Collapse'} field note: ${toggle.dataset.title}`);
+    });
+  });
+</script>
+
+<style>
+  /* The expanded view follows the original cards; without JS all content stays visible. */
+  .research-preview { display: none; border-bottom: 1px solid var(--band-border); background: var(--band-bg); }
+  .research-preview img { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; object-fit: cover; }
+  .research-illustration { display: grid; place-items: center; aspect-ratio: 16 / 9; }
+  .research-highlights { display: contents; }
+  .research-highlights :global(ul:first-child > li) { flex-wrap: wrap; gap: .35rem .5rem; }
+  .research-toggle { width: 44px; height: 44px; cursor: pointer; background: transparent; border: 0; }
+  .research-toggle:not([hidden]) { display: inline-flex; }
+  .research-toggle:hover { background: var(--band-bg); color: var(--color-peach); }
+  .research-toggle:focus-visible { outline: 2px solid var(--color-peach); outline-offset: 4px; }
+  .research-toggle :global(svg) { transition: transform .2s ease; }
+  .research-toggle[aria-expanded="true"] :global(svg) { transform: rotate(180deg); }
+  :global(.js) .research-card[data-compact] { min-height: var(--research-preview-height, 0px); }
+  :global(.js) .research-card[data-compact] .research-preview { display: block; }
+  :global(.js) .research-card[data-compact] .research-description {
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;
+  }
+  :global(.js) .research-card[data-compact] .research-highlights { display: grid; gap: 12px; }
+  :global(.js) .research-card[data-compact] .research-highlights :global(ul) { margin-block: 0; }
+  :global(.js) .research-card[data-compact] .research-detail { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .research-toggle :global(svg) { transition: none; }
+  }
+</style>

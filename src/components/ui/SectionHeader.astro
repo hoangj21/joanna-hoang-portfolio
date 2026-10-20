@@ -2,15 +2,16 @@
 import Label from './Label.astro';
 
 interface Props {
+  num: string;
   label: string;
   title: string;
   intro?: string;
   tone?: 'default' | 'band';
 }
-const { label, title, intro, tone = 'default' } = Astro.props;
+const { num, label, title, intro, tone = 'default' } = Astro.props;
 ---
 
-<Label text={label} tone={tone} />
+<Label text={`${num} · ${label}`} tone={tone} />
 <h2 class="mb-4 text-[clamp(2.2rem,5vw,3.4rem)] tracking-[-0.025em]">{title}</h2>
 {
   intro && (

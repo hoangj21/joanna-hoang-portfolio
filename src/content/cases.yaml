@@ -6,7 +6,7 @@
 - id: neva
   order: 1
   title: Identifying every occupant without stopping the car
-  subtitle: NEC National Security Systems · U.S. Customs and Border Protection
+  subtitle: NEC National Security Systems · Department of Homeland Security
   status: Deal won · pilot rollout
   open: true
   diagram:
@@ -21,7 +21,7 @@
       - { label: Access or alert }
     note: NEVA pipeline. I ran the field tests on capture and validated the API and matching workflow.
   situation: >-
-    CBP wanted to identify everyone in a moving vehicle at secured entry points. NEC's NEVA system triggers
+    A DHS agency wanted to identify everyone in a moving vehicle at secured entry points. NEC's NEVA system triggers
     several high-resolution cameras as a car passes and sends the best face image of each occupant to a
     biometric matcher.
   role: >-
@@ -74,36 +74,38 @@
     Best Perimeter Protection Solution.
   tags: [Discovery, Fiber-optic sensing, Real-time event dashboard, Live video integration]
 
-- id: smart-access
+- id: smartscan
   order: 3
-  title: The API contract for visitor vetting
-  subtitle: NEC National Security Systems · Smart Access visitor management
-  status: OpenAPI 3.0 contract
+  title: "SmartScan: validating deployment end to end"
+  subtitle: NEC National Security Systems · U.S. Marshals Service & U.S. Secret Service
+  status: Secure deployment · post-sale
   diagram:
     steps:
-      - { label: Candidate record, mine: true }
-      - { label: Submit vetting job, mine: true }
-      - { label: "Poll status: pending · completed · error", mine: true }
-      - { label: Retrieve result, mine: true }
-      - { label: Pass · fail · needs review, mine: true }
+      - { label: Biometric capture }
+      - { label: SmartScan workflow, mine: true }
+      - { label: Middleware & Insights Archive }
+      - { label: Database state, mine: true }
+      - { label: Administrator & user handoff, mine: true }
     note: >-
-      Optional callback URL in place of polling. JWT bearer auth on our API; mutual TLS on the provider's.
-      Every request is keyed to a transaction ID.
+      I checked the complete workflow through the expected database records, then prepared the guides for the
+      people who would operate the system.
   situation: >-
-    NEC's Smart Access visitor-management system needed to send candidates to a third-party background-vetting
-    provider and get a pass, fail or needs-review decision back.
+    SmartScan deployments in secure federal environments required more than a successful startup. The capture
+    workflow had to behave as expected, the resulting records had to persist correctly, and administrators and
+    end users needed clear guidance for the handoff.
   role: >-
-    Wrote the integration contract in OpenAPI 3.0, covering the provider's side from its integration guide and
-    Smart Access's side from our system diagrams, and defined the vetting scenarios.
+    Supported installation and configuration for the U.S. Marshals Service and U.S. Secret Service. I validated
+    the full user workflow, used SQL to confirm expected records and state changes, troubleshot issues, and wrote
+    administrator and end-user guides.
   approach: >-
-    An asynchronous job pattern: submit, poll status, retrieve the result, with an optional callback. Twelve
-    scenarios covered 2- and 3-point identity checks, with or without a photo, against criminal-history and DMV
-    records plus a face match. My main design call: key each vetting request to a transaction ID instead of the
-    person, because one candidate can be vetted more than once.
+    I separated the presentation layer, application workflow, and database state while troubleshooting. That let
+    me distinguish a display issue from a workflow failure or a record that had not changed as expected, then
+    verify the fix end to end before handing the system to its operators.
   outcome: >-
-    A validated OpenAPI 3.0 contract for both systems, with Java models generated from it using OpenAPI Generator
-    for the build.
-  tags: [OpenAPI 3.0, REST, JWT, Mutual TLS, Async jobs & callbacks, OpenAPI Generator]
+    The workflow was validated through its expected database state, and the handoff included administrator and
+    end-user guides. The work reinforced that commitments made in a sale have to hold up during secure deployment
+    and for the people operating the system afterward.
+  tags: [Secure deployment, SQL validation, Biometric systems, Troubleshooting, Customer handoff]
 
 - id: intel-labs
   order: 4
