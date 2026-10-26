@@ -16,7 +16,7 @@
     - REST APIs, JSON, webhooks
     - OpenAPI
     - OAuth2 & SAML SSO
-    - JWT & mutual TLS
+    - JWT
     - Postman & Tavern
     - React
     - Git
