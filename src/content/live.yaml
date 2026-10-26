@@ -8,14 +8,16 @@
   kicker: Kiernan Group Holdings · 2026
   title: Investment Intelligence copilot
   description: >-
-    AI investment-research copilot demo with document analysis, company comparison, portfolio views and a chat
-    interface, running on public and simulated data.
+    An AI investment-research copilot with six views: Today, Company Lens, Compare, Document Intelligence,
+    Portfolio Lab and a streaming chat copilot, all on public and simulated data. Portfolio math runs in code and
+    reaches the model as structured context, so the AI explains the numbers instead of inventing them. Input
+    validation, usage limits and streaming cancellation keep it stable under load.
   image:
     src: /images/live/copilot.jpg
     alt: Portfolio Lab view of an illustrative $25 million portfolio with asset classes, sector exposure and largest positions
     caption: "Add screenshot · 16:9"
   video: { mp4: /videos/copilot.mp4, webm: /videos/copilot.webm, poster: /videos/copilot.jpg }
-  tags: [React, Supabase, Cloudflare Workers]
+  tags: [React, TanStack Start, Supabase, Cloudflare Workers]
 
 - id: kgh-site
   order: 2
@@ -25,8 +27,9 @@
   kicker: Kiernan Group Holdings · 2026
   title: KGH website rebuild
   description: >-
-    Rebuilt site for a risk and resilience firm, scoped as a front-end-only first version so the client could make
-    an early direction decision. In preview for approval.
+    A nine-page rebuild for a risk and resilience firm, restructuring a decade of content. I scoped it as a
+    front-end-only first version so the client could settle the direction early, and held every AI-drafted claim
+    for the owner's sign-off. In preview for approval.
   image:
     src: /images/live/kgh-site.jpg
     alt: Kiernan Group Holdings homepage hero reading "We operate at the intersection of fear and fact."

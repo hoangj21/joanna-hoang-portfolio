@@ -21,20 +21,19 @@
       - { label: Access or alert }
     note: NEVA pipeline. I ran the field tests on capture and validated the API and matching workflow.
   situation: >-
-    A DHS agency wanted to identify everyone in a moving vehicle at secured entry points. NEC's NEVA system triggers
-    several high-resolution cameras as a car passes and sends the best face image of each occupant to a
+    A DHS agency wanted to identify everyone in a moving vehicle at secured entry points. NEC's NEVA system
+    triggers several high-resolution cameras as a car passes and sends the best face image of each occupant to a
     biometric matcher.
   role: >-
-    Hands-on for about nine months of the pilot: test-data collection and cleaning, configuring test
-    environments, validating the biometric API and matching workflow, and running repeated field tests.
+    Hands-on for about nine months of the pilot: collected and cleaned test data, configured test environments,
+    validated the biometric API and matching workflow, and ran repeated field tests with the customer.
   approach: >-
     The controlled demo worked; the field didn't. Night lighting, rain, tinted windows, camera angles and moving
-    vehicles all hurt capture. In one test round I coordinated a same-day fix with portable event lighting and
-    pop-up canopies over the capture zone. Matching recovered, which proved the environment was the cause, and
-    engineering designed the permanent solution.
+    vehicles all degraded capture, and the pilot stalled. In one test round I coordinated a same-day fix with
+    portable event lighting and pop-up canopies over the capture zone. Matching recovered, which proved the
+    environment was the cause, and engineering designed the permanent solution from that result.
   outcome: >-
-    That evaluation is what the customer bought on. The deal landed and the pilot rollout began; full rollout
-    continued after I left.
+    The field result unblocked the deal: it landed and pilot rollout began. Full rollout continued after I left.
   facts:
     - { value: ~9 mo, label: hands-on in the pilot }
     - { value: 1 day, label: to prove the field problem was the environment }
@@ -59,16 +58,18 @@
     A federal customer came to NEC asking about facial recognition. Discovery showed the real need was long-term
     intrusion detection around a large, rugged outdoor perimeter, with little capacity for maintenance.
   role: >-
-    Gathered requirements with the customer and operators and worked through fit with engineering, who made the
-    final recommendation. I explained it to the customer, coordinated through installation, built the operator
+    Led discovery with the customer and operators, worked through fit with engineering, who made the final product
+    recommendation, and walked the customer through it. Coordinated through installation, built the operator
     dashboard and stayed on for post-sales support.
   approach: >-
     IPIDS turns buried or fence-mounted fiber into the sensor, with AI that tells climbing, cutting and digging
     apart from rain, wind and animals, and no powered equipment along the fence. I built the dashboard on a
     real-time event platform, similar in role to AWS IoT: each intrusion as it happened, what was detected and
-    when, the live camera feed for the alert area, and charts of activity over time. When events stopped arriving
-    after an environment migration right before a demo, I traced the path and fixed the network configuration
-    with the platform's engineer.
+    when, the live camera feed for the alert area, and charts of activity over time. I also led the live demo at
+    NEC's Identity Week booth. When events stopped arriving the night before, I worked remotely with NEC's
+    engineer in Japan and the platform vendor to trace the event path, fix the network and permissions setup, and
+    reconfigure for the booth machine, with colleagues on site triggering test alerts. The demo ran cleanly for the
+    whole conference.
   outcome: >-
     The system was deployed and I supported it after the sale. IPIDS itself won the 2023 ASTORS Platinum award for
     Best Perimeter Protection Solution.
@@ -76,36 +77,43 @@
 
 - id: smartscan
   order: 3
-  title: "SmartScan: validating deployment end to end"
-  subtitle: NEC National Security Systems · U.S. Marshals Service & U.S. Secret Service
-  status: Secure deployment · post-sale
+  title: Making a biometric booking system hold up after the sale
+  subtitle: NEC National Security Systems · U.S. Marshals Service, U.S. Secret Service & state and local law enforcement
+  status: Migrated · deployed · handed off
   diagram:
     steps:
-      - { label: Biometric capture }
-      - { label: SmartScan workflow, mine: true }
-      - { label: Middleware & Insights Archive }
-      - { label: Database state, mine: true }
-      - { label: Administrator & user handoff, mine: true }
+      - { label: Record-lifecycle test suite, mine: true }
+      - { label: Usability fix (engineering) }
+      - { label: Database migration, mine: true }
+      - { label: Install & update automation, mine: true }
+      - { label: Secure-site deployment }
+      - { label: Admin & operator guides, mine: true }
     note: >-
-      I checked the complete workflow through the expected database records, then prepared the guides for the
-      people who would operate the system.
+      I tested every stage of the record lifecycle, wrote the migration and install scripts, and wrote the guides
+      for the people who run the system.
   situation: >-
-    SmartScan deployments in secure federal environments required more than a successful startup. The capture
-    workflow had to behave as expected, the resulting records had to persist correctly, and administrators and
-    end users needed clear guidance for the handoff.
+    A biometric booking and enrollment system used by federal agencies and state and local law enforcement was
+    moving to an upgraded platform. Records had to survive the move with their history intact, every step had to
+    work for nontechnical operators, and installs had to run inside secure federal networks.
   role: >-
-    Supported installation and configuration for the U.S. Marshals Service and U.S. Secret Service. I validated
-    the full user workflow, used SQL to confirm expected records and state changes, troubleshot issues, and wrote
-    administrator and end-user guides.
+    Owned testing, database migration scripting, install and maintenance automation, and documentation. Supported
+    deployments for the U.S. Marshals Service and the Secret Service, and contributed to discovery and demos.
   approach: >-
-    I separated the presentation layer, application workflow, and database state while troubleshooting. That let
-    me distinguish a display issue from a workflow failure or a record that had not changed as expected, then
-    verify the fix end to end before handing the system to its operators.
+    I built an operator test suite covering the whole record lifecycle: enroll, enter demographics, capture
+    fingerprints and photos on the physical devices or upload documents, confirm each item attached to the right
+    person, edit, search and retrieve, review results, and delete. I flagged malformed and duplicate records and
+    retested every fix. Working through it as an operator surfaced a menu that expanded over the photo operators
+    needed to cross-check. I mocked up a resize, engineering built it, and I verified it. For the upgrade, I wrote
+    migration scripts that carried transaction history forward, then checked the results with diffs, format checks
+    and required-field audits before sign-off.
   outcome: >-
-    The workflow was validated through its expected database state, and the handoff included administrator and
-    end-user guides. The work reinforced that commitments made in a sale have to hold up during secure deployment
-    and for the people operating the system afterward.
-  tags: [Secure deployment, SQL validation, Biometric systems, Troubleshooting, Customer handoff]
+    The migration succeeded with history intact, and the system kept running on the upgraded platform. Installs
+    and updates became repeatable scripts rather than manual steps, and developers and operators each got a guide
+    written for them.
+  facts:
+    - { value: "8", label: record-lifecycle stages under test }
+    - { value: "124", label: field offices in the planned upgrade }
+  tags: [Record lifecycle testing, Database migration, PowerShell & Bash, SQL, Secure deployment, Technical writing]
 
 - id: intel-labs
   order: 4

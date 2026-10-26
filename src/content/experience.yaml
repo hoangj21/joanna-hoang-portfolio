@@ -9,12 +9,15 @@
   logo: kgh
   current: true
   description: >-
-    AI product builds for a risk and resilience firm serving government and law enforcement: an
-    investment-research copilot demo and a rebuilt company website. The client owns scoping and data;
-    I own the build, using Lovable, Codex and Claude and reviewing all of the output.
+    Freelance AI product builds for a risk and resilience firm serving government and law enforcement: an
+    investment-research copilot with six views, from document analysis to portfolio math to streaming chat, and
+    a nine-page rebuild of the company website. KGH owns scoping and data; I own the build end to end, built
+    heavily with Claude Code and Codex and reviewed before every client sign-off. First working POC in about two
+    weeks.
   facts:
-    - { value: "2", label: live applications shipped }
-  tags: [React, TanStack Start, Supabase, Cloudflare Workers, AI coding tools]
+    - { value: "2", label: client builds delivered }
+    - { value: ~2 wk, label: "to a working POC, solo" }
+  tags: [React, TanStack Start, Supabase, Cloudflare Workers, Claude Code & Codex]
 
 - id: nec
   order: 2
@@ -24,18 +27,21 @@
   orgNote: Federal contractor
   logo: nec
   description: >-
-    Customer-facing design and deployment of AI-enabled identity, access, investigative search and perimeter
-    security for DHS, the Secret Service, USMS, U.S. Courts and state police. Designed and validated integrations
-    between biometric engines, cameras, watchlists and access control; supported installs in secure federal
-    environments; and tested face recognition that gave homeless-outreach clients at Hawaii's Institute for Human
-    Services a digital ID linked to their care. Partnered with 3 sales counterparts on ~5 concurrent federal
-    engagements, on programs from mid-six figures to multi-million dollars across 9–18 month sales cycles.
+    Solutions engineer at a federal biometrics and physical-security integrator. Partnered with 3 sales
+    counterparts on ~5 concurrent engagements in AI identity, access and perimeter security for DHS, the Secret
+    Service, USMS, U.S. Courts and state and local law enforcement, on programs from mid-six figures to
+    multi-million dollars across 9–18 month cycles. Owned technical discovery, demos, RFP responses and pilot
+    readouts. Designed and validated integrations between biometric engines, cameras, watchlists and access
+    control, including an OpenAPI 3.0 contract for a visitor-vetting partner. Carried deployments through database
+    migration, install scripting and operator training in secure federal environments. Also tested face
+    recognition that gave homeless-outreach clients at Hawaii's Institute for Human Services a digital ID linked
+    to their care.
   facts:
     - { value: "50+", label: discovery & requirements sessions }
     - { value: "25+", label: tailored product demos }
     - { value: "20+", label: stakeholder briefings & pilot readouts }
     - { value: "15–20%", label: less manual review in the workflow we evaluated }
-  tags: [REST APIs, OAuth2, Postman & Tavern, SQL, Python, Trivy, CI/CD]
+  tags: [REST APIs, OpenAPI, OAuth2 & JWT, Postman & Tavern, SQL, PowerShell, Trivy, CI/CD]
 
 - id: intel
   order: 3
@@ -44,9 +50,11 @@
   org: Intel Corporation
   logo: intel
   description: >-
-    Enterprise AI enablement: technical demos and proof-of-concept sessions, AWS EC2 lab environments for
-    hands-on PyTorch and TensorFlow workshops at Intel Innovation 2022 and developer-summit webinars, and
-    support for the conference's AI for Social Good hackathon. Validated MLPerf results on AWS EC2.
+    Enterprise AI enablement at Intel Innovation 2022 and developer-summit webinars: discrete-GPU deep-learning
+    demos, the Deep Learning Boost booth, and AWS EC2 environments for hands-on PyTorch and TensorFlow
+    optimization labs, including a two-node distributed-training lab and the infrastructure for a 100+ developer
+    AI hackathon. Validated a ResNet-50 workflow before it shipped in Intel's public catalog, and verified MLPerf
+    results on AWS EC2.
   facts:
     - { value: "30+", label: "demos, workshops & POC sessions" }
     - { value: "100+", label: developers at the AI hackathon }
@@ -74,10 +82,10 @@
   orgNote: MECOP co-op
   logo: pge
   description: >-
-    One of eight interns turning PGE's Power Up leadership board game into a multiplayer web app: I designed the
-    back-end architecture, and the team wrote the specs, built and presented the budget, deployed on AWS and handed
-    it off to the team running it. Then on the data science team, built transformer models on household energy data
-    (more in [Field research](#research)).
+    One of eight interns turning PGE's Power Up leadership board game into a multiplayer web app. I designed the
+    back end and chose the stack (Node.js, Socket.IO, AWS EC2), wrote the budget proposal, and trained the support
+    team at handoff. Then, on the data science team, I built transformer models on household energy data (more in
+    [Field research](#research)).
   facts:
     - { value: ">40%", label: lower loss than the convolutional autoencoder }
   tags: [Node.js, Socket.IO, AWS EC2, PyTorch, SageMaker]
