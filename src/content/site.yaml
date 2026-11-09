@@ -2,23 +2,25 @@
 # Inline formatting: **bold**, *italic*, [link text](https://…)
 profile:
   name: Joanna Hoang
-  title: Joanna Hoang · Solutions Engineer
+  title: Joanna Hoang · Solutions & Forward Deployed Engineer
   description: >-
-    Solutions engineer in Portland, Oregon. Discovery, demos and deployments for federal identity and
-    security programs at NEC, and hands-on AI enablement at Intel.
-  role: Solutions Engineer · Public sector & applied AI
+    Solutions and forward deployed engineer in Portland, Oregon. Discovery, demos, integrations and
+    deployments for federal identity and security programs at NEC, hands-on AI enablement at Intel, and
+    AI application builds.
+  role: Solutions & Forward Deployed Engineer · Public sector AI
   email: joanna.hoang@outlook.com
   linkedin: https://www.linkedin.com/in/joanna-hoang
   # Put the PDF at public/resume.pdf and set this to /resume.pdf
-  resumeUrl: ""
+  resumeUrl: "/resume.pdf"
   # Portrait photo under public/ (e.g. /images/joanna.jpg), 4:5 crop works best
   portrait: /images/joanna.jpg
   # Linked from "Off hours" in About
   artPortfolioUrl: https://www.artsfromjoanna.com/
 
   heroIntro: >-
-    5+ years on the technical side of the deal: discovery, demos and deployments for federal
-    identity and security programs at NEC, and hands-on AI enablement for enterprise developers at Intel.
+    5+ years on the technical side of the deal and the deployment: discovery, demos, integrations and
+    field deployments for federal identity and security programs at NEC, AI enablement at Intel, and
+    freelance AI application builds.
 
   employers:
     - { name: Intel, logo: intel }
@@ -48,12 +50,12 @@ profile:
         at Portland General Electric, two years before ChatGPT made the architecture famous.
       - >-
         Today I build AI-assisted web applications as a freelance forward deployed engineer, and I'm looking
-        for my next solutions or sales engineering role.
+        for my next solutions, sales or FDE role.
     fieldNotes:
       - { label: Based in, value: "Portland, Oregon" }
       - { label: Education, value: "B.S. Computer Science, University of Portland" }
       - { label: Co-op, value: "MECOP: Portland General Electric, Seeq" }
-      - { label: Clearance, value: "Previously adjudicated TS · inactive, clearable" }
+      - { label: Clearance, value: "Previously adjudicated Top Secret · inactive" }
       - { label: Off hours, value: "Freelance illustrator" }
 
   numbers:
@@ -103,7 +105,7 @@ profile:
     headline: Hiring a
     emphasis: solutions engineer
     body: >-
-      I'm looking for solutions engineering and sales engineering roles, especially in public sector and
+      I'm looking for solutions, sales and forward deployed engineering roles, especially in public sector and
       applied AI. Email is the fastest way to reach me.
 
   footer:
